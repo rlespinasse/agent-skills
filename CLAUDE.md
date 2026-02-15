@@ -103,12 +103,48 @@ just pre-commit         # Run before committing
 
 ### Commits
 
-- Use clear, descriptive commit messages
-- Follow conventional commits format when possible:
-  - `feat: add new skill for X`
-  - `fix: correct markdown formatting in Y`
-  - `docs: update README with installation instructions`
-  - `chore: update dependencies`
+**IMPORTANT**: This project uses [Conventional Commits](https://www.conventionalcommits.org/) and automated releases.
+
+**Required format:**
+
+```text
+<type>(<scope>): <subject>
+```
+
+**Valid types:**
+
+- `feat`: New feature or skill (triggers minor release)
+- `fix`: Bug fix (triggers patch release)
+- `docs`: Documentation changes
+- `style`: Code style changes
+- `refactor`: Code refactoring
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
+- `ci`: CI/CD changes
+- `perf`: Performance improvements
+
+**Examples:**
+
+```bash
+feat(skill): add terraform-tools skill
+fix(drawio): correct installation command in README
+docs(readme): update contributing section
+chore(deps): update markdownlint-cli to v0.43.0
+```
+
+**Breaking changes:**
+
+```bash
+feat(skill)!: redesign SKILL.md frontmatter structure
+
+BREAKING CHANGE: frontmatter now requires 'category' field
+```
+
+**Validate your commit message before committing:**
+
+```bash
+just validate-commit "feat(skill): add new skill"
+```
 
 ### Branches
 
@@ -179,6 +215,51 @@ skill-name/
 
 Currently, we keep skills simple with just SKILL.md, but subdirectories are allowed if needed.
 
+## Releases
+
+### Automated Releases
+
+This project uses [semantic-release](https://semantic-release.gitbook.io/) for automated versioning and releases.
+
+**How it works:**
+
+1. When commits are pushed to `main`, **CI workflow** triggers automatically:
+   - Linting checks
+   - Skill structure validation
+   - All tests must pass
+2. **If CI succeeds**, the **Release workflow** is automatically triggered:
+   - Analyzes commit messages
+   - Determines next version number:
+     - `fix`: patch version (0.0.x)
+     - `feat`: minor version (0.x.0)
+     - `BREAKING CHANGE`: major version (x.0.0)
+   - Generates CHANGELOG.md
+   - Creates GitHub release with release notes
+   - Publishes to npm registry
+3. **If CI fails**, release workflow is skipped and no release occurs
+
+**Testing releases locally:**
+
+```bash
+just release-dry-run  # See what would be released without actually releasing
+```
+
+### Release Process
+
+**For maintainers:**
+
+1. Ensure all commits follow Conventional Commits format
+2. Merge PR to `main` branch
+3. GitHub Actions automatically handles the release
+4. Check GitHub Releases and npm for published version
+
+**Manual verification:**
+
+```bash
+npm run test          # Run all checks
+just validate-commit "feat: example message"  # Validate commit format
+```
+
 ## Maintenance
 
 ### Regular Tasks
@@ -190,9 +271,10 @@ Currently, we keep skills simple with just SKILL.md, but subdirectories are allo
 
 ### Version Management
 
-- Use semantic versioning for releases: `just release v1.2.3`
-- Tag significant updates to skill content
-- Maintain CHANGELOG.md (TODO: add this)
+- Versions are managed automatically by semantic-release
+- CHANGELOG.md is automatically generated and updated
+- GitHub releases are created automatically
+- npm package is published automatically
 
 ## Resources
 

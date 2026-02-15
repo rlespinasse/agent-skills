@@ -52,7 +52,28 @@ and are designed to help AI agents effectively use the Draw.io export ecosystem.
 
 ## Contributing
 
-More skills coming soon! Watch this repository for updates.
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on:
+
+- Setting up the development environment
+- Creating new skills
+- Commit message conventions
+- Pull request process
+
+### Quick Start for Contributors
+
+```bash
+# Setup
+just setup && just install
+
+# Create a new skill
+just new-skill my-skill-name
+
+# Validate and test
+just check
+
+# Commit with conventional format
+git commit -m "feat(skill): add my-skill-name"
+```
 
 ## License
 

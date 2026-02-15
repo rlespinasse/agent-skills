@@ -146,6 +146,26 @@ spec:
     just validate
 
 # ============================================================================
+# Release
+# ============================================================================
+
+# Run semantic-release locally (dry-run)
+[group('release')]
+release-dry-run:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "🔍 Running semantic-release in dry-run mode..."
+    npx semantic-release --dry-run
+
+# Validate commit message format
+[group('release')]
+validate-commit message:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "✅ Validating commit message..."
+    echo "{{ message }}" | npx commitlint
+
+# ============================================================================
 # Documentation
 # ============================================================================
 
@@ -156,74 +176,35 @@ update-readme:
     set -euo pipefail
     echo "📝 Updating README.md..."
 
-    # Create temporary file for skills content
-    skills_file=$(mktemp)
-    skill_count=0
-
-    # Generate skills content
+    # Build skills section
     for skill_dir in */; do
-        if [ -f "${skill_dir}SKILL.md" ]; then
-            skill_name=$(basename "$skill_dir")
-            echo "Processing ${skill_name}..."
+        [ ! -f "${skill_dir}SKILL.md" ] && continue
 
-            # Extract description from frontmatter
-            description=$(awk '
-                BEGIN { in_frontmatter=0; in_description=0; desc="" }
-                /^---$/ {
-                    if (in_frontmatter==0) {
-                        in_frontmatter=1
-                    } else {
-                        exit
-                    }
-                    next
-                }
-                in_frontmatter && /^description:/ {
-                    in_description=1
-                    sub(/^description: */, "")
-                    desc=$0
-                    next
-                }
-                in_frontmatter && in_description && /^[^ ]/ {
-                    in_description=0
-                }
-                in_frontmatter && in_description {
-                    desc=desc " " $0
-                }
-                END { print desc }
-            ' "${skill_dir}SKILL.md")
+        skill_name=$(basename "$skill_dir")
+        echo "Processing ${skill_name}..." >&2
 
-            # Write skill entry to file with proper wrapping
-            echo "### ${skill_name}" >> "$skills_file"
-            echo "" >> "$skills_file"
-            echo "$description" | fold -s -w 120 | sed 's/[[:space:]]*$//' >> "$skills_file"
-            echo "" >> "$skills_file"
+        # Extract description: line after "description:" until next "---"
+        desc=$(sed -n '/^description:/,/^---$/p' "${skill_dir}SKILL.md" | sed '1s/^description: *//;$d' | tr -d '\n')
 
-            skill_count=$((skill_count + 1))
-        fi
+        # Write skill entry with word wrapping
+        {
+            echo "### ${skill_name}"
+            echo ""
+            echo "$desc" | fold -s -w 120 | sed 's/[[:space:]]*$//'
+            echo ""
+        } >> /tmp/skills.md
     done
 
-    # Create new README with updated skills section
-    awk '
-        BEGIN { in_skills=0 }
-        /^## Available Skills$/ {
-            print
-            print ""
-            system("cat '"$skills_file"'")
-            in_skills=1
-            next
-        }
-        /^## / && in_skills==1 {
-            in_skills=0
-        }
-        !in_skills {
-            print
-        }
-    ' README.md > README.md.tmp
+    # Replace skills section in README
+    sed -n '1,/^## Available Skills$/p' README.md > /tmp/readme-new.md
+    echo "" >> /tmp/readme-new.md
+    cat /tmp/skills.md >> /tmp/readme-new.md
+    sed -n '/^## Installation$/,$p' README.md >> /tmp/readme-new.md
 
-    # Replace original file and cleanup
-    mv README.md.tmp README.md
-    rm -f "$skills_file"
-    echo "✅ README.md updated with ${skill_count} skill(s)"
+    mv /tmp/readme-new.md README.md
+    rm /tmp/skills.md
+
+    echo "✅ README.md updated"
 
 # ============================================================================
 # Development
@@ -231,7 +212,7 @@ update-readme:
 
 # Check everything before commit
 [group('development')]
-pre-commit: check
+pre-commit: update-readme fix check
     echo "✅ Ready to commit"
 
 # Watch markdown files for changes (requires entr)

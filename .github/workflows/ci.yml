@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+      - '**'
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install just
+        uses: taiki-e/install-action@just
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Verify justfile formatting
+        run: |
+          cp justfile justfile.backup
+          just format
+          if ! diff -u justfile.backup justfile; then
+            echo "❌ justfile is not formatted. Run 'just format' locally."
+            exit 1
+          fi
+          rm justfile.backup
+
+      - name: Verify README is up-to-date
+        run: |
+          cp README.md README.md.backup
+          just update-readme
+          if ! diff -u README.md.backup README.md; then
+            echo "❌ README.md is not up-to-date. Run 'just update-readme' locally."
+            exit 1
+          fi
+          rm README.md.backup
+
+      - name: Verify markdown formatting
+        run: |
+          just fix
+          if ! git diff --exit-code; then
+            echo "❌ Files are not properly formatted. Run 'just fix' locally."
+            git diff
+            exit 1
+          fi
+
+      - name: Run all checks
+        run: just check
+
+      - name: Show spec compliance
+        run: just spec
