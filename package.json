@@ -1,6 +1,6 @@
 {
   "name": "@rlespinasse/agent-skills",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of Agent Skills for AI coding assistants",
   "keywords": [
     "agent-skills",
