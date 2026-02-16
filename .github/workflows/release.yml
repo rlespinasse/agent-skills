@@ -30,7 +30,6 @@ jobs:
         with:
           ref: ${{ github.event.workflow_run.head_branch || github.ref }}
           fetch-depth: 0
-          persist-credentials: false
 
       - name: Install just
         uses: taiki-e/install-action@just
