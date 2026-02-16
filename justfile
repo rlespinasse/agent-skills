@@ -118,7 +118,39 @@ list-skills:
         fi
     done
 
-# Test skill installation locally
+# Test skill locally by validating and previewing
+[group('skills')]
+test-skill skill="":
+    #!/usr/bin/env bash
+    set -euo pipefail
+    if [ -z "{{ skill }}" ]; then
+        echo "❌ Please specify a skill name: just test-skill <skill-name>"
+        exit 1
+    fi
+    if [ ! -d "{{ skill }}" ]; then
+        echo "❌ Skill directory '{{ skill }}' does not exist"
+        exit 1
+    fi
+    if [ ! -f "{{ skill }}/SKILL.md" ]; then
+        echo "❌ SKILL.md not found in {{ skill }}/"
+        exit 1
+    fi
+    echo "🧪 Testing {{ skill }} skill..."
+    echo ""
+    echo "📋 Validating skill structure..."
+    just validate
+    echo ""
+    echo "📝 Skill content preview:"
+    echo "===================="
+    head -20 "{{ skill }}/SKILL.md"
+    echo "===================="
+    echo ""
+    echo "✅ Skill {{ skill }} is valid and ready"
+    echo ""
+    echo "To install locally for testing:"
+    echo "  npx skills add $PWD/{{ skill }}"
+
+# Show installation command for remote testing
 [group('skills')]
 test-install skill="":
     #!/usr/bin/env bash
