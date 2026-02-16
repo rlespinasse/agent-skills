@@ -3,307 +3,407 @@ name: drawio-export-tools
 description: Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless (base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the right tool based on context.
 ---
 
-# Draw.io Export Tools - Decision Guide
+# Draw.io Export Tools - Optimized Decision Guide
 
-A unified skill covering the **third-party Draw.io export ecosystem created by GitHub user [@rlespinasse](https://github.com/rlespinasse)**.
+**Third-party ecosystem by [@rlespinasse](https://github.com/rlespinasse) - NOT official Draw.io**
 
-**Important:** These tools are NOT official Draw.io products. They are
-community-developed tools that wrap and enhance Draw.io Desktop's CLI for
-automation purposes.
+## Response Strategy
 
-**Start by understanding user context, then recommend the right tool.**
+**ALWAYS start with context questions, then provide ONLY relevant section.**
 
-## Decision Tree (START HERE)
-
-Ask these questions to guide tool selection:
-
-### 1. Are you using GitHub Actions?
-
-**YES** → Use **`drawio-export-action`**
-**NO** → Continue to #2
-
-### 2. Do you need enhanced features?
-
-(Custom output structure, organized exports, advanced options)
-**YES** → Use **`drawio-export`**
-**NO** → Continue to #3
-
-### 3. Is this a simple one-off export?
-
-**YES** → Use **`docker-drawio-desktop-headless`**
-**NO** → Continue to #4
-
-### 4. Are you building a custom tool?
-
-**YES** → Use **`drawio-exporter`** (Rust backend)
-**NO** → Start with `docker-drawio-desktop-headless`
-
-## Ecosystem Overview
-
-**Creator:** All tools below are created and maintained by [@rlespinasse](https://github.com/rlespinasse)
+### Initial Response Pattern
 
 ```text
-┌─────────────────────────────────────────┐
-│ docker-drawio-desktop-headless          │  ← Foundation (by rlespinasse)
-│ Base Docker image with headless Draw.io │
-└────────────────┬────────────────────────┘
-                 │
-                 ├─→ Direct use (simple exports)
-                 │
-                 ↓
-┌─────────────────────────────────────────┐
-│ drawio-exporter                         │  ← Rust backend (by rlespinasse)
-│ Enhanced export logic and features      │
-└────────────────┬────────────────────────┘
-                 │
-                 ↓
-┌─────────────────────────────────────────┐
-│ drawio-export                           │  ← Enhanced Docker (by rlespinasse)
-│ User-friendly wrapper with organization │
-└────────────────┬────────────────────────┘
-                 │
-                 ↓
-┌─────────────────────────────────────────┐
-│ drawio-export-action                    │  ← GitHub Action (by rlespinasse)
-│ CI/CD integration                       │
-└─────────────────────────────────────────┘
+1. Ask 2-3 targeted questions
+2. Provide solution for their specific case (300-500 tokens)
+3. Offer: "Need details on [X/Y/Z]? Just ask."
 ```
 
-**Key Principle:** Use the highest appropriate level. Don't use low-level tools
-when high-level ones fit.
+**DO NOT dump all options unless explicitly requested.**
 
-**Attribution:** These are third-party community tools, not official Draw.io
-products. They leverage Draw.io Desktop's CLI capabilities for automation.
+---
 
-## Tool Quick Reference
+## Quick Decision Flow (USE THIS FIRST)
 
-### 1. drawio-export-action (GitHub Actions)
+Ask these questions in order:
 
-**When to use:**
+**Q1: "Where are you exporting diagrams?"**
 
-- Exporting diagrams in GitHub Actions workflows
-- Automated diagram processing on commits/PRs
-- CI/CD integration
+- GitHub Actions → Provide: [GitHub Action Section]
+- Local/Scripts → Continue to Q2
+- Other CI/CD → Provide: [Docker Export Section]
 
-**Quick pattern:**
+**Q2: "What's your goal?"** (if not GitHub Actions)
+
+- Simple one-off export → Provide: [Base Docker Section]
+- Batch with custom naming → Provide: [Docker Export Section]
+- Custom processing pipeline → Provide: [Advanced Section]
+- Building a tool → Provide: [Rust Section]
+
+**Q3: "Any special requirements?"** (if relevant)
+
+- Custom naming → Add: output templates
+- Specific pages → Add: page options
+- Pre/post processing → Add: scripting examples
+
+---
+
+## Tool Quick Reference (Keep This Loaded)
+
+| Use Case       | Tool                             | One-Liner                                   |
+| -------------- | -------------------------------- | ------------------------------------------- |
+| GitHub Actions | `drawio-export-action`           | `uses: rlespinasse/drawio-export-action@v2` |
+| Custom naming  | `drawio-export`                  | `--output 'path/{basename}.{ext}'`          |
+| Simple export  | `docker-drawio-desktop-headless` | `-x diagram.drawio -f pdf`                  |
+| Custom tool    | `drawio-exporter`                | Rust library                                |
+
+**Docs:** All tools at <https://github.com/rlespinasse/>
+
+---
+
+## Response Sections (Provide On-Demand)
+
+### [GitHub Action Section]
+
+**When to provide:** User mentions GitHub Actions, CI/CD, or automated commits
 
 ```yaml
 - uses: rlespinasse/drawio-export-action@v2
   with:
-    format: pdf
-    path: diagrams/
+    format: pdf,png,svg
+    path: .
 ```
 
-**Docs:** <https://github.com/rlespinasse/drawio-export-action>
+**Common options:** `format`, `path`, `output`, `transparent`, `scale`
+
+**Offer:** "Need custom naming, specific pages, or workflow setup? Let me know."
+
+**Full docs:** <https://github.com/rlespinasse/drawio-export-action>
 
 ---
 
-### 2. drawio-export (Enhanced Docker)
+### [Docker Export Section]
 
-**When to use:**
-
-- Batch exports with custom output organization
-- Need to control output directory structure
-- Advanced export configurations
-- Local automation scripts
-
-**Quick pattern:**
+**When to provide:** User needs custom output structure, batch exports, or organized files
 
 ```bash
 docker run -v $(pwd):/data rlespinasse/drawio-export \
-  --format pdf --output exports/ diagrams/
-```
-
-**Key features:**
-
-- Output organization control
-- Multiple format support
-- Built on drawio-exporter (Rust backend)
-
-**Docs:** <https://github.com/rlespinasse/drawio-export>
-
----
-
-### 3. docker-drawio-desktop-headless (Base Docker)
-
-**When to use:**
-
-- Simple one-off exports
-- Direct control over Draw.io CLI
-- Custom scripts where you control everything
-- Testing or debugging
-
-**Quick patterns:**
-
-Export to PDF:
-
-```bash
-docker run -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x diagram.drawio -f pdf
-```
-
-Batch export:
-
-```bash
-docker run -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x -r -f pdf diagrams/
-```
-
-Validate:
-
-```bash
-docker run -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless --check diagram.drawio
-```
-
-**Common options:**
-
-- `-x` - Export, `-f <format>` - pdf/png/svg/jpg
-- `-r` - Recursive, `-t` - Transparent (PNG)
-- `-a` - All pages, `-p <n>` - Specific page
-- `--scale <n>` - Scale, `--border <n>` - Border
-- `--check` - Validate only
-
-**Timeout handling:**
-
-```bash
-docker run -e DRAWIO_DESKTOP_COMMAND_TIMEOUT=30s \
-  -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x large.drawio
-```
-
-**Docs:** <https://github.com/rlespinasse/docker-drawio-desktop-headless>
-
----
-
-### 4. drawio-exporter (Rust Backend)
-
-**When to use:**
-
-- Building custom export tools
-- Need Rust library integration
-- Extending functionality programmatically
-
-**Note:** This is a backend component. Most users should use drawio-export (Docker wrapper) instead.
-
-**Docs:** <https://github.com/rlespinasse/drawio-exporter>
-
-## Common Workflows
-
-### Workflow 1: "Export diagrams in my CI/CD"
-
-→ **Use drawio-export-action**
-
-```yaml
-name: Export Diagrams
-on: [push]
-jobs:
-  export:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: rlespinasse/drawio-export-action@v2
-        with:
-          format: pdf
-          path: docs/diagrams/
-```
-
-### Workflow 2: "Batch export with organized output"
-
-→ **Use drawio-export**
-
-```bash
-docker run -v $(pwd):/data rlespinasse/drawio-export \
-  --format pdf,png \
-  --output exports/{folder}/{basename}-{format}.{ext} \
+  --format pdf \
+  --output 'dist/{basename}.{ext}' \
   diagrams/
 ```
 
-### Workflow 3: "Quick export one diagram"
+**Output templates:**
 
-→ **Use docker-drawio-desktop-headless**
+- `{folder}` - source path
+- `{basename}` - filename
+- `{format}` - pdf/png/svg
+- `{ext}` - extension
+
+**Common patterns:**
+
+- By format: `exports/{format}/{basename}.{ext}`
+- With prefix: `{basename}-diagram.{ext}`
+- Nested: `docs/{folder}/{basename}.{ext}`
+
+**Offer:** "Need more template examples or CLI options?"
+
+**Full docs:** <https://github.com/rlespinasse/drawio-export>
+
+---
+
+### [Base Docker Section]
+
+**When to provide:** Simple one-off export, validation, or full CLI control
 
 ```bash
 docker run -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x architecture.drawio -f pdf
+  rlespinasse/drawio-desktop-headless \
+  -x diagram.drawio -f pdf
 ```
 
-### Workflow 4: "Validate all diagrams"
+**Essential options:**
 
-→ **Use docker-drawio-desktop-headless**
+- `-f <format>` - pdf, png, svg, jpg
+- `-o <output>` - custom filename
+- `-t` - transparent PNG
+- `--scale <n>` - resolution
+- `-a` - all pages
+- `--check` - validate only
+
+**Offer:** "Need batch export, page selection, or error handling?"
+
+**Full docs:** <https://github.com/rlespinasse/docker-drawio-desktop-headless>
+
+---
+
+### [Advanced Section]
+
+**When to provide:** User needs custom processing, pre/post hooks, or pipeline integration
+
+**Three approaches:**
+
+1. **Pre-process diagram (modify XML):**
 
 ```bash
-for file in diagrams/*.drawio; do
-  docker run -v $(pwd):/data -w /data \
-    rlespinasse/drawio-desktop-headless --check "$file"
-done
+# Modify .drawio file → Export → Restore
+sed -i.bak 's/pattern/replacement/g' diagram.drawio
+docker run ... drawio-desktop-headless -x diagram.drawio
+mv diagram.drawio.bak diagram.drawio
 ```
 
-## Error Handling
-
-### Permission Errors (non-root user)
+1. **Post-process output:**
 
 ```bash
-docker run -u $(id -u):$(id -g) -e HOME=/data/home \
-  -v /etc/passwd:/etc/passwd -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x diagram.drawio
+# Export → Transform output → Save
+docker run ... drawio-desktop-headless -x diagram.drawio -o temp.pdf
+convert temp.pdf [transformations] final.pdf
 ```
 
-### Timeouts (large diagrams)
+1. **Custom pipeline:**
 
 ```bash
-docker run -e DRAWIO_DESKTOP_COMMAND_TIMEOUT=60s \
-  -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x large.drawio
+#!/bin/bash
+preprocess_diagrams()
+export_with_custom_logic()
+postprocess_outputs()
 ```
 
-### Debug Mode
+**Offer:** "What specific processing do you need? (watermarks, metadata, format conversion, etc.)"
+
+---
+
+### [Rust Section]
+
+**When to provide:** User is building a custom tool or needs library integration
+
+**Use drawio-exporter** (Rust library) for:
+
+- Building automation tools
+- Service/API integration
+- Custom export logic
+
+```rust
+use drawio_exporter::Exporter;
+// Build your custom export pipeline
+```
+
+**Full docs:** <https://github.com/rlespinasse/drawio-exporter>
+
+**Most users should use Docker tools instead.**
+
+---
+
+## Detailed Options (Provide ONLY When Asked)
+
+### CLI Options (Full List)
+
+**Load this section ONLY if user asks: "what are all the CLI options?" or "show me all flags"**
+
+```text
+Format: -f pdf|png|svg|jpg|vsdx|xml
+Output: -o <path>
+Quality: -t (transparent), --scale <n>, -q <n> (jpeg quality), --border <n>
+Pages: -a (all), -p <n> (index), --page-range <range>
+Advanced: --embed-diagram, --crop, --uncompressed, -r (recursive)
+Validation: --check
+```
+
+### GitHub Action Options (Full List)
+
+**Load this section ONLY if user asks for "all action options" or "complete configuration"**
+
+```yaml
+format: pdf,png,svg
+path: diagrams/
+output: exports/{basename}.{ext}
+transparent: true
+scale: 2
+quality: 100
+page-index: 0
+page-range: 0-2
+border: 10
+embed-diagram: true
+remove-page-suffix: true
+```
+
+### Error Handling
+
+**Load this section ONLY if user encounters errors or asks about troubleshooting**
+
+**Permission errors:**
 
 ```bash
-docker run -e SCRIPT_DEBUG_MODE=true \
-  -v $(pwd):/data -w /data \
-  rlespinasse/drawio-desktop-headless -x diagram.drawio
+docker run -u $(id -u):$(id -g) -e HOME=/data/home ...
 ```
 
-## Decision Examples
+**Timeouts:**
 
-**User says:** "I need to export diagrams in my GitHub Actions workflow"
-→ **Recommend:** drawio-export-action
-→ **Why:** Built specifically for GitHub Actions, easiest integration
+```bash
+docker run -e DRAWIO_DESKTOP_COMMAND_TIMEOUT=60s ...
+```
 
-**User says:** "I want to export all diagrams and organize them by type"
-→ **Recommend:** drawio-export
-→ **Why:** Supports output path templates and organization
+**Debug mode:**
 
-**User says:** "I need to quickly export this one diagram to PDF"
-→ **Recommend:** docker-drawio-desktop-headless
-→ **Why:** Direct, simple, no overhead
+```bash
+docker run -e SCRIPT_DEBUG_MODE=true ...
+```
 
-**User says:** "I'm building a tool that exports diagrams with custom logic"
-→ **Recommend:** drawio-exporter (if Rust) or docker-drawio-desktop-headless (if scripting)
-→ **Why:** Low-level access for custom integration
+---
 
-## Important Notes
+## Response Examples
 
-- **Always start with context questions** before recommending a tool
-- **Prefer higher-level tools** (action > export > headless) unless there's a reason to go lower
-- **Don't over-engineer:** If base Docker works, don't suggest the enhanced version
-- **Link to docs:** All tools have comprehensive documentation
-- **Test first:** Validate diagrams before batch exporting
+### Example 1: User says "export diagrams in GitHub Actions"
 
-## When This Skill Activates
+**Response:**
 
-- User mentions Draw.io diagram export
-- User asks about diagram automation
-- User needs CI/CD diagram processing
-- User wants to batch process .drawio files
-- User mentions any of the four tool names
+```text
+Use drawio-export-action:
 
-## Important Disclaimers
+[GitHub Action Section - 150 tokens]
 
-**Always communicate to users:**
+Need custom naming or multi-format exports? Let me know.
+```
 
-1. These are **third-party tools by [@rlespinasse](https://github.com/rlespinasse)**, not official Draw.io products
-2. They are **community-maintained** and wrap Draw.io Desktop CLI
-3. For official Draw.io support, refer to [diagrams.net](https://www.diagrams.net/) or [Draw.io Desktop](https://github.com/jgraph/drawio-desktop)
-4. These tools are **provided as-is** under their respective licenses
+### Example 2: User says "batch export with custom names"
+
+**Response:**
+
+```text
+Use drawio-export with output templates:
+
+[Docker Export Section - 200 tokens]
+[Show 2-3 common patterns]
+
+Need more examples or other options?
+```
+
+### Example 3: User says "I need custom processing during export"
+
+**Response:**
+
+```text
+First, let me understand:
+1. What custom processing? (watermarks, metadata, transformations?)
+2. Before export, during, or after?
+3. GitHub Actions or local?
+
+Then provide: [Advanced Section] tailored to their answer
+```
+
+### Example 4: User asks comprehensive question
+
+**If user asks: "what can I customize?"**
+
+**Response:**
+
+```text
+Depends on your use case. Are you:
+1. Using GitHub Actions? → [show action options]
+2. Need custom naming? → [show templates]
+3. Need custom processing? → [show advanced]
+
+Or would you like a full overview? (This will be comprehensive)
+```
+
+**Only if they confirm "full overview" → provide all sections**
+
+---
+
+## Key Principles
+
+1. **Ask first, provide second** - 2-3 questions before solutions
+2. **Targeted responses** - Only relevant section (200-500 tokens)
+3. **Progressive disclosure** - Offer more details, don't assume
+4. **Validate before executing** - Confirm understanding before running commands
+5. **No unsolicited extras** - Only create files if explicitly requested
+
+## Token Budget Guidelines
+
+- Initial response: 200-400 tokens (questions + context)
+- Targeted solution: 300-500 tokens (one section + examples)
+- Comprehensive (if requested): 1500-2000 tokens (multiple sections)
+- Default to smallest appropriate response
+
+---
+
+## Conversation Flow Template
+
+```text
+User: [mentions draw.io export]
+
+Claude:
+1. Acknowledge + quick context
+2. Ask 2-3 targeted questions
+3. [Wait for answer]
+
+User: [provides context]
+
+Claude:
+1. Provide ONLY relevant section (300-500 tokens)
+2. Include 1-2 practical examples
+3. Offer: "Need [other option]? Just ask."
+4. If executing commands: confirm understanding first
+
+User: [follow-up or clarification]
+
+Claude:
+1. Provide additional requested details
+2. Or adjust solution based on clarification
+3. Still keep focused on their specific need
+```
+
+---
+
+## When User Asks Broad Questions
+
+**"What can I do?" / "How do I customize?" / "What are my options?"**
+
+**Response pattern:**
+
+```text
+There are several approaches depending on your need:
+
+[Quick reference table - 100 tokens]
+
+What's your specific use case?
+1. [Most common scenario]
+2. [Second most common]
+3. [Something else]
+
+I'll provide the exact solution once I understand your goal.
+```
+
+**Do NOT provide all 4 levels immediately**
+
+---
+
+## Success Metrics
+
+**Efficient conversation:**
+
+- 2-4 turns to solution
+- 500-1000 tokens per response
+- 0 rejected commands
+- 0 unsolicited file creation
+
+**Less efficient (avoid):**
+
+- 5+ turns to solution
+- 2000+ tokens per response
+- Trial-and-error commands
+- Creating files user didn't ask for
+
+---
+
+## Skill Activation
+
+Activate when user mentions:
+
+- Draw.io export/automation
+- Diagram CI/CD
+- `.drawio` file processing
+- Any of the 4 tool names
+- "How do I export diagrams"
+
+**Then immediately follow the decision flow above.**
