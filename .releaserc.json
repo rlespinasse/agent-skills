@@ -22,6 +22,10 @@
             "release": "patch"
           },
           {
+            "type": "build",
+            "release": "patch"
+          },
+          {
             "scope": "no-release",
             "release": false
           }

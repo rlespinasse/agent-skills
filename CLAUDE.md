@@ -115,9 +115,10 @@ just pre-commit         # Run before committing
 
 - `feat`: New feature or skill (triggers minor release)
 - `fix`: Bug fix (triggers patch release)
+- `build`: Build system changes (triggers patch release)
 - `docs`: Documentation changes
-- `style`: Code style changes
-- `refactor`: Code refactoring
+- `style`: Code style changes (triggers patch release)
+- `refactor`: Code refactoring (triggers patch release)
 - `test`: Adding or updating tests
 - `chore`: Maintenance tasks
 - `ci`: CI/CD changes
