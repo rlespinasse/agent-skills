@@ -1,0 +1,47 @@
+{
+  "name": "@rlespinasse/agent-skills",
+  "version": "0.0.0-development",
+  "description": "A collection of Agent Skills for AI coding assistants",
+  "keywords": [
+    "agent-skills",
+    "ai",
+    "claude",
+    "cursor",
+    "copilot",
+    "drawio",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rlespinasse/agent-skills.git"
+  },
+  "author": "Romain Lespinasse <romain.lespinasse@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rlespinasse/agent-skills/issues"
+  },
+  "homepage": "https://github.com/rlespinasse/agent-skills#readme",
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "*/SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "lint": "just lint",
+    "lint:fix": "just lint-fix",
+    "validate": "just validate",
+    "test": "just check",
+    "prepare": "just check"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "markdownlint-cli": "^0.43.0",
+    "semantic-release": "^24.2.0"
+  }
+}
