@@ -32,6 +32,9 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Install just
+        uses: taiki-e/install-action@just
+
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
