@@ -17,7 +17,7 @@ install:
     #!/usr/bin/env bash
     set -euo pipefail
     echo "📦 Installing development dependencies..."
-    npm install -g markdownlint-cli
+    npm install
 
 # ============================================================================
 # Quality
@@ -27,13 +27,13 @@ install:
 [group('quality')]
 lint:
     echo "🔍 Linting markdown files..."
-    markdownlint "**/*.md" --config .markdownlint.json
+    npx markdownlint-cli "**/*.md" --config .markdownlint.json
 
 # Fix markdown linting issues automatically
 [group('quality')]
 lint-fix:
     echo "🔧 Fixing markdown issues..."
-    markdownlint "**/*.md" --config .markdownlint.json --fix
+    npx markdownlint-cli "**/*.md" --config .markdownlint.json --fix
 
 # Validate skill structure for all skills
 [group('quality')]
