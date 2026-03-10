@@ -13,6 +13,8 @@ right tool based on context.
 
 ## Installation
 
+### Via npx (recommended)
+
 Install all skills:
 
 ```bash
@@ -23,6 +25,15 @@ Install specific skill:
 
 ```bash
 npx skills add rlespinasse/agent-skills/drawio-export-tools
+```
+
+### Via Claude Code plugin
+
+This repository includes a `.claude-plugin/marketplace.json` manifest for Claude Code plugin installation:
+
+```bash
+/plugin marketplace add rlespinasse/agent-skills
+/plugin install drawio-export-tools
 ```
 
 ## Supported Agents
@@ -52,19 +63,12 @@ and are designed to help AI agents effectively use the Draw.io export ecosystem.
 
 ## Contributing
 
-Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on:
-
-- Setting up the development environment
-- Creating new skills
-- Commit message conventions
-- Pull request process
+Contributions are welcome! See the [Contributing Guidelines](CONTRIBUTING.md) for full details, and the
+[Skill Specification Reference](docs/reference-skill-spec.md) for frontmatter and evals requirements.
 
 ### Quick Start for Contributors
 
 ```bash
-# Setup
-just setup && just install
-
 # Create a new skill
 just new-skill my-skill-name
 

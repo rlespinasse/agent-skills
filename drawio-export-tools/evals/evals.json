@@ -1,0 +1,100 @@
+[
+  {
+    "id": "docker-batch-export",
+    "prompt": "I need to export all Draw.io diagrams in my CI/CD pipeline as PDFs with custom naming. Not using GitHub Actions.",
+    "expected_output": "Recommends drawio-export Docker image with output templates for batch processing",
+    "assertions": [
+      "mentions drawio-export (not drawio-export-action)",
+      "includes Docker run command",
+      "shows output template syntax with {basename} or {ext}",
+      "does not suggest GitHub Actions"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "github-actions-export",
+    "prompt": "I want to automatically export my .drawio files to PNG whenever I push to my GitHub repository.",
+    "expected_output": "Recommends drawio-export-action with a basic GitHub Actions workflow",
+    "assertions": [
+      "mentions drawio-export-action",
+      "includes 'uses: rlespinasse/drawio-export-action@v2'",
+      "shows YAML workflow syntax",
+      "mentions format option with png"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "rust-backend-cli-tool",
+    "prompt": "I'm building a custom Rust application that needs to programmatically export Draw.io diagrams.",
+    "expected_output": "Recommends drawio-exporter Rust library for integration into custom tools",
+    "assertions": [
+      "mentions drawio-exporter as a Rust library",
+      "links to https://github.com/rlespinasse/drawio-exporter",
+      "suggests this is for building custom tools or service integration",
+      "does not primarily recommend Docker approach"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "scope-boundary-official-drawio",
+    "prompt": "How do I use the official Draw.io desktop app to export diagrams?",
+    "expected_output": "Clarifies that this skill covers third-party tools by @rlespinasse, not official Draw.io features",
+    "assertions": [
+      "clarifies these are third-party tools, not official Draw.io",
+      "mentions @rlespinasse as the author",
+      "does not pretend to cover official Draw.io functionality",
+      "may offer to help with the third-party export tools instead"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "ambiguous-export-request",
+    "prompt": "I need to export my diagrams.",
+    "expected_output": "Asks clarifying questions before providing a solution",
+    "assertions": [
+      "asks where the user is exporting (GitHub Actions, local, CI/CD)",
+      "asks about the user's goal (simple export, batch, custom processing)",
+      "does not immediately dump all options",
+      "follows the decision flow from the skill"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "simple-one-off-export",
+    "prompt": "I just need to quickly convert a single .drawio file to PDF on my local machine using Docker.",
+    "expected_output": "Recommends docker-drawio-desktop-headless for simple one-off export",
+    "assertions": [
+      "mentions docker-drawio-desktop-headless",
+      "includes Docker run command with -x and -f flags",
+      "keeps response focused and concise",
+      "does not suggest the more complex drawio-export wrapper"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  },
+  {
+    "id": "troubleshooting-permissions",
+    "prompt": "I'm getting permission denied errors when running the Draw.io export Docker container.",
+    "expected_output": "Provides permission fix with user/group mapping",
+    "assertions": [
+      "includes the -u $(id -u):$(id -g) flag",
+      "mentions HOME environment variable workaround",
+      "references error handling section",
+      "may suggest debug mode with SCRIPT_DEBUG_MODE"
+    ],
+    "files": [
+      "drawio-export-tools/SKILL.md"
+    ]
+  }
+]

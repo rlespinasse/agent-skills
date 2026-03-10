@@ -25,10 +25,6 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: 'lts/*'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
 
       - name: Verify justfile formatting
         run: |
@@ -62,5 +58,12 @@ jobs:
       - name: Run all checks
         run: just check
 
-      - name: Show spec compliance
-        run: just spec
+      - name: Verify marketplace.json is up-to-date
+        run: |
+          cp .claude-plugin/marketplace.json .claude-plugin/marketplace.json.backup
+          just update-marketplace
+          if ! diff -u .claude-plugin/marketplace.json.backup .claude-plugin/marketplace.json; then
+            echo "❌ marketplace.json is not up-to-date. Run 'just update-marketplace' locally."
+            exit 1
+          fi
+          rm .claude-plugin/marketplace.json.backup
