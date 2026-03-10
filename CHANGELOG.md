@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2](https://github.com/rlespinasse/agent-skills/compare/v1.0.1...v1.0.2) (2026-03-10)
+
+### Code Refactoring
+
+* remove npm dependency, add evals infrastructure and plugin manifest ([#4](https://github.com/rlespinasse/agent-skills/issues/4)) ([8b93782](https://github.com/rlespinasse/agent-skills/commit/8b93782472e323ff56715898b65dd5247637b6b8))
+
 ## <small>1.0.1 (2026-02-16)</small>
 
 * build(release): customize release trigger ([78a1196](https://github.com/rlespinasse/agent-skills/commit/78a1196))
