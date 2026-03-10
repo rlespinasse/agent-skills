@@ -1,0 +1,102 @@
+[
+  {
+    "id": "classify-existing-docs",
+    "prompt": "I have a docs/ folder with getting-started.md, api.md, and architecture.md. Can you organize them using Diataxis?",
+    "expected_output": "Classifies each file into a Diataxis category and presents a classification table",
+    "assertions": [
+      "presents a classification table with columns for file, category, and notes",
+      "identifies getting-started.md as a Tutorial or How-to guide",
+      "identifies api.md as Reference",
+      "identifies architecture.md as Explanation",
+      "asks the user before making any changes"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "no-docs-exist",
+    "prompt": "My project has no documentation at all. Help me set up docs using Diataxis.",
+    "expected_output": "Proposes a Diataxis-aligned directory structure from scratch",
+    "assertions": [
+      "proposes a docs structure with tutorials, how-to, explanation, and reference directories",
+      "suggests specific pages to create based on common needs",
+      "presents a gap analysis checklist",
+      "asks the user before creating any files"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "mixed-content-detection",
+    "prompt": "My README.md has a quick start guide, API reference table, and architecture overview all in one file. How should I split it?",
+    "expected_output": "Identifies the mixed content and suggests splitting into separate Diataxis categories",
+    "assertions": [
+      "identifies at least three categories mixed in the file",
+      "suggests splitting the quick start into a tutorial or how-to guide",
+      "suggests moving the API table to a reference page",
+      "suggests moving architecture content to an explanation page",
+      "does not suggest deleting any content"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "small-project-pragmatism",
+    "prompt": "I have a tiny CLI tool with just a README. Should I restructure everything into Diataxis?",
+    "expected_output": "Advises that Diataxis may be overkill for a small project",
+    "assertions": [
+      "acknowledges the project is small",
+      "does not force the full Diataxis structure",
+      "suggests pragmatic improvements rather than a complete restructure",
+      "may suggest keeping a single README if it covers everything well"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "adapt-to-existing-tooling",
+    "prompt": "I use MkDocs for my documentation. Can you help me reorganize my docs following Diataxis?",
+    "expected_output": "Proposes a Diataxis structure compatible with MkDocs conventions",
+    "assertions": [
+      "mentions adapting to MkDocs conventions",
+      "suggests updating mkdocs.yml navigation configuration",
+      "proposes a directory structure compatible with MkDocs",
+      "does not ignore the existing tooling"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "tutorial-vs-howto-distinction",
+    "prompt": "What's the difference between a tutorial and a how-to guide in Diataxis? I have a page called 'Getting Started' and I'm not sure which category it belongs to.",
+    "expected_output": "Explains the distinction and helps classify the page",
+    "assertions": [
+      "explains that tutorials are learning-oriented and how-to guides are task-oriented",
+      "mentions tutorials teach while how-to guides direct",
+      "asks about the page content to help classify it",
+      "does not arbitrarily assign a category without understanding the content"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "gap-analysis",
+    "prompt": "I have API reference docs and a tutorial, but nothing else. What am I missing according to Diataxis?",
+    "expected_output": "Identifies missing how-to guides and explanation content",
+    "assertions": [
+      "identifies that how-to guides are missing",
+      "identifies that explanation content is missing",
+      "presents a gap checklist showing covered and missing categories",
+      "suggests specific pages to create for the missing categories"
+    ],
+    "files": [
+      "diataxis/SKILL.md"
+    ]
+  }
+]

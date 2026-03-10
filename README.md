@@ -4,6 +4,13 @@ A collection of [Agent Skills](https://agentskills.io/) for AI coding assistants
 
 ## Available Skills
 
+### diataxis
+
+Helps maintain documentation pages based on the Diataxis method. Analyzes existing docs, classifies pages into
+tutorials/how-to/explanation/reference categories, identifies gaps, and helps create or restructure documentation
+following Diataxis principles. Use when user mentions documentation structure, Diataxis, doc categories, tutorials vs
+how-to guides, or reorganizing docs.
+
 ### drawio-export-tools
 
 Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless
