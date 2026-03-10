@@ -5,6 +5,11 @@
   "repository": "https://github.com/rlespinasse/agent-skills",
   "skills": [
     {
+      "name": "conventional-commit",
+      "path": "skills/conventional-commit",
+      "description": "Guides committing staged (indexed) git files using the Conventional Commits specification"
+    },
+    {
       "name": "diataxis",
       "path": "skills/diataxis",
       "description": "Helps maintain documentation pages based on the Diataxis method. Analyzes existing docs, classifies pages into tutorials/how-to/explanation/reference categories, identifies gaps, and helps create or restructure documentation following Diataxis principles. Use when user mentions documentation structure, Diataxis, doc categories, tutorials vs how-to guides, or reorganizing docs."

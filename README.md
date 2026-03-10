@@ -4,6 +4,12 @@ A collection of [Agent Skills](https://agentskills.io/) for AI coding assistants
 
 ## Available Skills
 
+### conventional-commit
+
+Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
+practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, or indexed
+files. Helps craft well-structured, meaningful commit messages.
+
 ### diataxis
 
 Helps maintain documentation pages based on the Diataxis method. Analyzes existing docs, classifies pages into
