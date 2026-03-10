@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/rlespinasse/agent-skills/compare/v1.1.0...v1.2.0) (2026-03-10)
+
+### Features
+
+* add conventional-commit skill ([403539f](https://github.com/rlespinasse/agent-skills/commit/403539f9645025b1fdb7804d9dae87b0637a1a5d))
+
+### Documentation
+
+* sync generated files for conventional-commit skill ([b346999](https://github.com/rlespinasse/agent-skills/commit/b346999fc74ea47f46e89d3a2411715dbc5de4c0))
+
 ## [1.1.0](https://github.com/rlespinasse/agent-skills/compare/v1.0.2...v1.1.0) (2026-03-10)
 
 ### Features
