@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/rlespinasse/agent-skills/compare/v1.0.2...v1.1.0) (2026-03-10)
+
+### Features
+
+* add diataxis documentation skill ([4ace012](https://github.com/rlespinasse/agent-skills/commit/4ace0128c08598e2ab439f50786892c1a8d085d5))
+
+### Code Refactoring
+
+* move skill directories under skills/ subdirectory ([ea3167d](https://github.com/rlespinasse/agent-skills/commit/ea3167d710eab17a61925f526cca382bc15d2047))
+
 ## [1.0.2](https://github.com/rlespinasse/agent-skills/compare/v1.0.1...v1.0.2) (2026-03-10)
 
 ### Code Refactoring
