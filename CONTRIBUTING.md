@@ -1,6 +1,6 @@
 # Contributing to Agent Skills
 
-Thank you for your interest in contributing! This document provides guidelines for contributing to the project.
+Thank you for your interest in contributing!
 
 ## Getting Started
 
@@ -14,237 +14,100 @@ Thank you for your interest in contributing! This document provides guidelines f
 2. **Install prerequisites**
 
    - [just](https://github.com/casey/just) - Command runner
-   - [Node.js](https://nodejs.org/) (LTS) - For npm dependencies
+   - [Node.js](https://nodejs.org/) (LTS) - For npx tooling
 
-3. **Install dependencies**
-
-   ```bash
-   just install
-   ```
-
-4. **Verify everything works**
+3. **Verify everything works**
 
    ```bash
    just check
    ```
 
-## Development Workflow
+## Creating a New Skill
 
-### Creating a New Skill
-
-```bash
-# Create skill boilerplate
-just new-skill my-skill-name
-
-# Edit the SKILL.md file
-# Add comprehensive documentation
-
-# Validate the skill
-just validate
-
-# Update README
-just update-readme
-```
-
-### Making Changes
-
-1. Create a new branch
+1. Scaffold the skill:
 
    ```bash
-   git checkout -b feat/my-feature
+   just new-skill my-skill-name
    ```
 
-2. Make your changes
+   This creates `my-skill-name/SKILL.md` and `my-skill-name/evals/evals.json` with boilerplate.
 
-3. Run checks
-
-   ```bash
-   just check          # Run all checks
-   just lint-fix       # Auto-fix formatting issues
-   ```
-
-4. Commit with Conventional Commits format
-
-   ```bash
-   git add .
-   git commit -m "feat(skill): add new terraform-tools skill"
-   ```
-
-## Commit Message Guidelines
-
-This project uses [Conventional Commits](https://www.conventionalcommits.org/) for automated releases.
-
-### Format
-
-```text
-<type>(<scope>): <subject>
-
-[optional body]
-
-[optional footer]
-```
-
-### Types
-
-- **feat**: New feature or skill (triggers minor release)
-- **fix**: Bug fix (triggers patch release)
-- **docs**: Documentation only changes
-- **style**: Code style changes (formatting, missing semicolons, etc.)
-- **refactor**: Code change that neither fixes a bug nor adds a feature
-- **perf**: Performance improvement
-- **test**: Adding missing tests or correcting existing tests
-- **build**: Changes to build system or dependencies
-- **ci**: CI configuration changes
-- **chore**: Other changes that don't modify src or test files
-
-### Scopes
-
-- **skill**: Changes to a skill
-- **readme**: Changes to README
-- **justfile**: Changes to justfile
-- **ci**: Changes to CI/CD
-- **deps**: Dependency updates
-
-### Examples
-
-```bash
-# Adding a new skill
-feat(skill): add kubernetes-tools skill
-
-# Fixing a bug
-fix(drawio): correct installation command in documentation
-
-# Updating documentation
-docs(readme): add troubleshooting section
-
-# Refactoring
-refactor(justfile): simplify validation logic
-
-# Breaking change
-feat(skill)!: redesign SKILL.md frontmatter structure
-
-BREAKING CHANGE: All skills now require a 'category' field in frontmatter
-```
-
-### Validate Your Commit Message
-
-```bash
-just validate-commit "feat(skill): add new skill"
-```
-
-## Code Quality
-
-### Before Committing
-
-Run the pre-commit checks:
-
-```bash
-just pre-commit
-```
-
-This will:
-
-- Lint all markdown files
-- Validate skill structure
-- Ensure everything passes
-
-### Continuous Integration
-
-All pull requests are automatically tested via GitHub Actions:
-
-- Markdown linting
-- Skill validation
-- Commit message format validation
-
-## Skill Documentation Guidelines
-
-### SKILL.md Structure
-
-Each skill must have a `SKILL.md` file with:
-
-1. **YAML Frontmatter** (required)
+2. **Write the description** — this is the most important part. It determines when agents activate your skill.
+   Include what the skill does, trigger phrases, and scope boundaries:
 
    ```yaml
-   ---
-   name: skill-name
-   description: Brief description of what the skill does and when to use it
-   ---
+   description: Guide for choosing the right testing framework for Node.js projects.
+     Use when user mentions unit testing, test runner, Jest, Vitest, or Mocha.
    ```
 
-2. **Main heading**: Clear title for the skill
+3. **Write the skill content** — structure it as: decision flow first, quick reference second, details last.
+   Keep SKILL.md under 500 lines. See [Skill Specification Reference](docs/reference-skill-spec.md) for
+   frontmatter requirements, directory structure, and description patterns.
 
-3. **Introduction**: Brief overview and context
+4. **Write evals** — replace the boilerplate in `evals/evals.json` with real test scenarios. Cover the main
+   decision paths (5-7 evals minimum), include a scope boundary test and an ambiguous request test.
+   See the [Evals Schema](docs/reference-skill-spec.md#evals-schema) for field definitions.
 
-4. **Decision trees**: Help agents choose between options
+5. **Validate and commit:**
 
-5. **Quick reference**: Common patterns and examples
+   ```bash
+   just pre-commit
+   git add my-skill-name/
+   git commit -m "feat(skill): add my-skill-name skill"
+   ```
 
-6. **Detailed documentation**: Comprehensive information
+## Making Changes
 
-7. **Examples**: Real-world usage scenarios
+1. Create a branch: `git checkout -b feat/my-feature`
+2. Make your changes
+3. Run `just pre-commit` (syncs generated files, fixes formatting, runs all checks)
+4. Commit with [Conventional Commits](https://www.conventionalcommits.org/) format:
+   `<type>(<scope>): <subject>`
 
-### Best Practices
+   ```bash
+   feat(skill): add kubernetes-tools skill
+   fix(drawio): correct installation command in documentation
+   ```
 
-- Write for AI agents, not just humans
-- Include decision logic (when to use X vs Y)
-- Provide concrete examples
-- Link to authoritative documentation
-- Clarify official vs third-party tools
-- Keep descriptions concise in frontmatter
-- Use clear, scannable headings
+   Validate: `just validate-commit "feat(skill): add new skill"`
+
+## Maintaining Skills
+
+- **Update a skill**: edit `SKILL.md`, run `just pre-commit`, commit
+- **Fix markdown linting**: run `just lint-fix`, then `just lint` for remaining issues
+- **Fix generated files out of sync**: run `just sync`
+- **Remove a skill**: delete the directory, run `just sync`, commit as breaking change
+
+## Writing Style
+
+- **Structure:** Decision flow first, quick reference second, detailed docs last
+- **Tone:** Direct and instructional — write as if briefing an agent. Active voice.
+- **Formatting:** Bold key terms on first use. Use code blocks and tables. Lines under 120 characters.
+- **Clarity:** Be specific. Include concrete examples. State what the skill does NOT cover.
 
 ## Pull Request Process
 
-1. **Create a pull request** against the `main` branch
-
-2. **Describe your changes**
-   - What does this PR do?
-   - Why is this change needed?
-   - How has it been tested?
-
-3. **Ensure CI passes**
-   - All checks must pass
-   - Address any review comments
-
-4. **Merge**
-   - Maintainers will merge after approval
-   - semantic-release will automatically create a release
+1. Ensure `just check` passes
+2. Describe what, why, and how it was tested
+3. Maintainers will merge after approval
+4. semantic-release automatically creates a release
 
 ## Release Process
 
-Releases are fully automated with a two-stage workflow:
+Releases are fully automated. When code is pushed to `main`:
 
-### Stage 1: CI Workflow (Quality Gate)
+1. **CI runs** — linting, validation, all checks
+2. **If CI passes** — semantic-release analyzes commits, determines version bump, generates CHANGELOG.md,
+   creates GitHub release
 
-When code is pushed to `main`:
-
-1. **CI workflow runs automatically**
-   - Markdown linting
-   - Skill structure validation
-   - All tests
-
-### Stage 2: Release Workflow (Automated Release)
-
-**Only triggered if CI passes:**
-
-1. **Release workflow automatically runs**
-   - Analyzes commit messages
-   - Determines version bump
-   - Generates CHANGELOG.md
-   - Creates GitHub release
-   - Publishes to npm
-
-**Important:** The release workflow is triggered by the CI workflow completing successfully. If CI fails,
-no release occurs. This two-stage approach ensures quality and prevents broken releases.
-
-You don't need to manually version or release!
+You don't need to manually version or release.
 
 ## Questions or Issues?
 
-- Check existing [issues](https://github.com/rlespinasse/agent-skills/issues)
-- Read [CLAUDE.md](CLAUDE.md) for detailed guidelines
+- Read the [Skill Specification Reference](docs/reference-skill-spec.md) for frontmatter, evals, and conventions
+- Read [CLAUDE.md](CLAUDE.md) for AI agent guidelines
 - Review the [Agent Skills specification](https://agentskills.io/specification)
-- Open a new issue if you need help
+- Check existing [issues](https://github.com/rlespinasse/agent-skills/issues) or open a new one
 
 ## Code of Conduct
 

@@ -8,18 +8,6 @@ default:
     just --list
 
 # ============================================================================
-# Setup
-# ============================================================================
-
-# Install development dependencies
-[group('setup')]
-install:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    echo "📦 Installing development dependencies..."
-    npm install
-
-# ============================================================================
 # Quality
 # ============================================================================
 
@@ -27,43 +15,154 @@ install:
 [group('quality')]
 lint:
     echo "🔍 Linting markdown files..."
-    npx markdownlint-cli "**/*.md" --config .markdownlint.json
+    npx -y markdownlint-cli "**/*.md" --config .markdownlint.json
 
 # Fix markdown linting issues automatically
 [group('quality')]
 lint-fix:
     echo "🔧 Fixing markdown issues..."
-    npx markdownlint-cli "**/*.md" --config .markdownlint.json --fix
+    npx -y markdownlint-cli "**/*.md" --config .markdownlint.json --fix
 
-# Validate skill structure for all skills
+# Validate skill structure for all skills (errors block, warnings inform)
 [group('quality')]
 validate:
     #!/usr/bin/env bash
     set -euo pipefail
     echo "✅ Validating skill structure..."
+    has_errors=false
     for skill_dir in */; do
-        if [ -f "${skill_dir}SKILL.md" ]; then
-            echo "Checking ${skill_dir}SKILL.md..."
-            if ! grep -q "^---" "${skill_dir}SKILL.md"; then
-                echo "❌ Missing frontmatter in ${skill_dir}SKILL.md"
-                exit 1
-            fi
-            if ! grep -q "^name:" "${skill_dir}SKILL.md"; then
-                echo "❌ Missing 'name' in frontmatter of ${skill_dir}SKILL.md"
-                exit 1
-            fi
-            if ! grep -q "^description:" "${skill_dir}SKILL.md"; then
-                echo "❌ Missing 'description' in frontmatter of ${skill_dir}SKILL.md"
-                exit 1
-            fi
-            echo "✅ ${skill_dir}SKILL.md is valid"
+        [ ! -f "${skill_dir}SKILL.md" ] && continue
+        skill_name=$(basename "$skill_dir")
+        echo "Checking ${skill_dir}SKILL.md..."
+
+        # --- ERRORS (blocking) ---
+
+        # Check frontmatter exists
+        if ! grep -q "^---" "${skill_dir}SKILL.md"; then
+            echo "  ❌ ERROR: Missing frontmatter in ${skill_dir}SKILL.md"
+            has_errors=true
+            continue
         fi
+
+        # Check name field exists
+        if ! grep -q "^name:" "${skill_dir}SKILL.md"; then
+            echo "  ❌ ERROR: Missing 'name' in frontmatter of ${skill_dir}SKILL.md"
+            has_errors=true
+            continue
+        fi
+
+        # Check description field exists
+        if ! grep -q "^description:" "${skill_dir}SKILL.md"; then
+            echo "  ❌ ERROR: Missing 'description' in frontmatter of ${skill_dir}SKILL.md"
+            has_errors=true
+            continue
+        fi
+
+        # Extract name from frontmatter
+        fm_name=$(sed -n 's/^name: *//p' "${skill_dir}SKILL.md" | head -1)
+
+        # Check name matches directory name
+        if [ "$fm_name" != "$skill_name" ]; then
+            echo "  ❌ ERROR: Frontmatter name '$fm_name' does not match directory name '$skill_name'"
+            has_errors=true
+        fi
+
+        # Check name is kebab-case (lowercase alphanumeric + hyphens only)
+        if ! echo "$fm_name" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
+            echo "  ❌ ERROR: Name '$fm_name' is not valid kebab-case (lowercase alphanumeric + hyphens only)"
+            has_errors=true
+        fi
+
+        # Check name length (1-64 chars)
+        name_len=${#fm_name}
+        if [ "$name_len" -lt 1 ] || [ "$name_len" -gt 64 ]; then
+            echo "  ❌ ERROR: Name '$fm_name' length ($name_len) must be between 1 and 64 characters"
+            has_errors=true
+        fi
+
+        # Extract description from frontmatter
+        desc=$(sed -n '/^description:/,/^---$/p' "${skill_dir}SKILL.md" | sed '1s/^description: *//;$d' | tr '\n' ' ' | sed 's/ *$//')
+        desc_len=${#desc}
+
+        # Check description length (1-1024 chars per spec)
+        if [ "$desc_len" -lt 1 ] || [ "$desc_len" -gt 1024 ]; then
+            echo "  ❌ ERROR: Description length ($desc_len) must be between 1 and 1024 characters"
+            has_errors=true
+        fi
+
+        # --- WARNINGS (informational) ---
+
+        # Check description quality: suggest trigger phrases
+        has_trigger=false
+        for phrase in "use when" "when user" "mention" "activate" "trigger"; do
+            if echo "$desc" | grep -qi "$phrase"; then
+                has_trigger=true
+                break
+            fi
+        done
+        if [ "$has_trigger" = "false" ]; then
+            echo "  ⚠️  WARNING: Description lacks trigger phrases (e.g., 'Use when...', 'When user mentions...')"
+        fi
+
+        # Check SKILL.md line count
+        line_count=$(wc -l < "${skill_dir}SKILL.md")
+        if [ "$line_count" -gt 500 ]; then
+            echo "  ⚠️  WARNING: SKILL.md has $line_count lines (recommended: <500). Consider moving details to references/"
+        fi
+
+        # Check optional directories follow convention
+        for subdir in "${skill_dir}"*/; do
+            [ ! -d "$subdir" ] && continue
+            subdir_name=$(basename "$subdir")
+            case "$subdir_name" in
+                references|scripts|assets|evals|examples) ;;
+                *)
+                    echo "  ⚠️  WARNING: Non-standard subdirectory '$subdir_name' (expected: references/, scripts/, assets/, evals/, examples/)"
+                    ;;
+            esac
+        done
+
+        # Check evals exist
+        if [ ! -f "${skill_dir}evals/evals.json" ]; then
+            echo "  ⚠️  WARNING: No evals found. Consider adding ${skill_dir}evals/evals.json"
+        fi
+
+        echo "  ✅ ${skill_dir}SKILL.md is valid"
     done
+    if [ "$has_errors" = "true" ]; then
+        echo "❌ Validation failed with errors"
+        exit 1
+    fi
     echo "✅ All skills validated successfully"
 
-# Run all checks (lint + validate)
+# Validate evals JSON syntax and required fields
 [group('quality')]
-check: lint validate
+check-evals:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "🧪 Validating evals..."
+    has_errors=false
+    found_evals=false
+    for skill_dir in */; do
+        [ ! -f "${skill_dir}evals/evals.json" ] && continue
+        found_evals=true
+        echo "Checking ${skill_dir}evals/evals.json..."
+
+        # Check valid JSON and required fields
+        node scripts/check-evals.js "${skill_dir}evals/evals.json" || has_errors=true
+    done
+    if [ "$found_evals" = "false" ]; then
+        echo "⚠️  No evals found in any skill"
+    fi
+    if [ "$has_errors" = "true" ]; then
+        echo "❌ Evals validation failed"
+        exit 1
+    fi
+    echo "✅ All evals validated successfully"
+
+# Run all checks (lint + validate + evals)
+[group('quality')]
+check: lint validate check-evals
     echo "✅ All checks passed"
 
 # Fix all auto-fixable issues
@@ -91,17 +190,33 @@ new-skill name:
         echo "❌ Skill directory '{{ name }}' already exists"
         exit 1
     fi
+    # Validate kebab-case
+    if ! echo "{{ name }}" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
+        echo "❌ Skill name must be kebab-case (lowercase alphanumeric + hyphens only)"
+        exit 1
+    fi
     mkdir -p "{{ name }}"
-    echo "---" > "{{ name }}/SKILL.md"
-    echo "name: {{ name }}" >> "{{ name }}/SKILL.md"
-    echo "description: TODO - Add description for {{ name }} skill" >> "{{ name }}/SKILL.md"
-    echo "---" >> "{{ name }}/SKILL.md"
-    echo "" >> "{{ name }}/SKILL.md"
-    echo "# {{ name }}" >> "{{ name }}/SKILL.md"
-    echo "" >> "{{ name }}/SKILL.md"
-    echo "TODO - Add skill documentation" >> "{{ name }}/SKILL.md"
+    printf '%s\n' \
+        '---' \
+        'name: {{ name }}' \
+        'description: TODO - Add description for {{ name }} skill. Use when user mentions...' \
+        'globs: []' \
+        '---' \
+        '' \
+        '# {{ name }}' \
+        '' \
+        'TODO - Add skill documentation' \
+        '' \
+        '<!-- Optional directories: references/, scripts/, assets/, evals/ -->' \
+        > "{{ name }}/SKILL.md"
+
+    # Create evals boilerplate
+    mkdir -p "{{ name }}/evals"
+    node scripts/create-evals-boilerplate.js "{{ name }}"
+
     echo "✅ Created new skill: {{ name }}"
     echo "📝 Edit {{ name }}/SKILL.md to add your skill documentation"
+    echo "🧪 Edit {{ name }}/evals/evals.json to add test scenarios"
 
 # List all skills in the repository
 [group('skills')]
@@ -150,44 +265,9 @@ test-skill skill="":
     echo "To install locally for testing:"
     echo "  npx skills add $PWD/{{ skill }}"
 
-# Show installation command for remote testing
-[group('skills')]
-test-install skill="":
-    #!/usr/bin/env bash
-    set -euo pipefail
-    if [ -z "{{ skill }}" ]; then
-        echo "🧪 Testing full repository installation..."
-        echo "npx skills add rlespinasse/agent-skills"
-    else
-        echo "🧪 Testing {{ skill }} installation..."
-        echo "npx skills add rlespinasse/agent-skills/{{ skill }}"
-    fi
-    echo "Note: Run the command above manually to test installation"
-
-# Show skill specification compliance
-[group('skills')]
-spec:
-    echo "📋 Agent Skills Specification (https://agentskills.io/specification)"
-    echo ""
-    echo "Required structure:"
-    echo "  • Each skill must have a SKILL.md file"
-    echo "  • SKILL.md must have YAML frontmatter with 'name' and 'description'"
-    echo "  • Skill names should be kebab-case"
-    echo ""
-    echo "Current compliance:"
-    just validate
-
 # ============================================================================
 # Release
 # ============================================================================
-
-# Run semantic-release locally (dry-run)
-[group('release')]
-release-dry-run:
-    #!/usr/bin/env bash
-    set -euo pipefail
-    echo "🔍 Running semantic-release in dry-run mode..."
-    npx semantic-release --dry-run
 
 # Validate commit message format
 [group('release')]
@@ -195,7 +275,7 @@ validate-commit message:
     #!/usr/bin/env bash
     set -euo pipefail
     echo "✅ Validating commit message..."
-    echo "{{ message }}" | npx commitlint
+    echo "{{ message }}" | npx -y -p @commitlint/cli -p @commitlint/config-conventional commitlint
 
 # ============================================================================
 # Documentation
@@ -209,6 +289,7 @@ update-readme:
     echo "📝 Updating README.md..."
 
     # Build skills section
+    > skills.md.tmp
     for skill_dir in */; do
         [ ! -f "${skill_dir}SKILL.md" ] && continue
 
@@ -224,19 +305,34 @@ update-readme:
             echo ""
             echo "$desc" | fold -s -w 120 | sed 's/[[:space:]]*$//'
             echo ""
-        } >> /tmp/skills.md
+        } >> skills.md.tmp
     done
 
     # Replace skills section in README
-    sed -n '1,/^## Available Skills$/p' README.md > /tmp/readme-new.md
-    echo "" >> /tmp/readme-new.md
-    cat /tmp/skills.md >> /tmp/readme-new.md
-    sed -n '/^## Installation$/,$p' README.md >> /tmp/readme-new.md
+    sed -n '1,/^## Available Skills$/p' README.md > readme-new.md.tmp
+    echo "" >> readme-new.md.tmp
+    cat skills.md.tmp >> readme-new.md.tmp
+    sed -n '/^## Installation$/,$p' README.md >> readme-new.md.tmp
 
-    mv /tmp/readme-new.md README.md
-    rm /tmp/skills.md
+    mv readme-new.md.tmp README.md
+    rm skills.md.tmp
 
     echo "✅ README.md updated"
+
+# Update .claude-plugin/marketplace.json from skill directories
+[group('documentation')]
+update-marketplace:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "📝 Updating .claude-plugin/marketplace.json..."
+    mkdir -p .claude-plugin
+    node scripts/update-marketplace.js
+    echo "✅ marketplace.json updated"
+
+# Sync all generated files (README + marketplace)
+[group('documentation')]
+sync: update-readme update-marketplace
+    echo "✅ All generated files synced"
 
 # ============================================================================
 # Development
@@ -244,7 +340,7 @@ update-readme:
 
 # Check everything before commit
 [group('development')]
-pre-commit: update-readme fix check
+pre-commit: sync fix check
     echo "✅ Ready to commit"
 
 # Watch markdown files for changes (requires entr)
@@ -262,6 +358,6 @@ clean:
     #!/usr/bin/env bash
     set -euo pipefail
     echo "🧹 Cleaning up..."
-    rm -rf node_modules
-    rm -rf .DS_Store
+    find . -name '.DS_Store' -not -path './.git/*' -delete
+    rm -f *.tmp
     echo "✅ Cleanup complete"
