@@ -1,0 +1,99 @@
+[
+  {
+    "id": "simple-feature-commit",
+    "prompt": "I've staged my changes. Can you help me commit them? I added a new search bar component.",
+    "expected_output": "Reviews staged changes, crafts a conventional commit with feat type, and asks for approval",
+    "assertions": [
+      "runs git status or git diff --cached to review staged changes",
+      "proposes a commit message starting with feat or feat(scope):",
+      "uses imperative mood in the subject line",
+      "presents the commit message for user approval before executing"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "bug-fix-commit",
+    "prompt": "I fixed a null pointer exception in the user service. My changes are staged, please commit.",
+    "expected_output": "Reviews staged changes, crafts a conventional commit with fix type, and asks for approval",
+    "assertions": [
+      "runs git diff --cached to review the actual changes",
+      "proposes a commit message starting with fix:",
+      "subject describes the fix specifically, not just 'fix bug'",
+      "presents the commit message for approval before executing"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "nothing-staged",
+    "prompt": "Please commit my changes with a conventional commit message.",
+    "expected_output": "Checks staged files and informs the user if nothing is staged",
+    "assertions": [
+      "runs git status to check for staged files",
+      "if nothing is staged, informs the user and does not create an empty commit",
+      "does not fabricate a commit message without reviewing changes"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "multiple-unrelated-changes",
+    "prompt": "I staged changes to the auth module and also updated the README. Please commit everything.",
+    "expected_output": "Detects multiple unrelated changes and suggests splitting into separate commits",
+    "assertions": [
+      "reviews the staged diff to understand the changes",
+      "identifies that auth changes and README changes are unrelated",
+      "suggests splitting into separate commits",
+      "lets the user decide whether to proceed with one commit or split"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "breaking-change-commit",
+    "prompt": "I changed the API response format from XML to JSON. This breaks existing clients. Please commit.",
+    "expected_output": "Crafts a conventional commit with BREAKING CHANGE footer",
+    "assertions": [
+      "reviews the staged changes",
+      "includes a BREAKING CHANGE footer or uses the ! notation in the type",
+      "body explains what changed and the impact on clients",
+      "presents the message for approval"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "respects-project-conventions",
+    "prompt": "Commit my staged changes following the project's commit conventions.",
+    "expected_output": "Checks recent git history for scope and style conventions before crafting the message",
+    "assertions": [
+      "runs git log to check recent commit message patterns",
+      "follows scope conventions found in the project history",
+      "uses conventional commit format",
+      "presents the message for approval"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "secrets-detection",
+    "prompt": "I staged my .env file along with my code changes. Please commit.",
+    "expected_output": "Warns the user about committing secrets and suggests unstaging the .env file",
+    "assertions": [
+      "detects that .env is staged",
+      "warns the user about committing secrets or sensitive files",
+      "suggests unstaging the .env file before committing",
+      "does not blindly commit the .env file"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  }
+]
