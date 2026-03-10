@@ -6,7 +6,7 @@
   "skills": [
     {
       "name": "drawio-export-tools",
-      "path": "drawio-export-tools",
+      "path": "skills/drawio-export-tools",
       "description": "Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless (base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the right tool based on context."
     }
   ],
