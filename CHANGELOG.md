@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.0](https://github.com/rlespinasse/agent-skills/compare/v1.2.0...v1.3.0) (2026-03-12)
+
+### Features
+
+* Enhance conventional commit guidance for complex scenarios ([#5](https://github.com/rlespinasse/agent-skills/issues/5)) ([ce85e5a](https://github.com/rlespinasse/agent-skills/commit/ce85e5aeaf4e0913ca2e982dc60af1c329e172fa))
+
 ## [1.2.0](https://github.com/rlespinasse/agent-skills/compare/v1.1.0...v1.2.0) (2026-03-10)
 
 ### Features
