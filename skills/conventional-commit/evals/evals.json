@@ -95,5 +95,34 @@
     "files": [
       "skills/conventional-commit/SKILL.md"
     ]
+  },
+  {
+    "id": "commit-ordering-on-split",
+    "prompt": "I staged a code formatting fix, a new feature, and a package.json dependency update. Please commit.",
+    "expected_output": "Suggests splitting into separate commits and recommends an order: tidying first, then dependency update, then feature",
+    "assertions": [
+      "reviews staged changes and identifies multiple unrelated changes",
+      "classifies changes into categories (tidying, infrastructure, feature)",
+      "suggests committing tidying or infrastructure changes before the feature",
+      "keeps dependency manifest with its lock file in the same commit",
+      "lets the user decide whether to split or proceed as one commit"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "comment-only-changes",
+    "prompt": "I only added some code comments to explain a complex algorithm. My changes are staged, please commit.",
+    "expected_output": "Uses style or chore type for comment-only changes, keeps the message concise",
+    "assertions": [
+      "reviews the staged diff",
+      "uses style or chore as the commit type, not feat or fix",
+      "does not describe each individual comment in the commit message",
+      "presents the commit message for approval"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
   }
 ]
