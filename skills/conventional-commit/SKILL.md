@@ -44,12 +44,16 @@ Before crafting a commit message, always:
 | `chore` | Maintenance tasks (deps update, tooling, config) |
 | `revert` | Reverting a previous commit |
 
+**Note**: Comment-only changes (adding, updating, or removing code comments) should use `style` or
+`chore` — never `feat` or `fix`. Keep commit messages concise; do not describe individual comments.
+
 ### Scope
 
 - Optional, but recommended when the change targets a specific module, component, or area
 - Use lowercase, kebab-case: `feat(auth):`, `fix(api-client):`
 - Keep consistent with the project's existing scope conventions
-- **Check recent git log** for scope patterns already used in the project
+- **Check recent git log** (`git log --oneline -50` or more) for scope patterns already used in the project
+- Also note whether the project actually uses conventional commits — if not, adapt to the project's style
 
 ### Subject Line Rules
 
@@ -72,6 +76,7 @@ Before crafting a commit message, always:
 - `BREAKING CHANGE: <description>` for breaking changes (triggers major version bump)
 - `Refs: #123` or `Closes #456` for issue references
 - `Co-authored-by: Name <email>` for co-authors
+- `Signed-off-by: Name <email>` when the project requires a Developer Certificate of Origin (DCO)
 
 ## Decision Process
 
@@ -91,7 +96,19 @@ If the staged changes contain **multiple unrelated changes**:
 
 - Inform the user: "The staged changes contain multiple unrelated changes.
   Consider splitting them into separate commits for a cleaner history."
-- Suggest which files belong together
+- Classify changes into categories to suggest logical groupings:
+  - **Tidying** — formatting, renaming, dead code removal (no behavior change)
+  - **Infrastructure/build** — dependencies, tooling, configuration
+  - **Feature implementation** — new capabilities
+  - **Bug fixes** — correcting incorrect behavior
+  - **Documentation** — docs-only changes
+- Keep dependency manifests with their lock files (e.g., `package.json` + `package-lock.json`,
+  `go.mod` + `go.sum`, `Cargo.toml` + `Cargo.lock`, `pyproject.toml` + lock files)
+- Suggest a commit order that tells a clear story:
+  1. Tidying/structural changes first (separate from behavior changes)
+  2. Documentation before related code changes
+  3. Infrastructure/build before features that depend on them
+  4. Feature or fix commits last
 - Let the user decide whether to proceed with a single commit or split
 
 ### Step 3: Determine the Type
@@ -104,7 +121,7 @@ If the staged changes contain **multiple unrelated changes**:
 ### Step 4: Determine the Scope
 
 - Look at what area of the codebase is affected
-- Check `git log --oneline -20` for existing scope conventions
+- Check `git log --oneline -50` for existing scope conventions
 - If the change touches multiple areas, either omit the scope or use the primary area
 
 ### Step 5: Write the Subject
