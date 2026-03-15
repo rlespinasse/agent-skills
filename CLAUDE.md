@@ -14,16 +14,18 @@ This repository contains [Agent Skills](https://agentskills.io/) for AI coding a
 
 ```text
 agent-skills/
-├── README.md              # Main repository documentation
+├── README.md              # Main repository documentation (auto-generated skills section)
 ├── CONTRIBUTING.md        # Contributing guidelines
 ├── LICENSE                # MIT License
 ├── justfile               # Development task automation
 ├── .markdownlint.json     # Markdown linting configuration
+├── .githooks/
+│   └── pre-commit         # Git pre-commit hook (runs sync + pre-commit checks)
 ├── .claude-plugin/
 │   └── marketplace.json   # Claude Code plugin manifest (auto-generated)
 ├── docs/
 │   └── reference-skill-spec.md    # Skill specification reference
-└── {skill-name}/          # Individual skill directories
+└── skills/{skill-name}/   # Individual skill directories
     ├── SKILL.md           # Skill specification and documentation
     └── evals/
         └── evals.json     # Skill test scenarios
@@ -48,9 +50,14 @@ structure, evals schema, and description patterns.
 4. **Include examples**: Show practical usage patterns
 5. **Document edge cases**: Help agents make correct decisions
 
+### Setup
+
+Run `just setup` once after cloning to configure git hooks. This sets `core.hooksPath` to `.githooks/`,
+which automatically runs `just sync` and `just pre-commit` before every commit.
+
 ### Testing
 
-Before committing:
+Before committing (handled automatically by the pre-commit hook):
 
 1. Run `just check` - Validates markdown and skill structure
 2. Run `just lint-fix` - Auto-fix formatting issues
@@ -63,7 +70,9 @@ Run `just` with no arguments to list all available commands.
 ### Commits
 
 **IMPORTANT**: This project uses [Conventional Commits](https://www.conventionalcommits.org/) and automated
-releases. See [Commit Message Guidelines](CONTRIBUTING.md#making-changes) for format and validation.
+releases. A git pre-commit hook automatically syncs generated files (`README.md`, `marketplace.json`) and
+runs all quality checks before each commit. See [Commit Message Guidelines](CONTRIBUTING.md#making-changes)
+for format and validation.
 
 ### Branches
 

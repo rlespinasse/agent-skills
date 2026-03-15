@@ -1,0 +1,11 @@
+#!/bin/bash
+# Pre-commit hook: sync generated files and run quality checks
+
+set -euo pipefail
+
+just sync
+git add .claude-plugin/marketplace.json
+git add README.md
+
+just pre-commit
+git add -u -- '*.md'

@@ -16,7 +16,16 @@ Thank you for your interest in contributing!
    - [just](https://github.com/casey/just) - Command runner
    - [Node.js](https://nodejs.org/) (LTS) - For npx tooling
 
-3. **Verify everything works**
+3. **Set up git hooks**
+
+   ```bash
+   just setup
+   ```
+
+   This configures `core.hooksPath` to use `.githooks/`, which runs `just sync` and
+   `just pre-commit` automatically before every commit.
+
+4. **Verify everything works**
 
    ```bash
    just check
@@ -48,20 +57,19 @@ Thank you for your interest in contributing!
    decision paths (5-7 evals minimum), include a scope boundary test and an ambiguous request test.
    See the [Evals Schema](docs/reference-skill-spec.md#evals-schema) for field definitions.
 
-5. **Validate and commit:**
+5. **Commit** (the pre-commit hook runs sync and checks automatically):
 
    ```bash
-   just pre-commit
-   git add my-skill-name/
-   git commit -m "feat(skill): add my-skill-name skill"
+   git add skills/my-skill-name/
+   git commit -m "feat: add my-skill-name skill"
    ```
 
 ## Making Changes
 
 1. Create a branch: `git checkout -b feat/my-feature`
 2. Make your changes
-3. Run `just pre-commit` (syncs generated files, fixes formatting, runs all checks)
-4. Commit with [Conventional Commits](https://www.conventionalcommits.org/) format:
+3. Commit with [Conventional Commits](https://www.conventionalcommits.org/) format
+   (the pre-commit hook syncs generated files, fixes formatting, and runs all checks):
    `<type>(<scope>): <subject>`
 
    ```bash
