@@ -14,7 +14,7 @@ This repository contains [Agent Skills](https://agentskills.io/) for AI coding a
 
 ```text
 agent-skills/
-├── README.md              # Main repository documentation
+├── README.md              # Main repository documentation (auto-generated skills section)
 ├── CONTRIBUTING.md        # Contributing guidelines
 ├── LICENSE                # MIT License
 ├── justfile               # Development task automation
@@ -23,7 +23,7 @@ agent-skills/
 │   └── marketplace.json   # Claude Code plugin manifest (auto-generated)
 ├── docs/
 │   └── reference-skill-spec.md    # Skill specification reference
-└── {skill-name}/          # Individual skill directories
+└── skills/{skill-name}/   # Individual skill directories
     ├── SKILL.md           # Skill specification and documentation
     └── evals/
         └── evals.json     # Skill test scenarios
