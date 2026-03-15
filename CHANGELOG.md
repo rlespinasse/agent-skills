@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.5.0](https://github.com/rlespinasse/agent-skills/compare/v1.4.0...v1.5.0) (2026-03-15)
+
+### Features
+
+* add pin-github-actions skill ([481a48e](https://github.com/rlespinasse/agent-skills/commit/481a48e3a488327af7f53af12c161f2e9c1b48f2))
+
 ## [1.4.0](https://github.com/rlespinasse/agent-skills/compare/v1.3.0...v1.4.0) (2026-03-15)
 
 ### Features
