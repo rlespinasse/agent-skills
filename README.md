@@ -24,6 +24,12 @@ Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Cov
 Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
 right tool based on context.
 
+### pin-github-actions
+
+Migrates GitHub Actions workflows to use pinned commit SHAs instead of  tags, resolves the latest release versions,
+flags major version jumps, and configures  Dependabot with grouped updates. Use when user mentions pin actions, pinned
+versions,  SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security.
+
 ### verify-readme-features
 
 Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use

@@ -1,0 +1,105 @@
+[
+  {
+    "id": "pin-all-actions",
+    "prompt": "Pin all GitHub Actions in my workflows to commit SHAs.",
+    "expected_output": "Scans all workflow files, resolves latest release SHAs for each action, and replaces tag references with pinned SHAs and version comments",
+    "assertions": [
+      "finds all workflow files in .github/workflows/",
+      "extracts all uses: references from each workflow",
+      "resolves the latest release tag (exact version, not major tag) for each action",
+      "resolves the commit SHA for each release tag, dereferencing annotated tags",
+      "replaces tag references with SHA and adds a version comment (e.g., # v4.2.2)",
+      "presents changes to the user before applying"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "major-version-jump",
+    "prompt": "Update my GitHub Actions to use pinned versions. I'm currently on actions/checkout@v3.",
+    "expected_output": "Detects that v3 is not the latest major version, flags the jump, and asks the user before upgrading",
+    "assertions": [
+      "detects the major version jump from v3 to the latest major version",
+      "warns the user about the breaking change risk",
+      "asks the user whether to upgrade or stay on the current major",
+      "if staying on current major, resolves the latest patch of that major version",
+      "does not silently upgrade to the new major version"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "setup-dependabot",
+    "prompt": "Set up Dependabot to keep my GitHub Actions dependencies up to date.",
+    "expected_output": "Creates or updates dependabot.yml with github-actions ecosystem and grouped updates, and scans for additional ecosystems",
+    "assertions": [
+      "checks for an existing dependabot.yml file",
+      "adds the github-actions ecosystem with grouped updates",
+      "scans the repository for other dependency files (package.json, go.mod, .gitmodules, etc.)",
+      "adds discovered ecosystems to the dependabot configuration",
+      "groups all ecosystem updates using patterns: ['*']"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "merge-existing-dependabot",
+    "prompt": "I already have a dependabot.yml for npm. Add GitHub Actions pinning and dependabot support.",
+    "expected_output": "Preserves existing npm configuration and adds github-actions ecosystem without duplicating entries",
+    "assertions": [
+      "reads the existing dependabot.yml",
+      "preserves the existing npm ecosystem entry and its configuration",
+      "adds the github-actions ecosystem entry if missing",
+      "does not duplicate any existing ecosystem entries",
+      "adds groups configuration to entries that lack it"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "already-pinned-actions",
+    "prompt": "Check if my GitHub Actions are properly pinned to SHAs.",
+    "expected_output": "Identifies which actions are already pinned and which still use tags, and reports the current state",
+    "assertions": [
+      "scans all workflow files for uses: references",
+      "distinguishes between SHA-pinned and tag-based references",
+      "presents a summary table showing pinned status for each action",
+      "skips actions that are already properly pinned"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "no-major-tag-in-comment",
+    "prompt": "Pin my actions to SHAs. I want the version comments to show the exact version.",
+    "expected_output": "Uses exact release versions (e.g., v4.2.2) in comments, never major tags (e.g., v4)",
+    "assertions": [
+      "resolves the exact latest release tag for each action",
+      "uses the exact version in the comment (e.g., # v4.2.2), not the major tag (e.g., # v4)",
+      "the comment format uses a single space after #"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  },
+  {
+    "id": "full-migration",
+    "prompt": "Migrate my GitHub Actions to pinned versions and set up Dependabot with grouped updates.",
+    "expected_output": "Performs end-to-end migration: pins all actions, configures dependabot with all relevant ecosystems and grouped updates",
+    "assertions": [
+      "pins all GitHub Actions to commit SHAs with exact version comments",
+      "flags any major version jumps for user review",
+      "configures dependabot with github-actions ecosystem and grouped updates",
+      "discovers and adds other dependency ecosystems (gitsubmodule, npm, etc.)",
+      "presents all changes for user approval before applying"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
+  }
+]
