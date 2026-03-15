@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.4.0](https://github.com/rlespinasse/agent-skills/compare/v1.3.0...v1.4.0) (2026-03-15)
+
+### Features
+
+* add verify-readme-features skill ([#7](https://github.com/rlespinasse/agent-skills/issues/7)) ([ccf5f63](https://github.com/rlespinasse/agent-skills/commit/ccf5f63d8e185503751df678bf486aee52c9e68f))
+
 ## [1.3.0](https://github.com/rlespinasse/agent-skills/compare/v1.2.0...v1.3.0) (2026-03-12)
 
 ### Features
