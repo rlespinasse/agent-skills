@@ -1,0 +1,72 @@
+[
+  {
+    "id": "verify-all-features",
+    "prompt": "Verify that all features listed in the README match the actual codebase.",
+    "expected_output": "Reads README, extracts feature claims, searches source code for each, and reports results in a summary table",
+    "assertions": [
+      "reads the README.md file to extract feature claims",
+      "searches source code (not docs) for implementation evidence",
+      "reports each feature with a status (confirmed, partial, not found, or overstated)",
+      "cites specific file paths and line numbers as evidence"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  },
+  {
+    "id": "verify-sub-claims",
+    "prompt": "Check that the feature list in our README accurately describes what the code does.",
+    "expected_output": "Breaks compound feature claims into individual sub-claims and verifies each independently",
+    "assertions": [
+      "identifies compound claims like 'X with A, B, and C'",
+      "verifies each sub-claim independently against source code",
+      "does not mark a compound claim as confirmed if only some sub-claims are verified",
+      "presents results in a structured table format"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  },
+  {
+    "id": "detect-stale-features",
+    "prompt": "We removed the dark mode feature last sprint. Can you check if the README still mentions it?",
+    "expected_output": "Scans README for dark mode claims, searches codebase for implementation, and flags the discrepancy",
+    "assertions": [
+      "reads the README for any dark mode references",
+      "searches source code for dark mode implementation",
+      "reports the feature as 'not found' if no implementation exists",
+      "suggests removing or updating the documentation"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  },
+  {
+    "id": "no-docs-as-evidence",
+    "prompt": "Verify our documented features are real. The docs/ folder has detailed guides for each one.",
+    "expected_output": "Verifies against source code only, explicitly not counting documentation files as evidence",
+    "assertions": [
+      "searches source code files for implementation evidence",
+      "does not cite documentation files as proof of implementation",
+      "clearly distinguishes between documented claims and implemented features",
+      "cites source file paths and line numbers"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  },
+  {
+    "id": "suggest-fixes-for-gaps",
+    "prompt": "Audit our README feature list and tell me what needs to be fixed.",
+    "expected_output": "Identifies mismatches between documentation and code, then proposes specific documentation edits",
+    "assertions": [
+      "verifies each feature claim against source code",
+      "identifies any partial, not found, or overstated claims",
+      "proposes specific wording changes for inaccurate claims",
+      "does not auto-edit files without user approval"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  }
+]

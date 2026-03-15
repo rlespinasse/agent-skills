@@ -24,6 +24,12 @@ Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Cov
 Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
 right tool based on context.
 
+### verify-readme-features
+
+Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use
+when user mentions verify features, check feature list,  confirm README, validate documentation claims, or audit
+feature accuracy.  Helps catch stale, missing, or inaccurate feature descriptions.
+
 ## Installation
 
 ### Via npx (recommended)
