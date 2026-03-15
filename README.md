@@ -30,6 +30,12 @@ Migrates GitHub Actions workflows to use pinned commit SHAs instead of  tags, re
 flags major version jumps, and configures  Dependabot with grouped updates. Use when user mentions pin actions, pinned
 versions,  SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security.
 
+### verify-pr-logs
+
+Checks GitHub Actions CI logs on a pull request, diagnoses failures,  and guides the agent to implement fixes. Use when
+user mentions CI failing, check  PR logs, fix pipeline, GitHub Actions errors, workflow failures, build broken, tests
+failing on PR, or debug CI. Focuses on PR-scoped CI analysis only.
+
 ### verify-readme-features
 
 Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use

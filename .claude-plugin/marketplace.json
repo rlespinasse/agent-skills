@@ -25,6 +25,11 @@
       "description": "Migrates GitHub Actions workflows to use pinned commit SHAs instead of"
     },
     {
+      "name": "verify-pr-logs",
+      "path": "skills/verify-pr-logs",
+      "description": "Checks GitHub Actions CI logs on a pull request, diagnoses failures,"
+    },
+    {
       "name": "verify-readme-features",
       "path": "skills/verify-readme-features",
       "description": "Verifies that features listed in a README (or similar documentation) are actually"
