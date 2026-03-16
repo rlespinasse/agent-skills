@@ -28,6 +28,7 @@ lint-fix:
 validate:
     #!/usr/bin/env bash
     set -euo pipefail
+    SPEC="https://agentskills.io/specification"
     echo "✅ Validating skill structure..."
     has_errors=false
     for skill_dir in skills/*/; do
@@ -37,21 +38,21 @@ validate:
 
         # --- ERRORS (blocking) ---
 
-        # Check frontmatter exists
+        # Spec: SKILL.md must contain YAML frontmatter ($SPEC)
         if ! grep -q "^---" "${skill_dir}SKILL.md"; then
             echo "  ❌ ERROR: Missing frontmatter in ${skill_dir}SKILL.md"
             has_errors=true
             continue
         fi
 
-        # Check name field exists
+        # Spec: 'name' is a required frontmatter field ($SPEC)
         if ! grep -q "^name:" "${skill_dir}SKILL.md"; then
             echo "  ❌ ERROR: Missing 'name' in frontmatter of ${skill_dir}SKILL.md"
             has_errors=true
             continue
         fi
 
-        # Check description field exists
+        # Spec: 'description' is a required frontmatter field ($SPEC)
         if ! grep -q "^description:" "${skill_dir}SKILL.md"; then
             echo "  ❌ ERROR: Missing 'description' in frontmatter of ${skill_dir}SKILL.md"
             has_errors=true
@@ -61,19 +62,19 @@ validate:
         # Extract name from frontmatter
         fm_name=$(sed -n 's/^name: *//p' "${skill_dir}SKILL.md" | head -1)
 
-        # Check name matches directory name
+        # Spec: name must match the parent directory name ($SPEC)
         if [ "$fm_name" != "$skill_name" ]; then
             echo "  ❌ ERROR: Frontmatter name '$fm_name' does not match directory name '$skill_name'"
             has_errors=true
         fi
 
-        # Check name is kebab-case (lowercase alphanumeric + hyphens only)
+        # Spec: name must be lowercase alphanumeric + hyphens, no leading/trailing/consecutive hyphens ($SPEC)
         if ! echo "$fm_name" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
-            echo "  ❌ ERROR: Name '$fm_name' is not valid kebab-case (lowercase alphanumeric + hyphens only)"
+            echo "  ❌ ERROR: Name '$fm_name' is not valid kebab-case (must be lowercase alphanumeric + hyphens, no leading/trailing/consecutive hyphens)"
             has_errors=true
         fi
 
-        # Check name length (1-64 chars)
+        # Spec: name must be 1-64 characters ($SPEC)
         name_len=${#fm_name}
         if [ "$name_len" -lt 1 ] || [ "$name_len" -gt 64 ]; then
             echo "  ❌ ERROR: Name '$fm_name' length ($name_len) must be between 1 and 64 characters"
@@ -84,15 +85,25 @@ validate:
         desc=$(sed -n '/^description:/,/^---$/p' "${skill_dir}SKILL.md" | sed '1s/^description: *//;$d' | tr '\n' ' ' | sed 's/ *$//')
         desc_len=${#desc}
 
-        # Check description length (1-1024 chars per spec)
+        # Spec: description must be 1-1024 characters, non-empty ($SPEC)
         if [ "$desc_len" -lt 1 ] || [ "$desc_len" -gt 1024 ]; then
             echo "  ❌ ERROR: Description length ($desc_len) must be between 1 and 1024 characters"
             has_errors=true
         fi
 
+        # Spec: optional 'compatibility' field must be 1-500 characters if present ($SPEC)
+        compat=$(sed -n 's/^compatibility: *//p' "${skill_dir}SKILL.md" | head -1)
+        if [ -n "$compat" ]; then
+            compat_len=${#compat}
+            if [ "$compat_len" -lt 1 ] || [ "$compat_len" -gt 500 ]; then
+                echo "  ❌ ERROR: Compatibility length ($compat_len) must be between 1 and 500 characters"
+                has_errors=true
+            fi
+        fi
+
         # --- WARNINGS (informational) ---
 
-        # Check description quality: suggest trigger phrases
+        # Best practice: descriptions should include trigger phrases (docs/reference-skill-spec.md#description-field)
         has_trigger=false
         for phrase in "use when" "when user" "mention" "activate" "trigger"; do
             if echo "$desc" | grep -qi "$phrase"; then
@@ -104,13 +115,14 @@ validate:
             echo "  ⚠️  WARNING: Description lacks trigger phrases (e.g., 'Use when...', 'When user mentions...')"
         fi
 
-        # Check SKILL.md line count
+        # Spec: body recommended under 500 lines, split longer content into references/ ($SPEC)
         line_count=$(wc -l < "${skill_dir}SKILL.md")
         if [ "$line_count" -gt 500 ]; then
             echo "  ⚠️  WARNING: SKILL.md has $line_count lines (recommended: <500). Consider moving details to references/"
         fi
 
-        # Check optional directories follow convention
+        # Convention: standard subdirectories are references/, scripts/, assets/, evals/, examples/
+        # (docs/reference-skill-spec.md#skill-directory-structure)
         for subdir in "${skill_dir}"*/; do
             [ ! -d "$subdir" ] && continue
             subdir_name=$(basename "$subdir")
@@ -122,7 +134,7 @@ validate:
             esac
         done
 
-        # Check evals exist
+        # Best practice: evals are recommended for every skill (docs/reference-skill-spec.md#evals-schema)
         if [ ! -f "${skill_dir}evals/evals.json" ]; then
             echo "  ⚠️  WARNING: No evals found. Consider adding ${skill_dir}evals/evals.json"
         fi
@@ -190,9 +202,10 @@ new-skill name:
         echo "❌ Skill directory 'skills/{{ name }}' already exists"
         exit 1
     fi
-    # Validate kebab-case
+    # Spec: name must be lowercase alphanumeric + hyphens, no leading/trailing/consecutive hyphens
+    # (https://agentskills.io/specification)
     if ! echo "{{ name }}" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$'; then
-        echo "❌ Skill name must be kebab-case (lowercase alphanumeric + hyphens only)"
+        echo "❌ Skill name must be kebab-case (lowercase alphanumeric + hyphens, no leading/trailing/consecutive hyphens)"
         exit 1
     fi
     mkdir -p "skills/{{ name }}"
