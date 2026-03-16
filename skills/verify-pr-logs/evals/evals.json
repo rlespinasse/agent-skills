@@ -1,0 +1,105 @@
+[
+  {
+    "id": "basic-ci-failure",
+    "prompt": "Check why CI is failing on my PR.",
+    "expected_output": "Identifies the PR from the current branch, lists all check runs, fetches failed logs using --log-failed, and diagnoses the failure",
+    "assertions": [
+      "uses gh pr view to identify the current PR",
+      "runs gh pr checks to list all check statuses",
+      "uses gh run view with --log-failed to fetch only failed output",
+      "does not fetch full logs as the first step",
+      "triages the failure type and identifies the root cause"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "specific-pr-number",
+    "prompt": "Can you check the CI logs on PR #87? Something is broken.",
+    "expected_output": "Uses the provided PR number directly without trying to detect from the current branch",
+    "assertions": [
+      "uses PR #87 directly instead of running gh pr view on the current branch",
+      "runs gh pr checks 87 to list check statuses",
+      "fetches failed logs for the failing checks",
+      "diagnoses the failure and traces it to the source"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "multiple-failures",
+    "prompt": "CI has multiple failing checks. Fix them all.",
+    "expected_output": "Addresses each failing check independently, fetching logs and diagnosing each failure separately",
+    "assertions": [
+      "lists all check runs and identifies all failures",
+      "fetches --log-failed for each failing check separately",
+      "triages each failure independently",
+      "addresses failures one at a time rather than mixing fixes",
+      "explains each diagnosis before implementing the fix"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "flaky-test-detection",
+    "prompt": "Tests pass locally but keep failing in CI. Can you check?",
+    "expected_output": "Investigates CI-specific factors like environment differences, flaky tests, or timing issues rather than assuming a code problem",
+    "assertions": [
+      "fetches the failed logs from CI",
+      "considers CI-specific causes (environment, timing, resource contention)",
+      "distinguishes between code issues and CI environment issues",
+      "does not blindly suggest re-running the job",
+      "looks for patterns of intermittent failure"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "workflow-config-vs-code",
+    "prompt": "The CI build step is failing after I updated the workflow file.",
+    "expected_output": "Focuses on the workflow configuration as the likely cause since the user mentioned changing the workflow file",
+    "assertions": [
+      "fetches the failed logs for the build step",
+      "considers workflow configuration as the primary suspect",
+      "checks for workflow syntax errors or misconfiguration",
+      "fixes the issue in the workflow file if it is a CI config problem",
+      "does not modify source code for a workflow configuration issue"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "diagnose-before-fix",
+    "prompt": "Just fix whatever is failing in CI, I don't care about the details.",
+    "expected_output": "Still explains the diagnosis before implementing the fix, even though the user says they don't care about details",
+    "assertions": [
+      "fetches and analyzes the failed logs",
+      "explains the diagnosis to the user before making changes",
+      "does not skip the explanation even when the user says to just fix it",
+      "implements the fix after explaining what went wrong",
+      "does not blindly re-run the failed job"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  },
+  {
+    "id": "post-fix-verification",
+    "prompt": "I pushed a fix for the lint failure. Can you verify it passed?",
+    "expected_output": "Checks the latest CI run status and reports whether the fix resolved the failure",
+    "assertions": [
+      "checks the current status of CI checks on the PR",
+      "reports whether the previously failing check now passes",
+      "if still failing, fetches the new failure logs to diagnose further",
+      "suggests using gh run watch to monitor an in-progress run"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
+  }
+]
