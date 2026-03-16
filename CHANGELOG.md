@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.0](https://github.com/rlespinasse/agent-skills/compare/v1.5.0...v1.6.0) (2026-03-16)
+
+### Features
+
+* **validate:** add spec references and compatibility validation ([#9](https://github.com/rlespinasse/agent-skills/issues/9)) ([019de1e](https://github.com/rlespinasse/agent-skills/commit/019de1ed5d163c608ce26ff18de9a5b77ec6b60d))
+
 ## [1.5.0](https://github.com/rlespinasse/agent-skills/compare/v1.4.0...v1.5.0) (2026-03-15)
 
 ### Features
