@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.7.0](https://github.com/rlespinasse/agent-skills/compare/v1.6.0...v1.7.0) (2026-03-16)
+
+### Features
+
+* add verify-pr-logs skill for diagnosing CI failures on PRs ([#8](https://github.com/rlespinasse/agent-skills/issues/8)) ([5789245](https://github.com/rlespinasse/agent-skills/commit/578924548e978d837d23f57ce3145440ef714a2f))
+
 ## [1.6.0](https://github.com/rlespinasse/agent-skills/compare/v1.5.0...v1.6.0) (2026-03-16)
 
 ### Features
