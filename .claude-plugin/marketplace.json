@@ -20,6 +20,11 @@
       "description": "Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless (base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the right tool based on context."
     },
     {
+      "name": "local-branches-status",
+      "path": "skills/local-branches-status",
+      "description": "Reports the status of all local git branches with remote sync state, main branch diff,"
+    },
+    {
       "name": "pin-github-actions",
       "path": "skills/pin-github-actions",
       "description": "Migrates GitHub Actions workflows to use pinned commit SHAs instead of"

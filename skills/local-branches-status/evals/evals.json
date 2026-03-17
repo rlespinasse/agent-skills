@@ -1,0 +1,101 @@
+[
+  {
+    "id": "full-branch-report",
+    "prompt": "Show me the status of all my local branches.",
+    "expected_output": "Generates a table with all local branches showing remote sync, main diff, worktree path, last activity, and content description",
+    "assertions": [
+      "collects all branch data in a single shell loop rather than separate per-branch tool calls",
+      "presents results in a table with columns: Branch, Remote, Main diff, Worktree, Last activity, Description",
+      "marks the current branch with * or (current) in the Branch column",
+      "includes actionable notes about deletable, stale, or unpushed branches",
+      "summarizes branch content from commits rather than guessing from branch names"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "cleanup-candidates",
+    "prompt": "Which of my local branches can I safely delete?",
+    "expected_output": "Identifies branches with no unique commits (fully merged) and stale branches 10+ commits behind main with no activity in the last 30 days",
+    "assertions": [
+      "checks each branch for unique commits not on main",
+      "flags branches with 0 unique commits as safe to delete",
+      "flags branches that are 10+ commits behind main AND have no unique commits in the last 30 days as stale",
+      "does not delete any branches without user approval"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "unpushed-branches",
+    "prompt": "Do I have any branches that haven't been pushed to the remote?",
+    "expected_output": "Lists branches with no upstream configured and their content description",
+    "assertions": [
+      "checks upstream tracking for each branch",
+      "identifies branches with no upstream as unpushed",
+      "includes content description so user can decide whether to push",
+      "does not push branches without user approval"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "worktree-overview",
+    "prompt": "Give me an overview of my branches and their worktree usage.",
+    "expected_output": "Shows each branch with its worktree path (truncated to last 2 segments) or indicates no worktree",
+    "assertions": [
+      "runs git worktree list to find worktree associations",
+      "shows the actual worktree path truncated to last 2 segments for dedicated worktrees",
+      "distinguishes between main repo, dedicated worktree (with path), and no worktree",
+      "presents results in a structured table"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "branch-summary-after-absence",
+    "prompt": "I've been away for a while. What's the state of my branches?",
+    "expected_output": "Comprehensive report helping the user understand current branch state and what needs attention",
+    "assertions": [
+      "reports remote sync state for each branch",
+      "reports divergence from main for each branch",
+      "includes last activity date to help prioritize branches by recency",
+      "does not run git fetch without asking first"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "scope-boundary-no-remote-operations",
+    "prompt": "Sync all my branches with the remote and show me the status.",
+    "expected_output": "Reports local state but asks before running git fetch, does not auto-sync",
+    "assertions": [
+      "does not run git fetch without user approval",
+      "reports on local state as-is",
+      "suggests running git fetch if data may be stale",
+      "does not push or pull without explicit request"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  },
+  {
+    "id": "ambiguous-request",
+    "prompt": "What branches do I have?",
+    "expected_output": "Provides the full status report rather than just listing branch names",
+    "assertions": [
+      "presents the full table with all columns rather than a bare branch list",
+      "includes content description derived from commits",
+      "adds actionable notes when relevant",
+      "sorts branches meaningfully with main first"
+    ],
+    "files": [
+      "skills/local-branches-status/SKILL.md"
+    ]
+  }
+]
