@@ -10,7 +10,7 @@
       "does not suggest GitHub Actions"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -24,7 +24,7 @@
       "mentions format option with png"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -38,7 +38,7 @@
       "does not primarily recommend Docker approach"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -52,7 +52,7 @@
       "may offer to help with the third-party export tools instead"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -66,7 +66,7 @@
       "follows the decision flow from the skill"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -80,7 +80,7 @@
       "does not suggest the more complex drawio-export wrapper"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   },
   {
@@ -94,7 +94,7 @@
       "may suggest debug mode with SCRIPT_DEBUG_MODE"
     ],
     "files": [
-      "drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md"
     ]
   }
 ]

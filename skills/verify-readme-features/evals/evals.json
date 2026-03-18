@@ -68,5 +68,33 @@
     "files": [
       "skills/verify-readme-features/SKILL.md"
     ]
+  },
+  {
+    "id": "scope-boundary-non-readme-doc",
+    "prompt": "Can you verify the feature claims in our CONTRIBUTING.md?",
+    "expected_output": "Applies the same verification process to CONTRIBUTING.md, noting the skill works on any documentation file, not just README",
+    "assertions": [
+      "reads CONTRIBUTING.md to extract feature or capability claims",
+      "searches source code for implementation evidence of each claim",
+      "does not refuse the request on the basis that it is not a README",
+      "reports each claim with a verified status and source evidence"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
+  },
+  {
+    "id": "ambiguous-feature-check",
+    "prompt": "Is the search feature working?",
+    "expected_output": "Interprets the request as a verification task, searches for search feature evidence in source code, and reports findings rather than attempting to fix or implement anything",
+    "assertions": [
+      "interprets the request as a documentation verification task",
+      "searches source code for search feature implementation",
+      "reports whether the feature exists and is documented in the README",
+      "does not attempt to implement or fix the search feature"
+    ],
+    "files": [
+      "skills/verify-readme-features/SKILL.md"
+    ]
   }
 ]

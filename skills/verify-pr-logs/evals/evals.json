@@ -101,5 +101,19 @@
     "files": [
       "skills/verify-pr-logs/SKILL.md"
     ]
+  },
+  {
+    "id": "scope-boundary-main-branch",
+    "prompt": "CI is failing on main, can you check what's broken?",
+    "expected_output": "Clarifies that this skill focuses on PR-scoped CI analysis and asks for a PR number to proceed",
+    "assertions": [
+      "recognizes the request refers to the main branch, not a PR",
+      "clarifies the skill is designed for PR-scoped CI analysis",
+      "asks the user to provide a PR number or link to a specific PR",
+      "does not attempt to diagnose CI failures on the main branch directly"
+    ],
+    "files": [
+      "skills/verify-pr-logs/SKILL.md"
+    ]
   }
 ]
