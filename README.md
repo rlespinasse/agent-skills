@@ -24,6 +24,12 @@ Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Cov
 Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
 right tool based on context.
 
+### local-branches-status
+
+Reports the status of all local git branches with remote sync state, main branch diff,  worktree path, last activity
+date, and content description. Use when user mentions branch status,  branch overview, local branches, branch report,
+or branch summary. Helps understand the state of  all branches at a glance.
+
 ### pin-github-actions
 
 Migrates GitHub Actions workflows to use pinned commit SHAs instead of  tags, resolves the latest release versions,
