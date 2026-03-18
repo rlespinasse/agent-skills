@@ -75,28 +75,29 @@
     ]
   },
   {
-    "id": "no-major-tag-in-comment",
-    "prompt": "Pin my actions to SHAs. I want the version comments to show the exact version.",
-    "expected_output": "Uses exact release versions (e.g., v4.2.2) in comments, never major tags (e.g., v4)",
+    "id": "scope-boundary-docker-images",
+    "prompt": "Can you pin my Docker base images in the Dockerfile to specific digests for security?",
+    "expected_output": "Clarifies that this skill handles GitHub Actions only, and Docker image pinning is out of scope",
     "assertions": [
-      "resolves the exact latest release tag for each action",
-      "uses the exact version in the comment (e.g., # v4.2.2), not the major tag (e.g., # v4)",
-      "the comment format uses a single space after #"
+      "clarifies the skill focuses on GitHub Actions workflow files, not Dockerfiles",
+      "does not attempt to pin Docker image digests in Dockerfiles",
+      "may suggest checking Dependabot or a Docker-specific tool for Dockerfile pinning",
+      "offers to help with any GitHub Actions pinning instead"
     ],
     "files": [
       "skills/pin-github-actions/SKILL.md"
     ]
   },
   {
-    "id": "full-migration",
-    "prompt": "Migrate my GitHub Actions to pinned versions and set up Dependabot with grouped updates.",
-    "expected_output": "Performs end-to-end migration: pins all actions, configures dependabot with all relevant ecosystems and grouped updates",
+    "id": "ambiguous-security-request",
+    "prompt": "Make my GitHub Actions workflows more secure.",
+    "expected_output": "Interprets the request as a prompt to pin actions to SHAs and set up Dependabot, then confirms the plan with the user before proceeding",
     "assertions": [
-      "pins all GitHub Actions to commit SHAs with exact version comments",
-      "flags any major version jumps for user review",
-      "configures dependabot with github-actions ecosystem and grouped updates",
-      "discovers and adds other dependency ecosystems (gitsubmodule, npm, etc.)",
-      "presents all changes for user approval before applying"
+      "interprets the request as a supply-chain security improvement",
+      "proposes pinning all action references to commit SHAs",
+      "proposes configuring Dependabot with github-actions ecosystem",
+      "confirms the plan with the user before making any changes",
+      "does not silently apply all changes without user approval"
     ],
     "files": [
       "skills/pin-github-actions/SKILL.md"

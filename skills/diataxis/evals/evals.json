@@ -11,7 +11,7 @@
       "asks the user before making any changes"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -25,7 +25,7 @@
       "asks the user before creating any files"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -40,7 +40,7 @@
       "does not suggest deleting any content"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -54,7 +54,7 @@
       "may suggest keeping a single README if it covers everything well"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -68,7 +68,7 @@
       "does not ignore the existing tooling"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -82,7 +82,7 @@
       "does not arbitrarily assign a category without understanding the content"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   },
   {
@@ -96,7 +96,7 @@
       "suggests specific pages to create for the missing categories"
     ],
     "files": [
-      "diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md"
     ]
   }
 ]
