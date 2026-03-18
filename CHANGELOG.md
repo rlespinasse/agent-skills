@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.0](https://github.com/rlespinasse/agent-skills/compare/v1.7.0...v1.8.0) (2026-03-18)
+
+### Features
+
+* add local-branches-status skill ([#10](https://github.com/rlespinasse/agent-skills/issues/10)) ([662383f](https://github.com/rlespinasse/agent-skills/commit/662383f46821e9fcff1c9c5db490e901836ffcdd))
+
 ## [1.7.0](https://github.com/rlespinasse/agent-skills/compare/v1.6.0...v1.7.0) (2026-03-16)
 
 ### Features
