@@ -1,0 +1,284 @@
+[
+  {
+    "id": "fix-missing-accents-markdown",
+    "prompt": "My documentation is in French but has missing accents. Can you fix the accents in my docs/ folder?",
+    "expected_output": "Scans documentation files, identifies missing accents, and presents a fix table before applying",
+    "assertions": [
+      "scans for markdown files in the docs directory",
+      "identifies common missing accent patterns like qualite, securite, deploiement",
+      "presents findings as a table with columns for file, wrong, and correct",
+      "asks for user approval before applying fixes",
+      "uses replace_all for each correction pattern"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-svg",
+    "prompt": "My SVG sketch notes have French text without accents. Fix them please.",
+    "expected_output": "Fixes accents in SVG text elements without modifying coordinates or structure",
+    "assertions": [
+      "only modifies text content inside <text> elements",
+      "does not change SVG coordinates, styles, or structure",
+      "identifies common missing accent patterns",
+      "warns about potential text fitting issues with wider accented characters",
+      "mentions that SVG linters like SVGO may reformat the file"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-mermaid",
+    "prompt": "I have a Mermaid diagram in my README with French labels that are missing accents. Can you fix them?",
+    "expected_output": "Fixes accents in Mermaid node and edge labels, using quotes where needed for special characters",
+    "assertions": [
+      "identifies Mermaid diagram blocks in markdown files",
+      "fixes accents in node labels and edge labels",
+      "uses quotes around labels with special characters if needed",
+      "suggests testing rendering after changes"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-drawio",
+    "prompt": "My Draw.io diagram has French labels without accents. The file is in XML format.",
+    "expected_output": "Fixes accents in Draw.io XML value attributes without breaking the diagram structure",
+    "assertions": [
+      "identifies Draw.io files as XML",
+      "modifies only value attributes containing French text",
+      "does not break XML structure or other attributes",
+      "uses UTF-8 characters, not HTML entities"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-plantuml",
+    "prompt": "My PlantUML sequence diagram has participant names and labels in French without accents.",
+    "expected_output": "Fixes accents in PlantUML labels and participant names, quoting where needed",
+    "assertions": [
+      "fixes accents in labels and notes",
+      "uses quoting for participant names with accented characters",
+      "ensures UTF-8 encoding",
+      "preserves PlantUML syntax"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-csv",
+    "prompt": "My CSV file has French column headers and values without accents.",
+    "expected_output": "Fixes accents in CSV content and verifies UTF-8 encoding",
+    "assertions": [
+      "fixes accents in both headers and values",
+      "verifies or mentions UTF-8 encoding",
+      "warns about potential encoding issues with spreadsheet tools",
+      "preserves CSV structure (delimiters, quoting)"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-json-yaml",
+    "prompt": "My config.yaml and data.json have French string values without accents.",
+    "expected_output": "Fixes accents in JSON and YAML string values while preserving structure",
+    "assertions": [
+      "fixes accents in string values",
+      "preserves JSON and YAML structure",
+      "mentions that JSON requires UTF-8 by specification",
+      "mentions that YAML supports UTF-8 natively"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "fix-accents-in-html",
+    "prompt": "My HTML page has French text in titles, meta tags and body content without accents.",
+    "expected_output": "Fixes accents in HTML visible text, title, meta, alt and aria-label attributes",
+    "assertions": [
+      "checks for UTF-8 meta charset declaration",
+      "uses actual UTF-8 characters, not HTML entities",
+      "checks title, meta, alt attributes, aria-label, and visible text",
+      "fixes accents across all relevant HTML locations"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "generate-svg-with-accents",
+    "prompt": "Generate an SVG diagram in French showing a project lifecycle with phases like qualification, deploiement, and cloture.",
+    "expected_output": "Generates the SVG with correct French accents from the start",
+    "assertions": [
+      "writes all French text with correct accents from the start (déploiement, clôture)",
+      "does not generate without accents and fix later",
+      "keeps technical terms in English where appropriate",
+      "uses UTF-8 encoding"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "generate-mermaid-with-accents",
+    "prompt": "Generate a Mermaid flowchart in French showing a quality assurance process.",
+    "expected_output": "Generates the Mermaid diagram with correct French accents and proper quoting",
+    "assertions": [
+      "writes all French labels with correct accents from the start",
+      "uses quotes around labels containing special characters if needed",
+      "does not generate without accents and fix later",
+      "produces valid Mermaid syntax"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "generate-plantuml-with-accents",
+    "prompt": "Generate a PlantUML activity diagram in French showing a validation process.",
+    "expected_output": "Generates the diagram with correct French accents from the start",
+    "assertions": [
+      "writes all French text with correct accents from the start",
+      "does not generate without accents and fix later",
+      "uses quoting for names with accented characters",
+      "uses UTF-8 encoding"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "generate-csv-with-accents",
+    "prompt": "Generate a CSV file in French with a list of roles and responsibilities.",
+    "expected_output": "Generates the CSV with correct French accents and UTF-8 encoding",
+    "assertions": [
+      "writes all French text with correct accents from the start",
+      "uses UTF-8 encoding",
+      "preserves proper CSV structure",
+      "keeps technical terms in English where appropriate"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "preserve-english-technical-terms",
+    "prompt": "Translate everything to French in my README, including terms like Sprint, Backlog, and Product Owner.",
+    "expected_output": "Advises keeping universally used English technical terms untranslated",
+    "assertions": [
+      "recommends keeping Sprint, Backlog, Product Owner in English",
+      "explains these terms are universally used in French tech contexts",
+      "does not blindly translate all English terms to French",
+      "may suggest translating terms that have common French equivalents"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "french-typography-rules",
+    "prompt": "Review the French typography in my documentation. Are spaces before colons and semicolons correct?",
+    "expected_output": "Checks French typography conventions including spaces before double punctuation",
+    "assertions": [
+      "mentions the rule about spaces before : ; ! ?",
+      "checks for correct usage in the files",
+      "notes that some file formats may be exempt from strict typography rules for rendering reasons",
+      "does not add spaces that would break formatting or rendering"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "typography-in-generated-files",
+    "prompt": "Should I apply French typography rules (spaces before colons) in my SVG and Mermaid files?",
+    "expected_output": "Advises prioritizing accents in all formats but being pragmatic about typography in constrained formats",
+    "assertions": [
+      "explains that accents are mandatory in all formats",
+      "explains that typography rules may not be practical in all file formats",
+      "recommends prioritizing readability and fitting in containers over strict typography",
+      "gives format-specific guidance"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "context-sensitive-accents",
+    "prompt": "I have the word 'ou' in my documentation. Should it have an accent?",
+    "expected_output": "Explains that 'ou' (or) and 'où' (where) are different words and context determines the accent",
+    "assertions": [
+      "explains the difference between ou (or) and où (where)",
+      "emphasizes that context determines the correct spelling",
+      "does not blindly add or remove accents",
+      "may ask to see the sentence for proper classification"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "bulk-accent-fix-safety",
+    "prompt": "Fix all the accents in all my files at once.",
+    "expected_output": "Presents a complete list of changes before applying any fixes",
+    "assertions": [
+      "does not apply changes without user approval",
+      "presents findings organized by file",
+      "fixes one pattern at a time with replace_all to avoid unintended replacements",
+      "validates after applying fixes that no regressions occurred"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "scan-all-file-types",
+    "prompt": "Check all files in my project for missing French accents, not just the markdown files.",
+    "expected_output": "Scans all file types including SVG, CSV, JSON, YAML, HTML, and diagram files",
+    "assertions": [
+      "scans beyond just markdown files",
+      "checks SVG, CSV, JSON, YAML, HTML, and diagram file types",
+      "identifies French text in data files and configuration files",
+      "presents a comprehensive report across all file types"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "preflight-check-project-language",
+    "prompt": "Fix French accents in my project.",
+    "expected_output": "Checks project configuration first to confirm French is the project language before making changes",
+    "assertions": [
+      "checks CLAUDE.md or README for language configuration before proceeding",
+      "identifies which files contain French text",
+      "does not assume all files are French without checking",
+      "proceeds with fixes only after confirming the project uses French"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  },
+  {
+    "id": "utf8-encoding-enforcement",
+    "prompt": "My CSV file seems to have encoding issues with French accents. They show as garbled characters.",
+    "expected_output": "Diagnoses encoding issue and recommends UTF-8, warns about Latin-1/ISO-8859-1",
+    "assertions": [
+      "identifies the likely encoding issue (Latin-1 vs UTF-8)",
+      "recommends UTF-8 encoding",
+      "warns about spreadsheet tools that may re-encode files",
+      "suggests how to verify or convert the encoding"
+    ],
+    "files": [
+      "skills/french-language/SKILL.md"
+    ]
+  }
+]

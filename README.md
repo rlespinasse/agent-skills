@@ -24,6 +24,13 @@ Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Cov
 Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
 right tool based on context.
 
+### french-language
+
+Ensures all project content is written in proper French with correct accents, grammar,  and typography. Use when user
+mentions french, français, langue française, accents, orthographe,  typographie, or when working on a project that
+requires French language content. Also use when  generating any text-based file (SVG, Mermaid, PlantUML, Draw.io, HTML,
+CSV, JSON, YAML, etc.)  in a French-language project. Helps enforce French writing conventions across all file types.
+
 ### local-branches-status
 
 Reports the status of all local git branches with remote sync state, main branch diff,  worktree path, last activity
