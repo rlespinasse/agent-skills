@@ -10,8 +10,20 @@ for (const entry of fs.readdirSync("skills", { withFileTypes: true })) {
   const skillPath = path.join("skills", entry.name, "SKILL.md");
   if (!fs.existsSync(skillPath)) continue;
   const content = fs.readFileSync(skillPath, "utf8");
-  const descMatch = content.match(/^description:\s*(.+)/m);
-  const desc = descMatch ? descMatch[1].trim() : "";
+  const frontmatter = content.split("---")[1] || "";
+  const lines = frontmatter.split("\n");
+  let desc = "";
+  let capturing = false;
+  for (const line of lines) {
+    if (/^description:\s*/.test(line)) {
+      desc = line.replace(/^description:\s*/, "").trim();
+      capturing = true;
+    } else if (capturing && /^\s+/.test(line)) {
+      desc += " " + line.trim();
+    } else if (capturing) {
+      break;
+    }
+  }
   skills.push({ name: entry.name, path: `skills/${entry.name}`, description: desc });
 }
 

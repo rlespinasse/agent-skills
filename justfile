@@ -85,7 +85,7 @@ validate:
         desc=$(sed -n '/^description:/,/^---$/p' "${skill_dir}SKILL.md" | sed '1s/^description: *//;$d' | tr '\n' ' ' | sed 's/ *$//')
         desc_len=${#desc}
 
-        # Spec: description must be 1-1024 characters, non-empty ($SPEC)
+        # agentskills.io spec: description must be 1-1024 characters, non-empty
         if [ "$desc_len" -lt 1 ] || [ "$desc_len" -gt 1024 ]; then
             echo "  ❌ ERROR: Description length ($desc_len) must be between 1 and 1024 characters"
             has_errors=true
