@@ -74,15 +74,19 @@
   {
     "id": "tutorial-vs-howto-distinction",
     "prompt": "What's the difference between a tutorial and a how-to guide in Diataxis? I have a page called 'Getting Started' and I'm not sure which category it belongs to.",
-    "expected_output": "Explains the distinction and helps classify the page",
+    "expected_output": "Explains the distinction using the compass model and helps classify the page",
     "assertions": [
-      "explains that tutorials are learning-oriented and how-to guides are task-oriented",
+      "explains that tutorials are learning-oriented (action + acquisition) and how-to guides are task-oriented (action + application)",
       "mentions tutorials teach while how-to guides direct",
+      "mentions that tutorials are complete end-to-end while how-to guides start at reasonable points",
       "asks about the page content to help classify it",
       "does not arbitrarily assign a category without understanding the content"
     ],
     "files": [
-      "skills/diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/compass.md",
+      "skills/diataxis/references/tutorials.md",
+      "skills/diataxis/references/how-to-guides.md"
     ]
   },
   {
@@ -97,6 +101,69 @@
     ],
     "files": [
       "skills/diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "compass-classification",
+    "prompt": "I have a page that explains how our authentication system works, discusses why we chose OAuth over SAML, and includes the configuration reference at the bottom. How should I handle this?",
+    "expected_output": "Uses the compass to identify mixed content and suggests splitting into explanation and reference",
+    "assertions": [
+      "identifies the page as mixing explanation and reference content",
+      "applies the compass dimensions (action/cognition, acquisition/application) to classify content",
+      "suggests splitting the 'why OAuth' discussion into an explanation page",
+      "suggests moving the configuration reference to a separate reference page",
+      "preserves all existing content"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/compass.md"
+    ]
+  },
+  {
+    "id": "tutorial-writing-guidance",
+    "prompt": "I need to write a tutorial for my library. What are the key principles I should follow?",
+    "expected_output": "Provides detailed tutorial writing guidance from the references",
+    "assertions": [
+      "mentions showing the destination upfront",
+      "mentions delivering visible results early and often",
+      "mentions minimising explanation in tutorials",
+      "mentions focusing on concrete steps over abstract concepts",
+      "mentions the importance of reliability — every step must work as described"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/tutorials.md"
+    ]
+  },
+  {
+    "id": "reference-writing-guidance",
+    "prompt": "I'm writing API reference docs. How do I make them follow Diataxis principles?",
+    "expected_output": "Provides detailed reference writing guidance emphasizing austerity and structure",
+    "assertions": [
+      "mentions that reference should describe and only describe",
+      "mentions mirroring the structure of the code or API",
+      "mentions adopting standard, consistent patterns",
+      "warns against mixing instruction or explanation into reference",
+      "suggests linking out to how-to guides and explanation pages instead"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/reference.md"
+    ]
+  },
+  {
+    "id": "quality-assessment",
+    "prompt": "My docs are well-organized into Diataxis categories but they still feel off. What might be wrong?",
+    "expected_output": "Discusses quality dimensions beyond structure",
+    "assertions": [
+      "mentions that Diataxis facilitates quality but cannot guarantee it",
+      "references functional quality dimensions like accuracy, completeness, and consistency",
+      "references deep quality markers like flow and anticipating the user",
+      "suggests checking for specific quality issues beyond just categorization"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/quality.md"
     ]
   }
 ]
