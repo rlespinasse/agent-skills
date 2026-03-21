@@ -1,0 +1,102 @@
+[
+  {
+    "id": "full-usage-report-all-time",
+    "prompt": "Show me my Claude Code token usage and costs across all projects.",
+    "expected_output": "Generates a complete report with global summary, model breakdown, daily usage, and per-project breakdown for all time",
+    "assertions": [
+      "scans all projects under ~/.claude/projects/",
+      "includes both main session and subagent JSONL files",
+      "presents global summary with total tokens and API equivalent cost",
+      "shows per-model breakdown with input, output, cache read, and cache create columns",
+      "shows per-project breakdown sorted by cost descending",
+      "saves the report to ~/claude-code-usage-report.txt"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "date-filtered-report",
+    "prompt": "How many tokens have I used since March 1st?",
+    "expected_output": "Generates a report filtered to sessions from March 1st onward",
+    "assertions": [
+      "filters session data by timestamp >= March 1st",
+      "only includes messages with timestamps on or after the cutoff",
+      "shows daily usage starting from March 1st",
+      "does not include data from before the cutoff date"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "plan-comparison",
+    "prompt": "I'm on Max 5x. How much am I saving compared to API pricing?",
+    "expected_output": "Shows API equivalent cost alongside Max 5x subscription cost with savings percentage",
+    "assertions": [
+      "calculates API equivalent cost using per-token pricing",
+      "computes Max 5x actual cost based on number of billing months",
+      "shows savings amount and percentage",
+      "includes per-project breakdown to show where tokens are spent"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "single-project-report",
+    "prompt": "Show me the token usage for this repository only.",
+    "expected_output": "Generates a report scoped to the current project directory",
+    "assertions": [
+      "identifies the current project from the working directory",
+      "only scans JSONL files for that specific project",
+      "shows model breakdown and daily usage for that project only",
+      "does not include data from other projects"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "plan-switch-scenario",
+    "prompt": "I was on pay-per-token until Feb 17, then switched to Max 5x. Show me the cost breakdown.",
+    "expected_output": "Splits the report into two periods with separate cost calculations",
+    "assertions": [
+      "separates data into pre-switch and post-switch periods",
+      "calculates actual API cost for the pre-switch period",
+      "calculates subscription cost for the post-switch period",
+      "shows combined total actually paid vs total API equivalent"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "efficient-data-collection",
+    "prompt": "Generate a usage report for all my Claude Code sessions.",
+    "expected_output": "Collects all data in a single Python script execution",
+    "assertions": [
+      "uses a single Bash/Python invocation to scan all files",
+      "does not make separate tool calls per project or per file",
+      "handles JSONL parse errors gracefully with try/except",
+      "detects username dynamically for project name cleanup"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  },
+  {
+    "id": "scope-clarification",
+    "prompt": "How much does Claude Code cost?",
+    "expected_output": "Asks the user to clarify the scope before generating a report",
+    "assertions": [
+      "asks for date range or defaults to a reasonable period",
+      "asks whether to include all projects or current project only",
+      "asks about subscription plan for savings comparison",
+      "does not guess or assume ambiguous parameters"
+    ],
+    "files": [
+      "skills/claude-code-usage-report/SKILL.md"
+    ]
+  }
+]
