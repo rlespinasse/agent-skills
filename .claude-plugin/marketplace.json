@@ -7,7 +7,7 @@
     {
       "name": "conventional-commit",
       "path": "skills/conventional-commit",
-      "description": "Guides committing staged (indexed) git files using the Conventional Commits specification"
+      "description": "Guides committing staged (indexed) git files using the Conventional Commits specification and commit message best practices. Use when user mentions commit, git commit, conventional commit, commit message, staged files, or indexed files. Helps craft well-structured, meaningful commit messages."
     },
     {
       "name": "diataxis",
@@ -22,22 +22,22 @@
     {
       "name": "local-branches-status",
       "path": "skills/local-branches-status",
-      "description": "Reports the status of all local git branches with remote sync state, main branch diff,"
+      "description": "Reports the status of all local git branches with remote sync state, main branch diff, worktree path, last activity date, and content description. Use when user mentions branch status, branch overview, local branches, branch report, or branch summary. Helps understand the state of all branches at a glance."
     },
     {
       "name": "pin-github-actions",
       "path": "skills/pin-github-actions",
-      "description": "Migrates GitHub Actions workflows to use pinned commit SHAs instead of"
+      "description": "Migrates GitHub Actions workflows to use pinned commit SHAs instead of tags, resolves the latest release versions, flags major version jumps, and configures Dependabot with grouped updates. Use when user mentions pin actions, pinned versions, SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security."
     },
     {
       "name": "verify-pr-logs",
       "path": "skills/verify-pr-logs",
-      "description": "Checks GitHub Actions CI logs on a pull request, diagnoses failures,"
+      "description": "Checks GitHub Actions CI logs on a pull request, diagnoses failures, and guides the agent to implement fixes. Use when user mentions CI failing, check PR logs, fix pipeline, GitHub Actions errors, workflow failures, build broken, tests failing on PR, or debug CI. Focuses on PR-scoped CI analysis only."
     },
     {
       "name": "verify-readme-features",
       "path": "skills/verify-readme-features",
-      "description": "Verifies that features listed in a README (or similar documentation) are actually"
+      "description": "Verifies that features listed in a README (or similar documentation) are actually implemented in the codebase. Use when user mentions verify features, check feature list, confirm README, validate documentation claims, or audit feature accuracy. Helps catch stale, missing, or inaccurate feature descriptions."
     }
   ],
   "metadata": {

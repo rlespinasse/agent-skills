@@ -1,6 +1,7 @@
 # Skill Specification Reference
 
-This page documents the structural requirements and conventions for agent skills in this repository.
+This page documents the structural requirements and conventions for agent skills in this repository,
+derived from the [Agent Skills Specification](https://agentskills.io/specification).
 
 ## SKILL.md Frontmatter
 
@@ -16,7 +17,7 @@ description: Brief description of what the skill does and when to use it
 | Field | Required | Constraints |
 | ------------- | -------- | ------------------------------------------- |
 | `name` | Yes | Kebab-case, 1-64 characters, must match directory name |
-| `description` | Yes | 1-1024 characters |
+| `description` | Yes | 1-1024 characters ([agentskills.io spec](https://agentskills.io/specification)) |
 
 ## SKILL.md Content Structure
 
