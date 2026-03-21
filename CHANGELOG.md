@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.8.1](https://github.com/rlespinasse/agent-skills/compare/v1.8.0...v1.8.1) (2026-03-21)
+
+### Bug Fixes
+
+* **pin-github-actions:** add prompt injection mitigations ([#13](https://github.com/rlespinasse/agent-skills/issues/13)) ([cad3090](https://github.com/rlespinasse/agent-skills/commit/cad309016984bbe7298efd5dca000d49cc5fb4cd))
+* **verify-pr-logs:** add prompt injection mitigations ([#14](https://github.com/rlespinasse/agent-skills/issues/14)) ([3fdbfc0](https://github.com/rlespinasse/agent-skills/commit/3fdbfc0f97ea3e909604c6461d796ed1fdec74fc))
+
 ## [1.8.0](https://github.com/rlespinasse/agent-skills/compare/v1.7.0...v1.8.0) (2026-03-18)
 
 ### Features
