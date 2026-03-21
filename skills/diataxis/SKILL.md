@@ -9,25 +9,39 @@ You are helping the user organize and maintain their project documentation follo
 
 ## What is Diataxis?
 
-Diataxis is a systematic approach to technical documentation that organizes content
-into four distinct categories based on user needs:
+Diataxis (from Ancient Greek: *dia* — "across", *taxis* — "arrangement") is a systematic
+approach to technical documentation that organizes content into four categories based on
+user needs. See [diataxis.fr](https://diataxis.fr/) for the full framework.
 
 | Category          | Orientation            | Purpose                                  | Form                |
 | ----------------- | ---------------------- | ---------------------------------------- | ------------------- |
-| **Tutorials**     | Learning-oriented      | Help a beginner get started              | A lesson            |
-| **How-to guides** | Task-oriented          | Help the user accomplish a specific goal | A series of steps   |
-| **Explanation**   | Understanding-oriented | Help the user understand a concept       | A discursive essay  |
+| **Tutorials**     | Learning-oriented      | Guide a beginner through learning        | A lesson            |
+| **How-to guides** | Task-oriented          | Help accomplish a specific goal          | A series of steps   |
+| **Explanation**   | Understanding-oriented | Deepen understanding through discussion  | A discursive essay  |
 | **Reference**     | Information-oriented   | Provide precise technical descriptions   | Dry, accurate facts |
+
+### The Compass — Two Axes for Classification
+
+Use two questions to classify any content (see [references/compass.md](references/compass.md)):
+
+| | Acquisition (study) | Application (work) |
+| --- | --- | --- |
+| **Action** (practical) | Tutorial | How-to guide |
+| **Cognition** (theoretical) | Explanation | Reference |
+
+1. **"Is this about action or cognition?"** — Does the reader do something or understand something?
+2. **"Is this about acquisition or application?"** — Is the reader studying or working?
 
 ### Key Distinctions
 
-- **Tutorials vs How-to guides**: Tutorials teach (follow me), how-to guides direct (do this).
-  Tutorials are for learners, how-to guides are for practitioners.
-- **Explanation vs Reference**: Explanation discusses why and context, reference states what and how
-  precisely. Explanation is discursive, reference is austere.
-- **Practical vs Theoretical**: Tutorials and how-to guides are practical (doing).
+- **Tutorials vs How-to guides**: Tutorials teach ("follow me") for learners;
+  how-to guides direct ("do this") for practitioners. Tutorials are complete end-to-end;
+  how-to guides start and end at reasonable points the reader joins to their own work.
+- **Explanation vs Reference**: Explanation discusses why (discursive, admits opinion);
+  reference states what (austere, authoritative, no ambiguity).
+- **Action vs Cognition**: Tutorials and how-to guides are practical (doing).
   Explanation and reference are theoretical (knowing).
-- **Learning vs Working**: Tutorials and explanation serve learning/studying.
+- **Acquisition vs Application**: Tutorials and explanation serve learning/studying.
   How-to guides and reference serve working/coding.
 
 ## Step 1: Discover Existing Documentation
@@ -50,38 +64,44 @@ Analyze each documentation page and classify it into one of the four Diataxis ca
 
 ### Classification Rules
 
-**A page is a Tutorial if it:**
+Use the compass questions and these signals. For detailed writing guidance per category,
+see the reference files in `references/`.
 
-- Guides a beginner through a complete learning experience
-- Has a clear starting point and end goal
-- Uses phrases like "In this tutorial", "you will learn", "let's start by"
-- Follows a sequential, step-by-step narrative
-- Focuses on learning, not on accomplishing a real-world task
+**A page is a Tutorial if it** (see [references/tutorials.md](references/tutorials.md)):
 
-**A page is a How-to guide if it:**
+- Guides a beginner through a complete learning experience under the author's direction
+- Has a clear starting point and end goal, delivering visible results at each step
+- Uses first-person plural: "In this tutorial, we will...", "First, do x. Now, do y."
+- Follows a sequential narrative where the reader learns by doing
+- Focuses on learning acquisition, not on accomplishing a real-world task
+- Minimises explanation — links out instead of digressing
 
-- Addresses a specific task or problem
-- Assumes the reader already has basic knowledge
-- Uses action-oriented titles like "How to...", "Setting up...", "Configuring..."
-- Provides steps to achieve a concrete goal
-- Can be followed by someone who knows the basics
+**A page is a How-to guide if it** (see [references/how-to-guides.md](references/how-to-guides.md)):
 
-**A page is Explanation if it:**
+- Addresses a specific, concrete goal from the user's perspective (not the tool's)
+- Assumes the reader already has basic knowledge and knows what they want
+- Uses precise titles: "How to integrate monitoring", not "Monitoring"
+- Provides an executable solution: "if facing this situation, follow these steps"
+- Starts and ends at reasonable points — reader joins it to their own work
+- Stays practical without teaching concepts or including reference tables
 
-- Discusses concepts, background, or design decisions
-- Answers "why" questions
-- Provides context and reasoning
-- Uses discursive, narrative prose
-- Covers architecture, design choices, trade-offs
-- Has titles like "Understanding...", "About...", "Why we..."
+**A page is Explanation if it** (see [references/explanation.md](references/explanation.md)):
 
-**A page is Reference if it:**
+- Discusses concepts, background, design decisions, or trade-offs
+- Answers "Can you tell me about...?" — titles work with an implicit "About" prefix
+- Makes connections between concepts and provides context (history, reasons, alternatives)
+- Uses discursive prose that admits opinion and weighs multiple perspectives
+- Could make sense to read away from the keyboard
+- Resists absorbing instruction or reference material
 
-- Describes APIs, configurations, CLI flags, or data structures
-- Is structured for lookup, not reading end-to-end
-- Is factual and precise, with minimal narrative
-- Includes function signatures, parameter tables, return values
-- Has titles like "API Reference", "Configuration options", "CLI commands"
+**A page is Reference if it** (see [references/reference.md](references/reference.md)):
+
+- Describes APIs, configurations, CLI flags, or data structures authoritatively
+- Is structured for lookup (consulted, not read end-to-end)
+- Is austere, factual, and precise — states facts using declarative language
+- Mirrors the structure of the machinery it describes
+- Uses consistent, standard patterns across all entries
+- Provides minimal examples that demonstrate usage without teaching
 
 ### Mixed Content
 
@@ -174,97 +194,105 @@ Documentation gaps identified:
 2. Wait for user approval
 3. Create pages with proper structure for their category:
 
-**Tutorial template:**
+**Tutorial template** (see [references/tutorials.md](references/tutorials.md) for writing principles):
 
 ```markdown
-# Tutorial: [Title]
+# [Title — state what we will build/create]
 
-In this tutorial, you will learn how to [goal].
+In this tutorial, we will [concrete goal — what the reader will have at the end].
 
-## Prerequisites
+## Before you begin
 
 - [Prerequisite 1]
 
-## Step 1: [First step title]
+## Step 1: [First step — concrete action]
 
-[Instruction with explanation of what the learner is doing and why]
+[Direct instruction. Show expected output after each step.]
 
-## Step 2: [Second step title]
+The output should look something like:
 
-[Continue the learning journey]
+    [example output]
 
-## What you've learned
+## Step 2: [Second step — builds on previous]
 
-- [Summary point 1]
-- [Summary point 2]
+[Direct instruction. Point out what to notice.]
+
+Notice that [observation that closes a learning loop].
+
+## What you've built
+
+You have [concrete summary of achievement].
 
 ## Next steps
 
 - [Link to next tutorial or related how-to guide]
 ```
 
-**How-to guide template:**
+**How-to guide template** (see [references/how-to-guides.md](references/how-to-guides.md) for writing principles):
 
 ```markdown
-# How to [accomplish task]
+# How to [accomplish specific goal]
 
 This guide shows you how to [task description].
 
 ## Prerequisites
 
-- [Prerequisite 1]
+- [Prerequisite — assume basic competence]
 
 ## Steps
 
 ### 1. [First step]
 
-[Concise instruction]
+[Concise, actionable instruction]
 
 ### 2. [Second step]
 
-[Concise instruction]
+[Concise, actionable instruction]
+
+Refer to the [x reference](link) for a full list of options.
 
 ## Troubleshooting
 
 ### [Common problem]
 
-[Solution]
+If you want [x], do [y].
 ```
 
-**Explanation template:**
+**Explanation template** (see [references/explanation.md](references/explanation.md) for writing principles):
 
 ```markdown
-# [Topic]
+# [Topic — should read naturally after "About"]
 
 [Opening paragraph that establishes context and scope]
 
 ## Background
 
-[Historical context or foundational concepts]
+[Historical context, design decisions, or foundational concepts]
 
 ## [Main concept]
 
-[Discursive explanation with reasoning]
+[Discursive explanation — make connections, provide context, admit perspective]
 
-## Trade-offs
+The reason for [x] is because [historical/technical context].
+[W] is better than [z] because [reasoning].
 
-[Discussion of alternatives and why this approach was chosen]
+## Alternatives and trade-offs
+
+[Discussion of other approaches and why this one was chosen]
 
 ## Further reading
 
 - [Related resources]
 ```
 
-**Reference template:**
+**Reference template** (see [references/reference.md](references/reference.md) for writing principles):
 
 ```markdown
 # [Component] Reference
 
-## Overview
+[One-line description of what this reference covers]
 
-[Brief description of what this reference covers]
-
-## [Section]
+## [Section — mirrors structure of the machinery]
 
 | Parameter | Type   | Default | Description |
 | --------- | ------ | ------- | ----------- |
@@ -276,10 +304,14 @@ This guide shows you how to [task description].
 
 **Parameters:**
 
-- `param1` (type) - Description
-- `param2` (type) - Description
+- `param1` (type) — Description
+- `param2` (type) — Description
 
 **Returns:** Description of return value
+
+**Example:**
+
+    result = function_name("value", 42)
 ```
 
 1. Fill in content based on project analysis (source code, existing docs, configuration files)
@@ -303,3 +335,19 @@ If a page is already in the right category but needs improvement to better follo
 - **Maintain links**: When moving files, update all cross-references and navigation configurations.
 - **Respect the user's decisions**: If the user disagrees with a classification or restructuring
   suggestion, accept their decision and adjust accordingly.
+- **Quality awareness**: Diataxis facilitates quality but cannot guarantee it — accuracy,
+  completeness, and good writing remain the author's responsibility. See
+  [references/quality.md](references/quality.md) for quality dimensions.
+- **Use the compass when in doubt**: When classification is unclear or writing feels difficult,
+  apply the two compass questions. See [references/compass.md](references/compass.md).
+
+## Reference Documents
+
+Detailed writing guidance for each category, extracted from [diataxis.fr](https://diataxis.fr/):
+
+- [references/tutorials.md](references/tutorials.md) — Pedagogical principles, language conventions, anti-patterns
+- [references/how-to-guides.md](references/how-to-guides.md) — Writing principles, scope, distinction from tutorials
+- [references/explanation.md](references/explanation.md) — Characteristics, discussion areas, naming test
+- [references/reference.md](references/reference.md) — Austerity principles, structure mirroring, examples
+- [references/compass.md](references/compass.md) — Two-axis decision tool for classification
+- [references/quality.md](references/quality.md) — Functional and deep quality dimensions
