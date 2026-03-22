@@ -1,15 +1,3 @@
-# Set up local development environment (git hooks)
-[group('development')]
-setup:
-    echo "🔧 Setting up development environment..."
-    git config core.hooksPath .githooks
-    echo "✅ Git hooks configured (using .githooks/)"
-
-# Check everything before commit
-[group('development')]
-pre-commit: sync fix check
-    echo "✅ Ready to commit"
-
 # Watch markdown files for changes (requires entr)
 [group('development')]
 watch:

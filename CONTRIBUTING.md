@@ -16,16 +16,7 @@ Thank you for your interest in contributing!
    - [just](https://github.com/casey/just) - Command runner
    - [Node.js](https://nodejs.org/) (LTS) - For npx tooling
 
-3. **Set up git hooks**
-
-   ```bash
-   just setup
-   ```
-
-   This configures `core.hooksPath` to use `.githooks/`, which runs `just sync` and
-   `just pre-commit` automatically before every commit.
-
-4. **Verify everything works**
+3. **Verify everything works**
 
    ```bash
    just check
@@ -57,19 +48,21 @@ Thank you for your interest in contributing!
    decision paths (5-7 evals minimum), include a scope boundary test and an ambiguous request test.
    See the [Evals Schema](docs/reference-skill-spec.md#evals-schema) for field definitions.
 
-5. **Commit** (the pre-commit hook runs sync and checks automatically):
+5. **Commit**:
 
    ```bash
    git add skills/my-skill-name/
    git commit -m "feat: add my-skill-name skill"
    ```
 
+   Generated files and formatting are automatically fixed by the autofix workflow
+   on same-repo PRs. For fork PRs, run `just autofix` locally before pushing.
+
 ## Making Changes
 
 1. Create a branch: `git checkout -b feat/my-feature`
 2. Make your changes
-3. Commit with [Conventional Commits](https://www.conventionalcommits.org/) format
-   (the pre-commit hook syncs generated files, fixes formatting, and runs all checks):
+3. Commit with [Conventional Commits](https://www.conventionalcommits.org/) format:
    `<type>(<scope>): <subject>`
 
    ```bash
@@ -81,7 +74,7 @@ Thank you for your interest in contributing!
 
 ## Maintaining Skills
 
-- **Update a skill**: edit `SKILL.md`, run `just pre-commit`, commit
+- **Update a skill**: edit `SKILL.md`, run `just autofix`, commit
 - **Fix markdown linting**: run `just lint-fix`, then `just lint` for remaining issues
 - **Fix generated files out of sync**: run `just sync`
 - **Remove a skill**: delete the directory, run `just sync`, commit as breaking change

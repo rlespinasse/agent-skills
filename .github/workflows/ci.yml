@@ -28,47 +28,18 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Verify justfile formatting
-        run: |
-          cp justfile justfile.backup
-          just format
-          if ! diff -u justfile.backup justfile; then
-            echo "❌ justfile is not formatted. Run 'just format' locally."
-            exit 1
-          fi
-          rm justfile.backup
+      - name: Autofix
+        run: just autofix
 
-      - name: Verify README is up-to-date
+      - name: Verify no unfixed changes
         run: |
-          cp README.md README.md.backup
-          just update-readme
-          if ! diff -u README.md.backup README.md; then
-            echo "❌ README.md is not up-to-date. Run 'just update-readme' locally."
-            exit 1
-          fi
-          rm README.md.backup
-
-      - name: Verify markdown formatting
-        run: |
-          just fix
           if ! git diff --exit-code; then
-            echo "❌ Files are not properly formatted. Run 'just fix' locally."
+            echo "❌ Generated files are out of sync or formatting issues remain."
+            echo ""
+            echo "Run 'just autofix' locally, then commit and push the changes."
             git diff
             exit 1
           fi
-
-      - name: Run all checks
-        run: just check
-
-      - name: Verify marketplace.json is up-to-date
-        run: |
-          cp .claude-plugin/marketplace.json .claude-plugin/marketplace.json.backup
-          just update-marketplace
-          if ! diff -u .claude-plugin/marketplace.json.backup .claude-plugin/marketplace.json; then
-            echo "❌ marketplace.json is not up-to-date. Run 'just update-marketplace' locally."
-            exit 1
-          fi
-          rm .claude-plugin/marketplace.json.backup
 
       - name: Setup Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0

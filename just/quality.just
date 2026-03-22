@@ -169,6 +169,11 @@ check: lint validate check-evals
 fix: lint-fix
     echo "✅ All fixes applied"
 
+# Auto-fix formatting, sync generated files, and run all checks
+[group('quality')]
+autofix: format sync fix check
+    echo "✅ All autofix steps completed"
+
 # Format the justfile
 [group('quality')]
 format:
