@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.10.0](https://github.com/rlespinasse/agent-skills/compare/v1.9.0...v1.10.0) (2026-03-22)
+
+### Features
+
+* add claude-code-usage-report skill ([#18](https://github.com/rlespinasse/agent-skills/issues/18)) ([3b22b9f](https://github.com/rlespinasse/agent-skills/commit/3b22b9f6e6cfa1a009df57644d4874ef3ecc579e))
+
 ## [1.9.0](https://github.com/rlespinasse/agent-skills/compare/v1.8.1...v1.9.0) (2026-03-21)
 
 ### Features
