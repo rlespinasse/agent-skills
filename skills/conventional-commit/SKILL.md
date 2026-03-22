@@ -117,6 +117,11 @@ If the staged changes contain **multiple unrelated changes**:
 - If a feature includes tests, the type is `feat` (not `test`)
 - If a bug fix includes a refactor, the type is `fix` (not `refactor`)
 - The type reflects the reason for the change, not every file touched
+- **Exception — scope-inherent types**: When all changed files belong to a single domain that has
+  its own type, use that type directly without a scope. For example, if a commit only touches CI/CD
+  files (e.g., `.github/workflows/`), use `ci:` — not `fix(ci):` or `feat(ci):`. The same applies
+  to `docs:` (only documentation files), `test:` (only test files), and `build:` (only build config).
+  These types already convey the scope, so adding it as a parenthetical is redundant.
 
 ### Step 4: Determine the Scope
 
