@@ -1,18 +1,3 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Editor
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Node
-npm-debug.log*
-
-# Temporary files
-*.tmp
-*.bak
+__pycache__/
+*.pyc
+*.pyo

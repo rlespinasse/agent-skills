@@ -4,6 +4,13 @@ A collection of [Agent Skills](https://agentskills.io/) for AI coding assistants
 
 ## Available Skills
 
+### claude-code-usage-report
+
+Generates a token usage and cost estimation report for Claude Code sessions.  Analyzes local session JSONL files to
+report per-model token consumption, API-equivalent  costs, and per-project breakdowns. Use when user mentions token
+usage, cost report,  spending, usage report, session stats, or how much Claude Code costs. Supports filtering  by date
+range, project, or plan type.
+
 ### conventional-commit
 
 Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
