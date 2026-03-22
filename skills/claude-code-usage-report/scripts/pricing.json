@@ -1,0 +1,70 @@
+{
+  "source": "https://docs.anthropic.com/en/docs/about-claude/pricing",
+  "updated": "2026-03-22",
+  "page_hash": "",
+  "models": {
+    "opus:current": {
+      "label": "Opus 4.5/4.6",
+      "input": 5.0,
+      "output": 25.0,
+      "cache_read": 0.5,
+      "cache_write": 6.25
+    },
+    "sonnet:current": {
+      "label": "Sonnet 4.5/4.6",
+      "input": 3.0,
+      "output": 15.0,
+      "cache_read": 0.3,
+      "cache_write": 3.75
+    },
+    "haiku:current": {
+      "label": "Haiku 4.5",
+      "input": 1.0,
+      "output": 5.0,
+      "cache_read": 0.1,
+      "cache_write": 1.25
+    },
+    "opus:previous": {
+      "label": "Opus 4.0/4.1",
+      "input": 15.0,
+      "output": 75.0,
+      "cache_read": 1.5,
+      "cache_write": 18.75
+    },
+    "sonnet:previous": {
+      "label": "Sonnet 4.0",
+      "input": 3.0,
+      "output": 15.0,
+      "cache_read": 0.3,
+      "cache_write": 3.75
+    },
+    "haiku:legacy": {
+      "label": "Haiku 3.5",
+      "input": 0.8,
+      "output": 4.0,
+      "cache_read": 0.08,
+      "cache_write": 1.0
+    },
+    "haiku:legacy-3": {
+      "label": "Haiku 3",
+      "input": 0.25,
+      "output": 1.25,
+      "cache_read": 0.03,
+      "cache_write": 0.3
+    }
+  },
+  "plans": [
+    {
+      "name": "Pro",
+      "monthly": 20.0
+    },
+    {
+      "name": "Max 5x",
+      "monthly": 100.0
+    },
+    {
+      "name": "Max 20x",
+      "monthly": 200.0
+    }
+  ]
+}

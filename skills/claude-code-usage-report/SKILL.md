@@ -38,57 +38,24 @@ Each line is a JSON object. Token usage is at `message.usage`:
 Model identification is at `message.model` (contains `opus`, `sonnet`, or `haiku`).
 Timestamps are at `timestamp` (ISO 8601 format).
 
-## Pricing Reference (per 1M tokens)
+## Pricing
 
-Pricing depends on the **model generation**. The `message.model` field in session
-data contains the full model ID (e.g., `claude-opus-4-6`, `claude-opus-4-1-20250805`).
-Match the model ID to the correct generation pricing.
+All pricing data (model token costs and subscription plans) is stored in
+[scripts/pricing.json](scripts/pricing.json) — the single source of truth
+used by the script. The file includes an `updated` date field so the user
+can see when prices were last verified.
 
-### Current generation (4.5 / 4.6)
+If the user asks to update pricing:
 
-| Model | Input | Output | Cache Read | Cache Write (5m) |
-| --- | --- | --- | --- | --- |
-| Opus 4.6 / 4.5 | $5.00 | $25.00 | $0.50 | $6.25 |
-| Sonnet 4.6 / 4.5 | $3.00 | $15.00 | $0.30 | $3.75 |
-| Haiku 4.5 | $1.00 | $5.00 | $0.10 | $1.25 |
+1. Run `python3 <skill-path>/scripts/usage_report.py --update-pricing`
+   to display the current `pricing.json` values and update the checked date
+2. Fetch <https://docs.anthropic.com/en/docs/about-claude/pricing> using
+   your web tools to get the latest prices
+3. Compare fetched prices with `pricing.json` values
+4. Edit `pricing.json` with any changed values
 
-### Previous generation (4.0 / 4.1)
-
-| Model | Input | Output | Cache Read | Cache Write (5m) |
-| --- | --- | --- | --- | --- |
-| Opus 4.1 / 4.0 | $15.00 | $75.00 | $1.50 | $18.75 |
-| Sonnet 4.0 | $3.00 | $15.00 | $0.30 | $3.75 |
-
-### Legacy (3.x)
-
-| Model | Input | Output | Cache Read | Cache Write (5m) |
-| --- | --- | --- | --- | --- |
-| Haiku 3.5 | $0.80 | $4.00 | $0.08 | $1.00 |
-| Haiku 3 | $0.25 | $1.25 | $0.03 | $0.30 |
-
-#### Model ID to Generation Mapping
-
-Use the model ID string to determine generation:
-
-```python
-def get_generation(model_id):
-    if "4-6" in model_id or "4-5" in model_id:
-        return "current"
-    if "4-1" in model_id or "4-0" in model_id or "4-20" in model_id:
-        return "previous"
-    return "legacy"
-```
-
-**Important:** These prices may change. If the user provides updated pricing,
-use their values instead. When in doubt, fetch the latest prices from
-<https://docs.anthropic.com/en/docs/about-claude/pricing>.
-
-## Subscription Plan Reference
-
-| Plan | Monthly Cost |
-| --- | --- |
-| Max 5x | $100/month |
-| Max 20x | $200/month |
+The report displays the pricing data date so the user knows how current
+the prices are.
 
 ## Report Process
 
@@ -98,88 +65,56 @@ Parse the user's request to determine:
 
 - **Date range**: "since Feb 18", "last month", "all time", "this week"
 - **Project filter**: specific project, current project, or all projects
-- **Plan context**: which plan the user is on (for savings comparison)
 
 If the user does not specify a scope, ask them to clarify.
 Default to "all projects" if only a date range is given.
 
 ### Step 2: Collect Data
 
-Run a **single Python script** via Bash to scan all relevant JSONL files.
-The script must:
+Run the bundled script at [scripts/usage_report.py](scripts/usage_report.py)
+to scan and aggregate session data. Resolve the script path relative to
+the skill installation directory.
 
-1. Scan `~/.claude/projects/` subdirectories (or a specific one)
-2. Parse each JSONL file line by line
-3. Filter by date range if specified (compare `timestamp` against cutoff)
-4. Classify model from `message.model` (opus/sonnet/haiku) **and generation**
-   (4.6/4.5 vs 4.1/4.0 vs 3.x) to apply the correct pricing tier
-5. Accumulate per-project, per-model token counts
-6. Count main sessions and subagent sessions
-7. Compute daily token/cost totals
-8. Calculate API-equivalent costs using the pricing table
-
-**Critical:** Do this in a single Bash/Python invocation, not multiple tool calls.
-
-#### Dynamic Username Detection
-
-Extract the username from project directory paths dynamically:
-
-```python
-import os
-home = os.path.expanduser("~")
-username = os.path.basename(home)
+```bash
+python3 <skill-path>/scripts/usage_report.py \
+  [--start-date YYYY-MM-DD] \
+  [--end-date YYYY-MM-DD] \
+  [--project PROJECT_NAME] \
+  [--output PATH] \
+  [--update-pricing]
 ```
 
-Use this to clean project names by stripping the
-`-Users-<username>-git-` prefix and replacing `-` with `/`.
+| Argument | Description | Default |
+| --- | --- | --- |
+| `--start-date` | Include only data on or after this date | No filter |
+| `--end-date` | Include only data on or before this date | No filter |
+| `--project` | Project directory name or substring | All projects |
+| `--output` | Report output file path | `~/claude-code-usage-report.txt` |
+| `--update-pricing` | Fetch pricing page and guide update of `pricing.json` | — |
+
+The script outputs the formatted report to stdout and saves it to the
+output file. It uses only Python stdlib (no dependencies to install).
+
+The report always includes a **Plan ROI Comparison** section showing
+savings for all plans (Pro, Max 5x, Max 20x) against API-equivalent cost.
 
 ### Step 3: Present the Report
 
-The report must include these sections in order.
+The script produces a formatted report with these sections:
 
-#### Global Summary
+1. **Global Summary** — active projects, session counts, total tokens,
+   API equivalent cost
+2. **Plan ROI Comparison** — savings for Pro, Max 5x, and Max 20x plans
+3. **Model Breakdown** — per-model token counts and costs with a TOTAL row
+4. **Cost Breakdown by Type** — input/output/cache cost split per model
+5. **Daily Usage** — tokens and cost per active day
+6. **Per-Project Breakdown** — sorted by cost descending with per-model detail
 
-```text
-Active projects:      N
-Sessions:             N main + N subagent
-Total tokens:         N
-API equivalent cost:  $X.XX
-[Plan] actual cost:   $X.XX (N months x $X)
-Savings vs API:       $X.XX (N%)
-```
+Present the script output to the user. The report is also saved
+automatically to the `--output` path (default `~/claude-code-usage-report.txt`).
+Inform the user of the saved file path.
 
-Include the plan comparison only if the user has specified their plan.
-
-#### Model Breakdown (Global)
-
-Table with columns: Model, Input, Output, Cache Read, Cache Create, Cost.
-Show each model that has usage, plus a TOTAL row.
-
-#### Cost Breakdown by Type (Global)
-
-For each model show:
-`input=$X | output=$X | cache_read=$X | cache_create=$X`
-
-#### Daily Usage
-
-Table with columns: Date, Tokens, API Cost.
-One row per active day, plus a TOTAL row.
-
-#### Per-Project Breakdown
-
-Sorted by cost descending. For each project:
-
-- Project name (cleaned: remove user path prefix, use `/` separators)
-- Session count (main+subagent)
-- Total tokens and API cost
-- Per-model detail: `model in=N out=N cache_r=N cache_w=N $X.XX`
-
-### Step 4: Save the Report
-
-Save the full report to `~/claude-code-usage-report.txt` (overwrite if exists).
-Inform the user of the file path.
-
-### Step 5: Highlight Key Insights
+### Step 4: Highlight Key Insights
 
 After the full report, add a brief summary highlighting:
 
@@ -211,10 +146,10 @@ After the full report, add a brief summary highlighting:
 
 | Anti-pattern | Better alternative |
 | --- | --- |
-| Making per-file tool calls | Single Python script scans everything |
-| Hardcoding plan prices | Use pricing table, accept user overrides |
-| Ignoring subagent files | Always include `*/subagents/*.jsonl` |
-| Showing raw directory names | Clean up to readable project names |
-| Omitting cache tokens | Always show all four token types |
+| Generating a script from scratch | Use the bundled `scripts/usage_report.py` |
+| Making per-file tool calls | The bundled script scans everything |
+| Hardcoding prices in the skill | Prices live in `scripts/pricing.json` |
+| Ignoring subagent files | Script includes `*/subagents/*.jsonl` |
+| Showing raw directory names | Script cleans up to readable project names |
+| Omitting cache tokens | Script shows all four token types |
 | Guessing the date range | Ask the user if ambiguous |
-| Hardcoding username in cleanup | Detect dynamically from `$HOME` |
