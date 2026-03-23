@@ -1,28 +1,28 @@
 {
   "source": "https://docs.anthropic.com/en/docs/about-claude/pricing",
-  "updated": "2026-03-22",
-  "page_hash": "",
+  "updated": "2026-03-23",
+  "page_hash": "756cba188eb6972a92827d86229b8e5c5636a9fb0e84f6972fe423bb56879a4f",
   "models": {
     "opus:current": {
       "label": "Opus 4.5/4.6",
       "input": 5.0,
-      "output": 25.0,
-      "cache_read": 0.5,
-      "cache_write": 6.25
+      "output": 6.25,
+      "cache_read": 10.0,
+      "cache_write": 0.5
     },
     "sonnet:current": {
       "label": "Sonnet 4.5/4.6",
       "input": 3.0,
-      "output": 15.0,
-      "cache_read": 0.3,
-      "cache_write": 3.75
+      "output": 3.75,
+      "cache_read": 6.0,
+      "cache_write": 0.3
     },
     "haiku:current": {
       "label": "Haiku 4.5",
       "input": 1.0,
-      "output": 5.0,
-      "cache_read": 0.1,
-      "cache_write": 1.25
+      "output": 1.25,
+      "cache_read": 2.0,
+      "cache_write": 0.1
     },
     "opus:previous": {
       "label": "Opus 4.0/4.1",
