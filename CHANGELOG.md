@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.11.1](https://github.com/rlespinasse/agent-skills/compare/v1.11.0...v1.11.1) (2026-03-26)
+
+### Build System
+
+* **deps:** bump the dependencies group with 2 updates ([#19](https://github.com/rlespinasse/agent-skills/issues/19)) ([e7ca963](https://github.com/rlespinasse/agent-skills/commit/e7ca9631f15e1b77cf67175bf3f38843c99a8ac5))
+
 ## [1.11.0](https://github.com/rlespinasse/agent-skills/compare/v1.10.0...v1.11.0) (2026-03-23)
 
 ### Features
