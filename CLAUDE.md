@@ -53,7 +53,7 @@ structure, evals schema, and description patterns.
 Before committing:
 
 1. Run `just autofix` - Formats, syncs generated files, fixes linting, and runs all checks
-2. Manually test skill installation: `npx skills add rlespinasse/agent-skills/skill-name`
+2. Manually test skill installation: `npx skills add https://github.com/rlespinasse/agent-skills --skill skill-name`
 
 Generated files and formatting are automatically fixed by the autofix workflow on same-repo PRs.
 

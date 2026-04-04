@@ -11,12 +11,20 @@ report per-model token consumption, API-equivalent  costs, and per-project break
 usage, cost report,  spending, usage report, session stats, or how much Claude Code costs. Supports filtering  by date
 range, project, or plan type.
 
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill claude-code-usage-report
+```
+
 ### conventional-commit
 
 Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
 practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, indexed
 files, fixup, or fixup commit. Helps craft well-structured,  meaningful commit messages including fixup commits with
 optional autosquash.
+
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill conventional-commit
+```
 
 ### diataxis
 
@@ -25,12 +33,20 @@ tutorials/how-to/explanation/reference categories, identifies gaps, and helps cr
 following Diataxis principles. Use when user mentions documentation structure, Diataxis, doc categories, tutorials vs
 how-to guides, or reorganizing docs.
 
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill diataxis
+```
+
 ### drawio-export-tools
 
 Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless
 (base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub
 Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
 right tool based on context.
+
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export-tools
+```
 
 ### french-language
 
@@ -39,11 +55,19 @@ mentions french, français, langue française, accents, orthographe,  typographi
 requires French language content. Also use when  generating any text-based file (SVG, Mermaid, PlantUML, Draw.io, HTML,
 CSV, JSON, YAML, etc.)  in a French-language project. Helps enforce French writing conventions across all file types.
 
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill french-language
+```
+
 ### local-branches-status
 
 Reports the status of all local git branches with remote sync state, main branch diff,  worktree path, last activity
 date, and content description. Use when user mentions branch status,  branch overview, local branches, branch report,
 or branch summary. Helps understand the state of  all branches at a glance.
+
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill local-branches-status
+```
 
 ### pin-github-actions
 
@@ -51,17 +75,29 @@ Migrates GitHub Actions workflows to use pinned commit SHAs instead of  tags, re
 flags major version jumps, and configures  Dependabot with grouped updates. Use when user mentions pin actions, pinned
 versions,  SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security.
 
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill pin-github-actions
+```
+
 ### verify-pr-logs
 
 Checks GitHub Actions CI logs on a pull request, diagnoses failures,  and guides the agent to implement fixes. Use when
 user mentions CI failing, check  PR logs, fix pipeline, GitHub Actions errors, workflow failures, build broken, tests
 failing on PR, or debug CI. Focuses on PR-scoped CI analysis only.
 
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill verify-pr-logs
+```
+
 ### verify-readme-features
 
 Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use
 when user mentions verify features, check feature list,  confirm README, validate documentation claims, or audit
 feature accuracy.  Helps catch stale, missing, or inaccurate feature descriptions.
+
+```bash
+npx skills add https://github.com/rlespinasse/agent-skills --skill verify-readme-features
+```
 
 ## Installation
 
@@ -70,13 +106,13 @@ feature accuracy.  Helps catch stale, missing, or inaccurate feature description
 Install all skills:
 
 ```bash
-npx skills add rlespinasse/agent-skills
+npx skills add https://github.com/rlespinasse/agent-skills
 ```
 
 Install specific skill:
 
 ```bash
-npx skills add rlespinasse/agent-skills/drawio-export-tools
+npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export-tools
 ```
 
 ### Via Claude Code plugin
