@@ -97,7 +97,7 @@ These skills work with:
 - VS Code
 - GitHub Copilot
 - Gemini CLI
-- And 30+ other AI coding assistants
+- And other AI coding assistants supporting the [Agent Skills specification](https://agentskills.io/specification)
 
 ## Related Projects
 
@@ -111,7 +111,7 @@ These skills work with:
 Author: [@rlespinasse](https://github.com/rlespinasse)
 
 These skills follow the [Agent Skills specification](https://agentskills.io/specification)
-and are designed to help AI agents effectively use the Draw.io export ecosystem.
+and are designed to help AI agents make better decisions across common development tasks.
 
 ## Contributing
 
