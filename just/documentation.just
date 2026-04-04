@@ -19,11 +19,15 @@ update-readme:
         # Extract description: line after "description:" until next "---"
         desc=$(sed -n '/^description:/,/^---$/p' "${skill_dir}SKILL.md" | sed '1s/^description: *//;$d' | tr -d '\n')
 
-        # Write skill entry with word wrapping
+        # Write skill entry with word wrapping and install snippet
         {
             echo "### ${skill_name}"
             echo ""
             echo "$desc" | fold -s -w 120 | sed 's/[[:space:]]*$//'
+            echo ""
+            echo '```bash'
+            echo "npx skills add https://github.com/rlespinasse/agent-skills --skill ${skill_name}"
+            echo '```'
             echo ""
         } >> skills.md.tmp
     done
