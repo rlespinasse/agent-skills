@@ -5,6 +5,9 @@ update-readme:
     set -euo pipefail
     echo "📝 Updating README.md..."
 
+    # Clean up temp files on exit
+    trap 'rm -f skills.md.tmp readme-new.md.tmp' EXIT
+
     # Build skills section
     > skills.md.tmp
     for skill_dir in skills/*/; do
@@ -32,7 +35,6 @@ update-readme:
     sed -n '/^## Installation$/,$p' README.md >> readme-new.md.tmp
 
     mv readme-new.md.tmp README.md
-    rm skills.md.tmp
 
     echo "✅ README.md updated"
 

@@ -13,6 +13,10 @@ import 'just/python.just'
 default:
     just --list
 
+# Auto-fix formatting, sync generated files, and run all checks
+autofix: format sync fix check
+    echo "✅ All autofix steps completed"
+
 # Validate commit message format
 [group('release')]
 validate-commit message:

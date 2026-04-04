@@ -72,7 +72,7 @@ test-skill skill="":
     echo "🧪 Testing {{ skill }} skill..."
     echo ""
     echo "📋 Validating skill structure..."
-    just validate
+    just validate-skill "{{ skill }}"
     echo ""
     echo "📝 Skill content preview:"
     echo "===================="
