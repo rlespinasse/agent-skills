@@ -59,9 +59,10 @@ worktree_list=$(git worktree list)
 for branch in $(git for-each-ref --format='%(refname:short)' refs/heads/); do
   # Remote sync state
   upstream=$(git for-each-ref --format='%(upstream:short)' "refs/heads/$branch")
-  if [ -n "$upstream" ]; then
+  if [ -n "$upstream" ] && git rev-parse --verify "refs/remotes/$upstream" &>/dev/null; then
     counts=$(git rev-list --left-right --count "$upstream...$branch" 2>/dev/null || echo "0 0")
   else
+    upstream=""
     counts="no_upstream"
   fi
 
@@ -193,6 +194,9 @@ Only include notes that are relevant — skip empty categories.
 - **Many branches**: If there are more than 20 branches, suggest filtering by activity
   (e.g., branches with commits in the last 30 days)
 - **No remote**: If the repository has no remote configured, skip the Remote column entirely
+- **Pruned upstream**: A branch may have an upstream configured in `.git/config` that no longer
+  exists on the remote (e.g., after `git fetch --prune`). Always verify the upstream ref exists
+  before using it — treat branches with stale upstream refs as having no upstream
 
 ## Anti-patterns to Avoid
 
