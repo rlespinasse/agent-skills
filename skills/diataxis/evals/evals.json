@@ -165,5 +165,50 @@
       "skills/diataxis/SKILL.md",
       "skills/diataxis/references/quality.md"
     ]
+  },
+  {
+    "id": "respect-prior-reclassification",
+    "prompt": "I have a docs/reference/troubleshooting.md file. Git history shows commit 'docs(diataxis): reclassify troubleshoot as reference' that moved it from how-to/ to reference/. Should I move it back to how-to?",
+    "expected_output": "Respects the prior deliberate reclassification and does not recommend moving the file",
+    "assertions": [
+      "acknowledges the prior deliberate reclassification commit",
+      "does not recommend moving the file back to how-to",
+      "explains that the prior decision reflects a judgment that should be respected",
+      "suggests only revisiting if the user explicitly wants to reconsider"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md"
+    ]
+  },
+  {
+    "id": "troubleshooting-boundary-case",
+    "prompt": "I have a troubleshooting page with a table of symptoms, causes, and fixes. Is it Reference or How-to?",
+    "expected_output": "Classifies a lookup-style troubleshooting page as Reference",
+    "assertions": [
+      "identifies the page as Reference based on its lookup structure",
+      "explains that the format (structured lookup table) determines the category, not the subject matter",
+      "distinguishes from a step-by-step diagnostic walkthrough which would be How-to",
+      "mentions that troubleshooting is a boundary case where the compass alone is insufficient"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/reference.md",
+      "skills/diataxis/references/how-to-guides.md"
+    ]
+  },
+  {
+    "id": "diagnostic-walkthrough-boundary-case",
+    "prompt": "I have a troubleshooting page that walks the reader through a diagnostic process: 'First check the logs, then verify the config, then test the connection.' Is it Reference or How-to?",
+    "expected_output": "Classifies a step-by-step diagnostic page as How-to",
+    "assertions": [
+      "identifies the page as How-to based on its sequential, goal-oriented structure",
+      "explains that step-by-step diagnostic processes are action-oriented and application-oriented",
+      "distinguishes from a lookup table of symptoms and fixes which would be Reference",
+      "applies the compass correctly: action + application = How-to"
+    ],
+    "files": [
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/how-to-guides.md"
+    ]
   }
 ]

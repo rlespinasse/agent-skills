@@ -62,6 +62,19 @@ Use two questions to classify any content (see [references/compass.md](reference
 
 Analyze each documentation page and classify it into one of the four Diataxis categories.
 
+### Respect Prior Classification Decisions
+
+Before suggesting reclassification, check git history for deliberate prior moves:
+
+```bash
+git log --all --oneline --diff-filter=R -- 'docs/**/*.md'
+```
+
+If a file was intentionally moved between categories (e.g., a commit message like
+`docs(diataxis): reclassify X as reference`), **respect that decision** unless the user
+explicitly asks to revisit it. A prior deliberate reclassification reflects a judgment
+that the compass alone may not capture — flag it to the user rather than overriding it.
+
 ### Classification Rules
 
 Use the compass questions and these signals. For detailed writing guidance per category,
@@ -109,6 +122,23 @@ Many pages contain content from multiple categories. Flag these for the user and
 
 - "This page mixes tutorial content (the getting started section) with reference content
   (the API table). Consider splitting into a tutorial and a reference page."
+
+### Boundary Cases
+
+Some content types sit at the compass boundary. Do not apply the compass mechanically —
+consider the page's **structure and intended use**:
+
+- **Troubleshooting**: A lookup table of symptoms, causes, and fixes is **Reference**
+  (structured for consultation, mirrors problem structure, austere facts). A page that
+  walks through a diagnostic process step-by-step is **How-to** (goal-oriented sequence).
+  The format determines the category, not the subject matter.
+- **FAQ pages**: Individual Q&A entries are often **Reference** (lookup). A curated FAQ
+  that builds understanding is **Explanation**.
+- **Migration guides**: Step-by-step upgrade instructions are **How-to**. A discussion
+  of what changed and why is **Explanation**.
+
+When in doubt about a boundary case, consider: *how will the reader use this page?*
+Consulted for lookup → Reference. Followed as steps → How-to.
 
 ### Present Classification Results
 
