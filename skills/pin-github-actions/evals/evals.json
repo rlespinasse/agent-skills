@@ -102,5 +102,20 @@
     "files": [
       "skills/pin-github-actions/SKILL.md"
     ]
+  },
+  {
+    "id": "all-actions-already-pinned",
+    "prompt": "Pin all my GitHub Actions. Here is my workflow: uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2 and uses: actions/setup-node@1a4442cacd436585916f1602891dd6f2de9e3bec # v5.0.0",
+    "expected_output": "Detects all actions are already SHA-pinned and asks the user before checking for updates",
+    "assertions": [
+      "identifies that all action references are already SHA-pinned with version comments",
+      "presents the current state table showing pinned status",
+      "asks the user whether they want to check for available updates",
+      "does not make API calls to resolve versions without user confirmation",
+      "if user declines, skips resolution and proceeds to Dependabot configuration"
+    ],
+    "files": [
+      "skills/pin-github-actions/SKILL.md"
+    ]
   }
 ]
