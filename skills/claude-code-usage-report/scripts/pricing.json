@@ -1,7 +1,7 @@
 {
   "source": "https://docs.anthropic.com/en/docs/about-claude/pricing",
-  "updated": "2026-04-04",
-  "page_hash": "",
+  "updated": "2026-04-05",
+  "page_hash": "314576a38567139cdf48c5e891957d468a1ff5067305988ae26bfa93e1f7d918",
   "models": {
     "opus:current": {
       "label": "Opus 4.5/4.6",
