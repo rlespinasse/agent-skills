@@ -8,6 +8,7 @@ import 'just/skills.just'
 import 'just/documentation.just'
 import 'just/development.just'
 import 'just/python.just'
+import 'just/evals.just'
 
 # List available recipes
 default:
