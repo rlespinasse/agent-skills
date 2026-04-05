@@ -14,8 +14,9 @@ range, project, or plan type.
 ### conventional-commit
 
 Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
-practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, or indexed
-files. Helps craft well-structured, meaningful commit messages.
+practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, indexed
+files, fixup, or fixup commit. Helps craft well-structured,  meaningful commit messages including fixup commits with
+optional autosquash.
 
 ### diataxis
 
