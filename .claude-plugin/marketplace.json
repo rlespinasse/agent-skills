@@ -12,7 +12,7 @@
     {
       "name": "conventional-commit",
       "path": "skills/conventional-commit",
-      "description": "Guides committing staged (indexed) git files using the Conventional Commits specification and commit message best practices. Use when user mentions commit, git commit, conventional commit, commit message, staged files, or indexed files. Helps craft well-structured, meaningful commit messages."
+      "description": "Guides committing staged (indexed) git files using the Conventional Commits specification and commit message best practices. Use when user mentions commit, git commit, conventional commit, commit message, staged files, indexed files, fixup, or fixup commit. Helps craft well-structured, meaningful commit messages including fixup commits with optional autosquash."
     },
     {
       "name": "diataxis",

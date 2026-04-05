@@ -124,5 +124,34 @@
     "files": [
       "skills/conventional-commit/SKILL.md"
     ]
+  },
+  {
+    "id": "fixup-commit-on-branch",
+    "prompt": "This is a fixup for the OAuth commit. My staged change fixes a typo in the OAuth login flow I added earlier on this branch.",
+    "expected_output": "Creates a fixup! commit targeting the original OAuth commit on the current branch",
+    "assertions": [
+      "determines the branch boundary using git merge-base HEAD origin/main",
+      "searches the branch log for the commit that introduced the OAuth login flow",
+      "creates the commit using git commit --fixup <target-sha>",
+      "asks the user whether to autosquash now or leave the fixup for later"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
+  },
+  {
+    "id": "fixup-target-not-on-branch",
+    "prompt": "This is a fixup for the database migration. The migration was merged to main last week, and I just found a bug in it.",
+    "expected_output": "Detects the target commit is on main (not the current branch) and creates a normal fix commit instead",
+    "assertions": [
+      "determines the branch boundary using git merge-base HEAD origin/main",
+      "searches the branch log and finds no matching commit on the current branch",
+      "does not create a fixup! commit for a commit outside the branch range",
+      "informs the user the target commit is on main and cannot be fixed up",
+      "creates a normal commit with an appropriate type such as fix"
+    ],
+    "files": [
+      "skills/conventional-commit/SKILL.md"
+    ]
   }
 ]

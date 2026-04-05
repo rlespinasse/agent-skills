@@ -2,7 +2,8 @@
 name: conventional-commit
 description: Guides committing staged (indexed) git files using the Conventional Commits specification
   and commit message best practices. Use when user mentions commit, git commit, conventional commit,
-  commit message, staged files, or indexed files. Helps craft well-structured, meaningful commit messages.
+  commit message, staged files, indexed files, fixup, or fixup commit. Helps craft well-structured,
+  meaningful commit messages including fixup commits with optional autosquash.
 ---
 
 # Commit Staged Files with Conventional Commits
@@ -243,6 +244,57 @@ No behavior change.
 | `misc changes` | Uninformative | Describe what actually changed |
 | `fix: fix` | Redundant and meaningless | Describe the actual fix |
 | Subject longer than 72 characters | Breaks tooling and readability | Keep it concise, use body for details |
+
+## Fixup Commits
+
+When the user indicates a change is a **fixup** (e.g., "this is a fixup", "fixup change", "attach to previous commit"),
+the commit should be created as a `fixup!` commit targeting the original commit that introduced the issue.
+
+### Fixup Process
+
+1. **Determine the branch boundary** — before anything else, identify which commits belong to the current branch:
+
+   ```bash
+   git log --oneline $(git merge-base HEAD origin/main)..HEAD
+   ```
+
+   This is the **safe rebase range**. Only commits in this range may be targeted for fixup or autosquash.
+2. **Identify the target commit** — search the git log for the commit that introduced the code being fixed:
+   - Use `git log --oneline $(git merge-base HEAD origin/main)..HEAD -- <changed-files>` to find
+     commits on the current branch that touched the same files
+   - Pick the commit whose subject best matches the change being fixed
+   - **CRITICAL guardrail**: if the target commit is **not** in the branch range (i.e., it is on `main`
+     or before the branch point), **do not create a fixup commit**. Instead, inform the user and
+     create a normal commit with the appropriate type (e.g., `fix`, `ci`)
+3. **Create the fixup commit** — use `git commit --fixup <target-sha>`:
+
+   ```bash
+   git commit --fixup abc1234
+   ```
+
+   This produces a commit with the message `fixup! <original subject>`.
+4. **Ask the user if they want to autosquash** — after the fixup commit is created, ask:
+   > "Fixup commit created. Do you want to autosquash it into the target commit now
+   > (`git rebase --autosquash`)?"
+5. **If the user accepts**, run the interactive rebase with autosquash **scoped to the branch**:
+
+   ```bash
+   GIT_SEQUENCE_EDITOR=true git rebase --autosquash $(git merge-base HEAD origin/main)
+   ```
+
+   Using `GIT_SEQUENCE_EDITOR=true` auto-confirms the rebase editor so it runs non-interactively.
+   **Never** rebase beyond the merge-base — this would rewrite commits shared with `main`.
+6. **If the user declines**, leave the fixup commit as-is — it will be squashed during a future rebase.
+
+### Fixup Example
+
+```text
+# Original commit:
+a1b2c3d feat(auth): add OAuth2 login flow
+
+# Fixup commit (auto-generated message):
+fixup! feat(auth): add OAuth2 login flow
+```
 
 ## Important Guidelines
 
