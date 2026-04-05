@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.0](https://github.com/rlespinasse/agent-skills/compare/v1.11.1...v1.12.0) (2026-04-05)
+
+### Features
+
+* add promptfoo eval integration with Claude Code CLI ([216487d](https://github.com/rlespinasse/agent-skills/commit/216487d8eeb364a285c822a6c6576568a958c60b))
+* **claude-code-usage-report:** support dual cache tiers and improve pricing workflow ([a659040](https://github.com/rlespinasse/agent-skills/commit/a659040811f3b9bcfbb791e8232bdead3162355a))
+* **conventional-commit:** add fixup commit workflow ([4860427](https://github.com/rlespinasse/agent-skills/commit/4860427daef2924c654a5891b9ba094d410fa355))
+* **diataxis:** add boundary cases and prior reclassification guidance ([f24afe7](https://github.com/rlespinasse/agent-skills/commit/f24afe76b96f4f41748c3f4b7bc33c90000aa6dd))
+* **pin-github-actions:** add batch resolution and already-pinned handling ([95ff2ac](https://github.com/rlespinasse/agent-skills/commit/95ff2ac84c2cf5ec1b87e7b0ca9309d0ee951ca7))
+
+### Bug Fixes
+
+* **local-branches-status:** validate upstream ref exists before reporting sync state ([2870cb3](https://github.com/rlespinasse/agent-skills/commit/2870cb355d89d51f9e058dde0d0992053b5f4833))
+
+### Documentation
+
+* add tutorial for creating a first skill ([a00c450](https://github.com/rlespinasse/agent-skills/commit/a00c450dc06dfde4b28d9bf66edc6dba30bcccb8))
+* fix overstated claims in README ([60e50d7](https://github.com/rlespinasse/agent-skills/commit/60e50d7c9fc84c6ade74d2caeee08ea92f703e2a))
+* update npx skills install command to correct URL format ([fc2cf75](https://github.com/rlespinasse/agent-skills/commit/fc2cf75c7197a0ce9cd9bfdf84568d97c04774e4))
+
+### Code Refactoring
+
+* extract validate-skill recipe and reorganize just tasks ([0dad316](https://github.com/rlespinasse/agent-skills/commit/0dad316e9dc9b8f7fba3e44711e24975f175e941))
+
+### Build System
+
+* **deps:** bump taiki-e/install-action in the dependencies group ([75e64a1](https://github.com/rlespinasse/agent-skills/commit/75e64a1f09a3f7d406fb48c9513f8fbddc8f1583))
+
 ## [1.11.1](https://github.com/rlespinasse/agent-skills/compare/v1.11.0...v1.11.1) (2026-03-26)
 
 ### Build System
