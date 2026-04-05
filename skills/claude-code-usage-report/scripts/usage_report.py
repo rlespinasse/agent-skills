@@ -37,11 +37,13 @@ def load_pricing():
     pricing = {}
     for key, vals in data.get("models", {}).items():
         family, gen = key.split(":", 1)
+        # Use 5-minute cache write price for cost estimation (Claude Code default)
+        cache_write = vals.get("cache_write_5m", vals.get("cache_write", 0))
         pricing[(family, gen)] = {
             "input": vals["input"],
             "output": vals["output"],
             "cache_read": vals["cache_read"],
-            "cache_write": vals["cache_write"],
+            "cache_write": cache_write,
         }
 
     plans = [
@@ -73,12 +75,14 @@ def show_current_pricing():
         data = {"source": PRICING_URL, "models": {}, "plans": []}
 
     print("Current pricing.json values (per 1M tokens):", file=sys.stderr)
-    print("-" * 60, file=sys.stderr)
+    print("-" * 80, file=sys.stderr)
     for key, vals in data.get("models", {}).items():
         label = vals.get("label", key)
+        cw5 = vals.get("cache_write_5m", vals.get("cache_write", "?"))
+        cw1h = vals.get("cache_write_1h", "?")
         print(
             f"  {label:<20} input=${vals['input']:<8} output=${vals['output']:<8} "
-            f"cache_read=${vals['cache_read']:<8} cache_write=${vals['cache_write']}",
+            f"cache_read=${vals['cache_read']:<8} cache_write_5m=${cw5:<8} cache_write_1h=${cw1h}",
             file=sys.stderr,
         )
     print("", file=sys.stderr)

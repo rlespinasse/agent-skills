@@ -188,7 +188,7 @@ class TestLoadPricing(unittest.TestCase):
             self.assertIn("input", vals, f"Missing 'input' for {key}")
             self.assertIn("output", vals, f"Missing 'output' for {key}")
             self.assertIn("cache_read", vals, f"Missing 'cache_read' for {key}")
-            self.assertIn("cache_write", vals, f"Missing 'cache_write' for {key}")
+            self.assertIn("cache_write", vals, f"Missing 'cache_write' for {key} (mapped from cache_write_5m)")
 
     def test_plans_have_name_and_monthly(self):
         _, plans, _, _ = load_pricing()
@@ -225,13 +225,20 @@ class TestPricingJsonSchema(unittest.TestCase):
 
     def test_model_values_have_required_fields(self):
         for key, vals in self.data["models"].items():
-            for field in ("label", "input", "output", "cache_read", "cache_write"):
+            for field in ("label", "input", "output", "cache_read", "cache_write_5m", "cache_write_1h"):
                 self.assertIn(field, vals, f"Missing '{field}' in {key}")
 
     def test_all_prices_are_positive(self):
         for key, vals in self.data["models"].items():
-            for field in ("input", "output", "cache_read", "cache_write"):
+            for field in ("input", "output", "cache_read", "cache_write_5m", "cache_write_1h"):
                 self.assertGreater(vals[field], 0, f"{key}.{field} must be > 0")
+
+    def test_cache_write_1h_greater_than_5m(self):
+        for key, vals in self.data["models"].items():
+            self.assertGreater(
+                vals["cache_write_1h"], vals["cache_write_5m"],
+                f"{key}: 1h cache write should cost more than 5m"
+            )
 
     def test_plans_structure(self):
         self.assertIsInstance(self.data["plans"], list)

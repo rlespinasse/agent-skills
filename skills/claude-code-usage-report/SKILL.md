@@ -33,7 +33,7 @@ Each line is a JSON object. Token usage is at `message.usage`:
 | `input_tokens` | Direct input tokens |
 | `output_tokens` | Model output tokens |
 | `cache_read_input_tokens` | Tokens read from prompt cache |
-| `cache_creation_input_tokens` | Tokens written to prompt cache |
+| `cache_creation_input_tokens` | Tokens written to prompt cache (5m or 1h TTL) |
 
 Model identification is at `message.model` (contains `opus`, `sonnet`, or `haiku`).
 Timestamps are at `timestamp` (ISO 8601 format).
@@ -44,6 +44,11 @@ All pricing data (model token costs and subscription plans) is stored in
 [scripts/pricing.json](scripts/pricing.json) — the single source of truth
 used by the script. The file includes an `updated` date field so the user
 can see when prices were last verified.
+
+Prompt caching has two write tiers: **5-minute** (1.25x base input) and
+**1-hour** (2x base input). Cache reads cost 0.1x base input. The script
+uses the 5-minute cache write price for cost estimation because Claude Code
+uses ephemeral caching.
 
 If the user asks to update pricing:
 
