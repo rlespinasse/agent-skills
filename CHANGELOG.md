@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.1](https://github.com/rlespinasse/agent-skills/compare/v1.12.0...v1.12.1) (2026-04-20)
+
+### Build System
+
+* **deps:** bump the dependencies group across 1 directory with 3 updates ([7667dcd](https://github.com/rlespinasse/agent-skills/commit/7667dcd2cde51582224315cb237bda8fcbb7c092))
+
+### Continuous Integration
+
+* skip autofix on dependabot prs ([080592d](https://github.com/rlespinasse/agent-skills/commit/080592dbfbe723c621b601135718a45c94f2d076))
+
 ## [1.12.0](https://github.com/rlespinasse/agent-skills/compare/v1.11.1...v1.12.0) (2026-04-05)
 
 ### Features
