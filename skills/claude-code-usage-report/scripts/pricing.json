@@ -1,7 +1,7 @@
 {
   "source": "https://docs.anthropic.com/en/docs/about-claude/pricing",
-  "updated": "2026-04-13",
-  "page_hash": "a6f934c8e7f16237c73a42128436666db83ade93e94b8d6fbd15e76861c44ee2",
+  "updated": "2026-04-20",
+  "page_hash": "04891b34191ef8be8e909d517728abec54963f66e76b1f70b55d4c473bc54052",
   "models": {
     "opus:current": {
       "label": "Opus 4.5/4.6",
@@ -64,7 +64,7 @@
     "Base Input Tokens",
     "5m Cache Writes",
     "1h Cache Writes",
-    "Cache Hits & Refreshes",
+    "Cache Hits &amp; Refreshes",
     "Output Tokens"
   ],
   "plans": [

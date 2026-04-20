@@ -5,12 +5,13 @@ Two-layer detection:
   1. Hash-based: detect if the pricing page content changed at all
   2. Price extraction: attempt to parse specific prices and show diffs
 
-If extraction fails, the workflow still opens a PR with the hash change
-so a human can review manually.
+pricing.json is written only when there's a meaningful change — a real
+price delta, a table-structure alert, or an extraction error. Page-hash
+drift alone (common when unrelated page content shifts) is ignored so
+the workflow doesn't open PRs that only bump `updated` + `page_hash`.
 
 Exit codes:
-  0 — changes detected (pricing.json updated)
-  1 — no changes detected
+  0 — script ran successfully (pricing.json may or may not have been updated)
   2 — error (no HTML, fetch failure, etc.)
 
 Usage:
@@ -387,31 +388,17 @@ def main():
     print()
 
     # --- Decide what to do ---
+    has_price_changes = False
     if fetched:
         changes, has_price_changes = compare_prices(fetched)
         if has_price_changes:
             print("Price changes detected:")
             for change in changes:
                 print(change)
-            update_pricing_json(fetched)
         else:
             print("Extracted prices match pricing.json (page changed but prices didn't).")
 
-    # Always update the hash so we don't re-alert on the same page content
-    with open(PRICING_FILE) as f:
-        data = json.load(f)
-    data["page_hash"] = page_hash
-    data["updated"] = datetime.now().strftime("%Y-%m-%d")
-    with open(PRICING_FILE, "w") as f:
-        json.dump(data, f, indent=2)
-        f.write("\n")
-
-    if fetched and not has_price_changes and not extraction_errors:
-        print("Only non-pricing content changed. Updating hash only.")
-    elif fetched and has_price_changes:
-        print("Pricing data updated.")
-    elif extraction_errors:
-        print("Extraction had issues worth reviewing.")
+    meaningful_change = has_price_changes or bool(structure_alerts) or bool(extraction_errors)
 
     # Write alerts file for the workflow to consume
     alerts_data = {
@@ -421,6 +408,32 @@ def main():
     with open(ALERTS_FILE, "w") as f:
         json.dump(alerts_data, f, indent=2)
         f.write("\n")
+
+    if not meaningful_change:
+        # Page content drifted (hash changed) but nothing actionable found.
+        # Skip updating pricing.json so the workflow's `git diff` stays clean
+        # and no spurious PR is opened. The hash will be recomputed next run.
+        print("No pricing, structure, or extraction changes. Skipping pricing.json update.")
+        return
+
+    if fetched and has_price_changes:
+        update_pricing_json(fetched)
+
+    # Update the hash so a merged PR prevents re-alerting on the same content.
+    with open(PRICING_FILE) as f:
+        data = json.load(f)
+    data["page_hash"] = page_hash
+    data["updated"] = datetime.now().strftime("%Y-%m-%d")
+    with open(PRICING_FILE, "w") as f:
+        json.dump(data, f, indent=2)
+        f.write("\n")
+
+    if has_price_changes:
+        print("Pricing data updated.")
+    elif extraction_errors:
+        print("Extraction had issues worth reviewing.")
+    elif structure_alerts:
+        print("Table structure changed — review required.")
 
 
 if __name__ == "__main__":
