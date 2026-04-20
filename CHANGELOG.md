@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.2](https://github.com/rlespinasse/agent-skills/compare/v1.12.1...v1.12.2) (2026-04-20)
+
+### Bug Fixes
+
+* **claude-code-usage-report:** update pricing data only on meaningful changes ([#27](https://github.com/rlespinasse/agent-skills/issues/27)) ([0f3946d](https://github.com/rlespinasse/agent-skills/commit/0f3946df5475528c6e9e1f77f4d17f21cd20b723))
+
 ## [1.12.1](https://github.com/rlespinasse/agent-skills/compare/v1.12.0...v1.12.1) (2026-04-20)
 
 ### Build System
