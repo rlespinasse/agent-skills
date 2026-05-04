@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.3](https://github.com/rlespinasse/agent-skills/compare/v1.12.2...v1.12.3) (2026-05-04)
+
+### Build System
+
+* **deps:** bump the dependencies group with 2 updates ([#29](https://github.com/rlespinasse/agent-skills/issues/29)) ([39cc012](https://github.com/rlespinasse/agent-skills/commit/39cc0124a62e70d51a05dd06c51786c4ac31569e))
+* fix justfile quiet syntax ([6b7d649](https://github.com/rlespinasse/agent-skills/commit/6b7d6493fde160e22d08a7cc7e8d836a3eccbce9))
+
 ## [1.12.2](https://github.com/rlespinasse/agent-skills/compare/v1.12.1...v1.12.2) (2026-04-20)
 
 ### Bug Fixes
