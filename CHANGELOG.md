@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.4](https://github.com/rlespinasse/agent-skills/compare/v1.12.3...v1.12.4) (2026-05-07)
+
+### Documentation
+
+* **french-language:** clarify em dash rule and refine accent examples ([49ce826](https://github.com/rlespinasse/agent-skills/commit/49ce826f3d2c9a6bf898304f67143057496e0f3d))
+
+### Styles
+
+* **french-language:** align markdown table columns ([bf1b7c3](https://github.com/rlespinasse/agent-skills/commit/bf1b7c380a88b4fddda344d8a89ffb925cd62a92))
+
+### Build System
+
+* fix justfile quiet syntax ([9374f1a](https://github.com/rlespinasse/agent-skills/commit/9374f1aac8fa7e92b1c4c5b41a7cfda20d7a8c8b))
+* revert justfile quiet syntax to bare form ([4a2e8ff](https://github.com/rlespinasse/agent-skills/commit/4a2e8fff1ef4d8432789ac30b2ee2a1191622ee2))
+
 ## [1.12.3](https://github.com/rlespinasse/agent-skills/compare/v1.12.2...v1.12.3) (2026-05-04)
 
 ### Build System
