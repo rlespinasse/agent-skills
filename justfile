@@ -1,7 +1,7 @@
 # Agent Skills Development Justfile
 # https://github.com/casey/just
 
-set quiet
+set quiet := true
 
 import 'just/quality.just'
 import 'just/skills.just'
