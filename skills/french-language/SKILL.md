@@ -40,38 +40,38 @@ Before making changes, always:
 French accents are **mandatory**, not optional. Missing accents change word meaning
 and are considered spelling errors.
 
-| Character | Name | Examples |
-| --------- | ---- | -------- |
-| é | accent aigu | réalisateur, qualité, équipe, périmètre |
-| è | accent grave | stratège, modèle, problème, critère |
-| ê | accent circonflexe | être, forêt, fête, tête |
-| à | a accent grave | à, déjà, voilà |
-| ù | u accent grave | où |
-| ô | o accent circonflexe | contrôle, rôle, clôture, binôme |
-| î | i accent circonflexe | maître, connaître |
-| ç | cédille | ça, français, leçon, reçu |
-| ë, ï, ü | tréma | Noël, naïf, ambiguïté |
+| Character | Name                 | Examples                                |
+| --------- | -------------------- | --------------------------------------- |
+| é         | accent aigu          | réalisateur, qualité, équipe, périmètre |
+| è         | accent grave         | stratège, modèle, problème, critère     |
+| ê         | accent circonflexe   | être, forêt, fête, tête                 |
+| à         | a accent grave       | à, déjà, voilà                          |
+| ù         | u accent grave       | où                                      |
+| ô         | o accent circonflexe | contrôle, rôle, clôture, binôme         |
+| î         | i accent circonflexe | maître, connaître                       |
+| ç         | cédille              | ça, français, leçon, reçu               |
+| ë, ï, ü   | tréma                | Noël, naïf, ambiguïté                   |
 
 ### Common Missing Accent Patterns
 
 When reviewing or generating French text, watch for these frequently missed accents:
 
-| Wrong | Correct | Context |
-| ----- | ------- | ------- |
-| qualite | qualité | noun ending in -ité |
-| securite | sécurité | noun ending in -ité |
-| perimetre | périmètre | noun ending in -ètre |
-| deploiement | déploiement | noun with dé- prefix |
-| developpeur | développeur | noun with dé- prefix |
-| stratege | stratège | noun ending in -ège |
-| modele | modèle | noun ending in -èle |
-| cloture | clôture | noun with ô |
-| equipe | équipe | noun with é |
-| role | rôle | noun with ô |
-| etre | être | verb with ê |
-| batisseur | bâtisseur | noun with â |
-| retrospective | rétrospective | noun with é |
-| responsabilites | responsabilités | plural noun with é |
+| Wrong           | Correct         | Context              |
+| --------------- | --------------- | -------------------- |
+| qualite         | qualité         | noun ending in -ité  |
+| securite        | sécurité        | noun ending in -ité  |
+| perimetre       | périmètre       | noun ending in -ètre |
+| deploiement     | déploiement     | noun with dé- prefix |
+| developpeur     | développeur     | noun with dé- prefix |
+| stratege        | stratège        | noun ending in -ège  |
+| modele          | modèle          | noun ending in -èle  |
+| cloture         | clôture         | noun with ô          |
+| equipe          | équipe          | noun with é          |
+| role            | rôle            | noun with ô          |
+| etre            | être            | verb with ê          |
+| batisseur       | bâtisseur       | noun with â          |
+| retrospective   | rétrospective   | noun with é          |
+| responsabilites | responsabilités | plural noun with é   |
 
 ### Technical Terms
 
@@ -90,16 +90,17 @@ If a standard French equivalent exists and is commonly used, prefer the French v
 
 French typography differs from English in several ways:
 
-| Rule | Example |
-| ---- | ------- |
-| Space before `:` `;` `!` `?` | `Attention : ceci est important` |
-| No space before `,` `.` | `Bonjour, comment allez-vous.` |
-| Guillemets for quotes | `« texte »` (with non-breaking spaces) |
-| Ordinals | 1er, 2e, 3e (not 1ème, 2ème) |
-| Capitalization | Less capitalization than English — `Modèle opératoire` not `Modèle Opératoire` |
-| Em dash (`—`) | Not standard French punctuation — replace with `:`, `(…)`, or `.` depending on context |
+| Rule                         | Example                                                                                |
+| ---------------------------- | -------------------------------------------------------------------------------------- |
+| Space before `:` `;` `!` `?` | `Attention : ceci est important`                                                       |
+| No space before `,` `.`      | `Bonjour, comment allez-vous.`                                                         |
+| Guillemets for quotes        | `« texte »` (with non-breaking spaces)                                                 |
+| Ordinals                     | 1er, 2e, 3e (not 1ème, 2ème)                                                           |
+| Capitalization               | Less capitalization than English — `Modèle opératoire` not `Modèle Opératoire`         |
+| Em dash (`—`)                | Not standard French punctuation — replace with `:`, `(…)`, or `.` depending on context |
 
-**Em dash vs English:** The em dash is valid and common in English. Do not remove em dashes from English content. Only apply this rule to French text.
+**Em dash vs English:** The em dash is valid and common in English.
+Do not remove em dashes from English content. Only apply this rule to French text.
 
 **Note on generated files:** Typography rules (spaces before punctuation, guillemets)
 may not be practical in all file formats. Prioritize correct accents in all cases;
