@@ -44,7 +44,7 @@ and are considered spelling errors.
 | --------- | ---- | -------- |
 | é | accent aigu | réalisateur, qualité, équipe, périmètre |
 | è | accent grave | stratège, modèle, problème, critère |
-| ê | accent circonflexe | être, clôture, rôle, bâtisseur |
+| ê | accent circonflexe | être, forêt, fête, tête |
 | à | a accent grave | à, déjà, voilà |
 | ù | u accent grave | où |
 | ô | o accent circonflexe | contrôle, rôle, clôture, binôme |
@@ -97,6 +97,9 @@ French typography differs from English in several ways:
 | Guillemets for quotes | `« texte »` (with non-breaking spaces) |
 | Ordinals | 1er, 2e, 3e (not 1ème, 2ème) |
 | Capitalization | Less capitalization than English — `Modèle opératoire` not `Modèle Opératoire` |
+| Em dash (`—`) | Not standard French punctuation — replace with `:`, `(…)`, or `.` depending on context |
+
+**Em dash vs English:** The em dash is valid and common in English. Do not remove em dashes from English content. Only apply this rule to French text.
 
 **Note on generated files:** Typography rules (spaces before punctuation, guillemets)
 may not be practical in all file formats. Prioritize correct accents in all cases;
