@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.5](https://github.com/rlespinasse/agent-skills/compare/v1.12.4...v1.12.5) (2026-05-11)
+
+### Build System
+
+* **deps:** bump taiki-e/install-action from 2.75.22 to 2.77.4 in the dependencies group ([#30](https://github.com/rlespinasse/agent-skills/issues/30)) ([ee59800](https://github.com/rlespinasse/agent-skills/commit/ee598004617111ffe8611cb013b5fb92f4d36413))
+
 ## [1.12.4](https://github.com/rlespinasse/agent-skills/compare/v1.12.3...v1.12.4) (2026-05-07)
 
 ### Documentation
