@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.12.9](https://github.com/rlespinasse/agent-skills/compare/v1.12.8...v1.12.9) (2026-07-05)
+
 ## [1.12.8](https://github.com/rlespinasse/agent-skills/compare/v1.12.7...v1.12.8) (2026-07-05)
 
 ## [1.12.7](https://github.com/rlespinasse/agent-skills/compare/v1.12.6...v1.12.7) (2026-06-15)
