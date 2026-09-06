@@ -22,7 +22,7 @@ jobs:
           token: ${{ secrets.PAT }}
 
       - name: Install just
-        uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
+        uses: taiki-e/install-action@0758d235715de2f3551eacc980d9ae8fce9342c3 # v2.87.3
         with:
           tool: just
 
@@ -36,7 +36,7 @@ jobs:
 
       - name: Get commit data
         id: commit-data
-        uses: rlespinasse/git-commit-data-action@2b76766acf9574c24b5cec7608be8db5dc17968e # v1.5.0
+        uses: rlespinasse/git-commit-data-action@d3d5d8e0de9e9545cb1fadd33f9664db98c64cc7 # v1.5.1
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
