@@ -23,6 +23,11 @@
           },
           {
             "type": "build",
+            "scope": "deps",
+            "release": false
+          },
+          {
+            "type": "build",
             "release": "patch"
           },
           {
