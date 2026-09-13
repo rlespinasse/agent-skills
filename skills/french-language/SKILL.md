@@ -1,6 +1,7 @@
 ---
 name: french-language
-description: Ensures all project content is written in proper French with correct accents, grammar,
+description:
+  Ensures all project content is written in proper French with correct accents, grammar,
   and typography. Use when user mentions french, français, langue française, accents, orthographe,
   typographie, or when working on a project that requires French language content. Also use when
   generating any text-based file (SVG, Mermaid, PlantUML, Draw.io, HTML, CSV, JSON, YAML, etc.)
@@ -86,6 +87,31 @@ Technical English terms commonly used in French tech contexts should be **kept i
 **Rule:** if the term is universally used in English in French tech culture, keep it.
 If a standard French equivalent exists and is commonly used, prefer the French version.
 
+### Anglicisms and Non-Idiomatic Calques
+
+Distinct from the assumed technical terms above: watch for English words or expressions
+that have been **verbified or bent into French** without marking them as jargon, and that
+either sound non-idiomatic or create a false meaning because a different French word
+already exists.
+
+| Wrong (unmarked calque)  | Why it's a problem                                                                             | Correction                      |
+| ------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------- |
+| adresser un problème     | Calque of "to address an issue"; "adresser" in French means to send/direct to someone            | traiter, résoudre un problème   |
+| supporter un client      | Calque of "to support"; "supporter" in French means to endure/tolerate, a false friend           | accompagner, prendre en charge  |
+| une opportunité (à saisir) | Calque of "opportunity"; overused anglicism where a plain French word is more idiomatic         | une occasion                    |
+| challenger une idée      | English "challenge" verbified with "-er"                                                         | remettre en question, contester |
+| définitivement (= for sure) | Calque of "definitely"; "définitivement" in French means permanently/for good, a false friend | vraiment, effectivement         |
+
+**How to tell this apart from a legitimate technical term (see "Technical Terms" above):**
+a term the author deliberately marks as borrowed jargon — italics, bold, code formatting,
+or quotes (e.g. _panes_, _dashboard_, `API`) — is intentional and out of scope here. An
+anglicism used bare, inline, as if it were a normal French word, is the target of this check.
+
+**Rule:** if a calque is used bare (no italics/formatting) and either (a) does not read as
+natural French or (b) collides with an existing French word's meaning, propose a French
+alternative. If the author wants to keep the anglicism, suggest marking it as jargon
+(italics or quotes) instead of leaving it bare.
+
 ### French Typography
 
 French typography differs from English in several ways:
@@ -128,6 +154,9 @@ For each file, identify:
 - Grammar issues
 - Typography issues (spaces before colons, etc.)
 - Inconsistent language (mixing French and English in non-technical contexts)
+- Unmarked anglicisms or calques (verbified English, false-friend translations) —
+  see "Anglicisms and Non-Idiomatic Calques" above. Skip terms already marked as
+  assumed jargon (italics, bold, code, quotes).
 
 Present findings as a table:
 
@@ -137,6 +166,7 @@ Present findings as a table:
 | docs/roles.md | Missing accent | qualite | qualité |
 | diagram.svg | Missing accent | deploiement | déploiement |
 | data.csv | Missing accent | responsabilite | responsabilité |
+| article.md | Unmarked anglicism | adresser un problème | traiter un problème |
 ```
 
 ### Step 3: Apply Fixes
