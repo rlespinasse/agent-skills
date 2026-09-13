@@ -39,7 +39,7 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export
 
 ### french-language
 
-Ensures all project content is written in proper French with correct accents, grammar,  and typography. Use when user
+  Ensures all project content is written in proper French with correct accents, grammar,  and typography. Use when user
 mentions french, français, langue française, accents, orthographe,  typographie, or when working on a project that
 requires French language content. Also use when  generating any text-based file (SVG, Mermaid, PlantUML, Draw.io, HTML,
 CSV, JSON, YAML, etc.)  in a French-language project. Helps enforce French writing conventions across all file types.

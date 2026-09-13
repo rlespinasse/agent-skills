@@ -94,12 +94,12 @@ that have been **verbified or bent into French** without marking them as jargon,
 either sound non-idiomatic or create a false meaning because a different French word
 already exists.
 
-| Wrong (unmarked calque)  | Why it's a problem                                                                             | Correction                      |
-| ------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------- |
-| adresser un problème     | Calque of "to address an issue"; "adresser" in French means to send/direct to someone            | traiter, résoudre un problème   |
-| supporter un client      | Calque of "to support"; "supporter" in French means to endure/tolerate, a false friend           | accompagner, prendre en charge  |
-| une opportunité (à saisir) | Calque of "opportunity"; overused anglicism where a plain French word is more idiomatic         | une occasion                    |
-| challenger une idée      | English "challenge" verbified with "-er"                                                         | remettre en question, contester |
+| Wrong (unmarked calque)     | Why it's a problem                                                                            | Correction                      |
+| --------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------- |
+| adresser un problème        | Calque of "to address an issue"; "adresser" in French means to send/direct to someone         | traiter, résoudre un problème   |
+| supporter un client         | Calque of "to support"; "supporter" in French means to endure/tolerate, a false friend        | accompagner, prendre en charge  |
+| une opportunité (à saisir)  | Calque of "opportunity"; overused anglicism where a plain French word is more idiomatic       | une occasion                    |
+| challenger une idée         | English "challenge" verbified with "-er"                                                      | remettre en question, contester |
 | définitivement (= for sure) | Calque of "definitely"; "définitivement" in French means permanently/for good, a false friend | vraiment, effectivement         |
 
 **How to tell this apart from a legitimate technical term (see "Technical Terms" above):**
