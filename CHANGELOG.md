@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.0](https://github.com/rlespinasse/agent-skills/compare/v1.12.14...v1.13.0) (2026-09-14)
+
+### Features
+
+* **french-language:** detect unmarked anglicisms and calques ([#51](https://github.com/rlespinasse/agent-skills/issues/51)) ([10261f0](https://github.com/rlespinasse/agent-skills/commit/10261f0a811bf3460910d65aa1ea4718bc820e9a))
+
+### Bug Fixes
+
+* **ci:** match dependabot PR author instead of github.actor ([#48](https://github.com/rlespinasse/agent-skills/issues/48)) ([51bb448](https://github.com/rlespinasse/agent-skills/commit/51bb4487bb61a450ed4665a0db87e158f9ad8cc5))
+* **release:** stop noisy dependabot releases and fix empty release notes ([#52](https://github.com/rlespinasse/agent-skills/issues/52)) ([5fb901c](https://github.com/rlespinasse/agent-skills/commit/5fb901c1c42e0a5218ad182bc5b264f3d783cd8a))
+
+### Build System
+
+* **deps:** bump taiki-e/install-action from 2.85.13 to 2.86.3 in the dependencies group across 1 directory ([#46](https://github.com/rlespinasse/agent-skills/issues/46)) ([6f785f4](https://github.com/rlespinasse/agent-skills/commit/6f785f4f6ce2e5141c6b032bf980b98836758b2a))
+* **deps:** bump taiki-e/install-action from 2.85.9 to 2.85.13 in the dependencies group ([#44](https://github.com/rlespinasse/agent-skills/issues/44)) ([8c56c92](https://github.com/rlespinasse/agent-skills/commit/8c56c92d70080b18f027bf4fd347371900aa148f))
+* **deps:** bump taiki-e/install-action from 2.86.3 to 2.86.7 in the dependencies group ([#47](https://github.com/rlespinasse/agent-skills/issues/47)) ([404a5e6](https://github.com/rlespinasse/agent-skills/commit/404a5e6da0a8f32b9d69abdbc4c6c0ec0d4a7553))
+* **deps:** bump taiki-e/install-action from 2.87.3 to 2.87.8 in the dependencies group ([#50](https://github.com/rlespinasse/agent-skills/issues/50)) ([0521c75](https://github.com/rlespinasse/agent-skills/commit/0521c75ecaea937ea1df2593a5bb4782c4e3a76d))
+* **deps:** bump the dependencies group with 2 updates ([#49](https://github.com/rlespinasse/agent-skills/issues/49)) ([22ec9d1](https://github.com/rlespinasse/agent-skills/commit/22ec9d15a6ea28ed15a82bd74bb70371722abc0a))
+* standardize dependabot config and enable auto-merge for minor/patch updates ([f70568a](https://github.com/rlespinasse/agent-skills/commit/f70568a8932659a9134f0dc33204af658ef5fffb))
+
 ## [1.12.14](https://github.com/rlespinasse/agent-skills/compare/v1.12.13...v1.12.14) (2026-08-09)
 
 ## [1.12.13](https://github.com/rlespinasse/agent-skills/compare/v1.12.12...v1.12.13) (2026-08-02)
