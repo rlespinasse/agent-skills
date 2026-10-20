@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.5](https://github.com/rlespinasse/agent-skills/compare/v1.13.4...v1.13.5) (2026-10-20)
+
+### Bug Fixes
+
+* **french-language:** normalize frontmatter and link diataxis ([#63](https://github.com/rlespinasse/agent-skills/issues/63)) ([521db5f](https://github.com/rlespinasse/agent-skills/commit/521db5f41fe9c06bffcea8101929a3f82a055683))
+
 ## [1.13.4](https://github.com/rlespinasse/agent-skills/compare/v1.13.3...v1.13.4) (2026-10-20)
 
 ### Code Refactoring
