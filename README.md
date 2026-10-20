@@ -6,10 +6,10 @@ A collection of [Agent Skills](https://agentskills.io/) for AI coding assistants
 
 ### conventional-commit
 
-Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
-practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, indexed
-files, fixup, or fixup commit. Helps craft well-structured,  meaningful commit messages including fixup commits with
-optional autosquash.
+Guides committing staged (indexed) git files using the Conventional Commits  specification and commit message best
+practices. Use when user mentions commit, git commit,  conventional commit, commit message, staged files, indexed
+files, fixup, fixup commit, amend, or  squash. Helps craft well-structured, meaningful commit messages including fixup
+commits with  optional autosquash. For an overview of local branches, see local-branches-status.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill conventional-commit
@@ -17,10 +17,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill conventional-
 
 ### diataxis
 
-Helps maintain documentation pages based on the Diataxis method. Analyzes existing docs, classifies pages into
-tutorials/how-to/explanation/reference categories, identifies gaps, and helps create or restructure documentation
-following Diataxis principles. Use when user mentions documentation structure, Diataxis, doc categories, tutorials vs
-how-to guides, or reorganizing docs.
+Helps maintain documentation pages based on the Diataxis method. Analyzes existing  docs, classifies pages into
+tutorials/how-to/explanation/reference categories, identifies gaps,  and helps create or restructure documentation
+following Diataxis principles. Use when user  mentions documentation structure, Diataxis, doc categories, tutorials vs
+how-to guides, or  reorganizing docs. For checking README claims against code, see verify-readme-features.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill diataxis
@@ -28,10 +28,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill diataxis
 
 ### drawio-export-tools
 
-Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless
-(base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub
-Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
-right tool based on context.
+Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers  docker-drawio-desktop-headless
+(base Docker), drawio-exporter (Rust backend), drawio-export  (enhanced Docker), and drawio-export-action (GitHub
+Actions). Use when user mentions diagram  export, CI/CD automation, batch processing, or Draw.io files. Helps select
+the right tool based on  context. For pinning the export action in workflows, see pin-github-actions.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export-tools
@@ -39,10 +39,11 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export
 
 ### french-language
 
-  Ensures all project content is written in proper French with correct accents, grammar,  and typography. Use when user
+Ensures all project content is written in proper French with correct accents, grammar,  and typography. Use when user
 mentions french, français, langue française, accents, orthographe,  typographie, or when working on a project that
 requires French language content. Also use when  generating any text-based file (SVG, Mermaid, PlantUML, Draw.io, HTML,
-CSV, JSON, YAML, etc.)  in a French-language project. Helps enforce French writing conventions across all file types.
+CSV, JSON, YAML, etc.) in a  French-language project. Helps enforce French writing conventions across all file types.
+For  documentation structure, see diataxis.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill french-language
@@ -52,7 +53,8 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill french-langua
 
 Reports the status of all local git branches with remote sync state, main branch diff,  worktree path, last activity
 date, and content description. Use when user mentions branch status,  branch overview, local branches, branch report,
-or branch summary. Helps understand the state of  all branches at a glance.
+or branch summary. Helps understand the state of  all branches at a glance. For committing changes, see
+conventional-commit.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill local-branches-status
@@ -60,9 +62,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill local-branche
 
 ### pin-github-actions
 
-Migrates GitHub Actions workflows to use pinned commit SHAs instead of  tags, resolves the latest release versions,
-flags major version jumps, and configures  Dependabot with grouped updates. Use when user mentions pin actions, pinned
-versions,  SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security.
+Migrates GitHub Actions workflows to use pinned commit SHAs instead of tags, resolves  the latest release versions,
+flags major version jumps, and configures Dependabot with grouped  updates. Use when user mentions pin actions, pinned
+versions, SHA pinning, GitHub Actions  security, dependabot setup, supply-chain security, hash pinning, or
+ratchet/zizmor findings. For  diagnosing failing CI runs, see verify-pr-logs.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill pin-github-actions
@@ -82,8 +85,9 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill verify-pr-log
 ### verify-readme-features
 
 Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use
-when user mentions verify features, check feature list,  confirm README, validate documentation claims, or audit
-feature accuracy.  Helps catch stale, missing, or inaccurate feature descriptions.
+when user mentions verify features, check feature list, confirm  README, validate documentation claims, audit feature
+accuracy, stale docs, or documentation drift.  Helps catch stale, missing, or inaccurate feature descriptions. For
+restructuring documentation,  see diataxis.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill verify-readme-features

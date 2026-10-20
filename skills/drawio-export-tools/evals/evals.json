@@ -2,11 +2,11 @@
   {
     "id": "docker-batch-export",
     "prompt": "I need to export all Draw.io diagrams in my CI/CD pipeline as PDFs with custom naming. Not using GitHub Actions.",
-    "expected_output": "Recommends drawio-export Docker image with output templates for batch processing",
+    "expected_output": "Recommends drawio-export Docker image with --output and --output-mode for batch processing",
     "assertions": [
       "mentions drawio-export (not drawio-export-action)",
       "includes Docker run command",
-      "shows output template syntax with {basename} or {ext}",
+      "shows --output folder and --output-mode options (not {basename} templates)",
       "does not suggest GitHub Actions"
     ],
     "files": [
@@ -38,7 +38,8 @@
       "does not primarily recommend Docker approach"
     ],
     "files": [
-      "skills/drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md",
+      "skills/drawio-export-tools/references/advanced-and-rust.md"
     ]
   },
   {
@@ -94,7 +95,8 @@
       "may suggest debug mode with SCRIPT_DEBUG_MODE"
     ],
     "files": [
-      "skills/drawio-export-tools/SKILL.md"
+      "skills/drawio-export-tools/SKILL.md",
+      "skills/drawio-export-tools/references/troubleshooting.md"
     ]
   }
 ]
