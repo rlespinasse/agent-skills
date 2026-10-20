@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.2](https://github.com/rlespinasse/agent-skills/compare/v1.13.1...v1.13.2) (2026-10-20)
+
+### Bug Fixes
+
+* **conventional-commit:** add amend and squash triggers, link local-branches-status ([#60](https://github.com/rlespinasse/agent-skills/issues/60)) ([ca00bff](https://github.com/rlespinasse/agent-skills/commit/ca00bff5679299d9e1a9b6018a78df6b2ceebae2))
+
+### Documentation
+
+* align skill spec reference with agentskills.io specification ([#59](https://github.com/rlespinasse/agent-skills/issues/59)) ([1d3d968](https://github.com/rlespinasse/agent-skills/commit/1d3d9685a0476ba5be217d263fd132c8eaf89020))
+
 ## [1.13.1](https://github.com/rlespinasse/agent-skills/compare/v1.13.0...v1.13.1) (2026-10-20)
 
 ### Build System
