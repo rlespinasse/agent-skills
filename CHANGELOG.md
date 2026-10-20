@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.1](https://github.com/rlespinasse/agent-skills/compare/v1.13.0...v1.13.1) (2026-10-20)
+
+### Build System
+
+* **deps:** bump cycjimmy/semantic-release-action from 6.0.0 to 8.0.1 ([#58](https://github.com/rlespinasse/agent-skills/issues/58)) ([42ca928](https://github.com/rlespinasse/agent-skills/commit/42ca928d62d7170a4215c03dbb03b2b7bd85b7f5))
+* **deps:** bump taiki-e/install-action from 2.87.13 to 2.87.18 in the dependencies group ([#54](https://github.com/rlespinasse/agent-skills/issues/54)) ([d7f0d2b](https://github.com/rlespinasse/agent-skills/commit/d7f0d2b5e4fedc0a2785b1600779943516300de8))
+* **deps:** bump taiki-e/install-action from 2.87.18 to 2.87.22 in the dependencies group ([#55](https://github.com/rlespinasse/agent-skills/issues/55)) ([5c972cf](https://github.com/rlespinasse/agent-skills/commit/5c972cfcd74e6ebbf61436cc438e0e86f5ffc26d))
+* **deps:** bump taiki-e/install-action from 2.87.22 to 2.87.26 in the dependencies group ([#56](https://github.com/rlespinasse/agent-skills/issues/56)) ([59c537a](https://github.com/rlespinasse/agent-skills/commit/59c537aeca6524efa3667ebc912a62b3b58fa67a))
+* **deps:** bump taiki-e/install-action from 2.87.8 to 2.87.13 in the dependencies group ([#53](https://github.com/rlespinasse/agent-skills/issues/53)) ([e62e886](https://github.com/rlespinasse/agent-skills/commit/e62e886f8ab472335598540eb11d82f4a07525d5))
+* **deps:** bump the dependencies group with 3 updates ([#57](https://github.com/rlespinasse/agent-skills/issues/57)) ([48f2767](https://github.com/rlespinasse/agent-skills/commit/48f2767d818fe53de7cb5ca4034dfd20d19f470f))
+
 ## [1.13.0](https://github.com/rlespinasse/agent-skills/compare/v1.12.14...v1.13.0) (2026-09-14)
 
 ### Features
