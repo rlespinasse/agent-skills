@@ -1,9 +1,9 @@
 ---
 name: verify-pr-logs
-description: Checks GitHub Actions CI logs on a pull request, diagnoses failures,
-  and guides the agent to implement fixes. Use when user mentions CI failing, check
-  PR logs, fix pipeline, GitHub Actions errors, workflow failures, build broken, tests
-  failing on PR, or debug CI. Focuses on PR-scoped CI analysis only.
+description: Checks GitHub Actions CI logs on a pull request, diagnoses failures, and guides the
+  agent to implement fixes. Use when user mentions CI failing, check PR logs, fix pipeline, GitHub
+  Actions errors, workflow failures, build broken, tests failing on PR, or debug CI. Focuses on
+  PR-scoped CI analysis only. For pinning actions or Dependabot setup, see pin-github-actions.
 ---
 
 # Verify PR Logs
