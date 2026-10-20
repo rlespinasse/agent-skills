@@ -81,8 +81,9 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill verify-pr-log
 ### verify-readme-features
 
 Verifies that features listed in a README (or similar documentation) are actually  implemented in the codebase. Use
-when user mentions verify features, check feature list,  confirm README, validate documentation claims, or audit
-feature accuracy.  Helps catch stale, missing, or inaccurate feature descriptions.
+when user mentions verify features, check feature list, confirm  README, validate documentation claims, audit feature
+accuracy, stale docs, or documentation drift.  Helps catch stale, missing, or inaccurate feature descriptions. For
+restructuring documentation,  see diataxis.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill verify-readme-features
