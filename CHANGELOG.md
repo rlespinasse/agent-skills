@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.9](https://github.com/rlespinasse/agent-skills/compare/v1.13.8...v1.13.9) (2026-10-20)
+
+### Bug Fixes
+
+* **verify-pr-logs:** reflow description and link pin-github-actions ([#66](https://github.com/rlespinasse/agent-skills/issues/66)) ([eb94377](https://github.com/rlespinasse/agent-skills/commit/eb943776ce9f6054a21edda74835b43fee017ec5))
+
 ## [1.13.8](https://github.com/rlespinasse/agent-skills/compare/v1.13.7...v1.13.8) (2026-10-20)
 
 ### Bug Fixes
