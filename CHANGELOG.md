@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.3](https://github.com/rlespinasse/agent-skills/compare/v1.13.2...v1.13.3) (2026-10-20)
+
+### Code Refactoring
+
+* **diataxis:** move templates to references and link verify-readme-features ([#61](https://github.com/rlespinasse/agent-skills/issues/61)) ([99a06cb](https://github.com/rlespinasse/agent-skills/commit/99a06cb2429b61ae03c12714156dcc3cc76b9921))
+
 ## [1.13.2](https://github.com/rlespinasse/agent-skills/compare/v1.13.1...v1.13.2) (2026-10-20)
 
 ### Bug Fixes
