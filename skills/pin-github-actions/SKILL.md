@@ -1,9 +1,10 @@
 ---
 name: pin-github-actions
-description: Migrates GitHub Actions workflows to use pinned commit SHAs instead of
-  tags, resolves the latest release versions, flags major version jumps, and configures
-  Dependabot with grouped updates. Use when user mentions pin actions, pinned versions,
-  SHA pinning, GitHub Actions security, dependabot setup, or supply-chain security.
+description: Migrates GitHub Actions workflows to use pinned commit SHAs instead of tags, resolves
+  the latest release versions, flags major version jumps, and configures Dependabot with grouped
+  updates. Use when user mentions pin actions, pinned versions, SHA pinning, GitHub Actions
+  security, dependabot setup, supply-chain security, hash pinning, or ratchet/zizmor findings. For
+  diagnosing failing CI runs, see verify-pr-logs.
 ---
 
 # Pin GitHub Actions to Commit SHAs
