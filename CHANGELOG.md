@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.8](https://github.com/rlespinasse/agent-skills/compare/v1.13.7...v1.13.8) (2026-10-20)
+
+### Bug Fixes
+
+* **verify-readme-features:** add stale-docs triggers and link diataxis ([#67](https://github.com/rlespinasse/agent-skills/issues/67)) ([a694951](https://github.com/rlespinasse/agent-skills/commit/a6949510ee7e4fcc3ffe14a7869d328ad172a097))
+
 ## [1.13.7](https://github.com/rlespinasse/agent-skills/compare/v1.13.6...v1.13.7) (2026-10-20)
 
 ### Bug Fixes
