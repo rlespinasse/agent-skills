@@ -28,10 +28,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill diataxis
 
 ### drawio-export-tools
 
-Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless
-(base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub
-Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the
-right tool based on context.
+Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers  docker-drawio-desktop-headless
+(base Docker), drawio-exporter (Rust backend), drawio-export  (enhanced Docker), and drawio-export-action (GitHub
+Actions). Use when user mentions diagram  export, CI/CD automation, batch processing, or Draw.io files. Helps select
+the right tool based on  context. For pinning the export action in workflows, see pin-github-actions.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill drawio-export-tools

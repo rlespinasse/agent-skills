@@ -1,6 +1,10 @@
 ---
 name: drawio-export-tools
-description: Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers docker-drawio-desktop-headless (base Docker), drawio-exporter (Rust backend), drawio-export (enhanced Docker), and drawio-export-action (GitHub Actions). Use when user mentions diagram export, CI/CD automation, batch processing, or Draw.io files. Helps select the right tool based on context.
+description: Decision guide for the third-party Draw.io export ecosystem by @rlespinasse. Covers
+  docker-drawio-desktop-headless (base Docker), drawio-exporter (Rust backend), drawio-export
+  (enhanced Docker), and drawio-export-action (GitHub Actions). Use when user mentions diagram
+  export, CI/CD automation, batch processing, or Draw.io files. Helps select the right tool based on
+  context. For pinning the export action in workflows, see pin-github-actions.
 ---
 
 # Draw.io Export Tools - Optimized Decision Guide
@@ -36,13 +40,13 @@ Ask these questions in order:
 **Q2: "What's your goal?"** (if not GitHub Actions)
 
 - Simple one-off export → Provide: [Base Docker Section]
-- Batch with custom naming → Provide: [Docker Export Section]
+- Batch with custom output layout → Provide: [Docker Export Section]
 - Custom processing pipeline → Provide: [Advanced Section]
-- Building a tool → Provide: [Rust Section]
+- Building a tool → Provide: [Advanced Section] (Rust library part)
 
 **Q3: "Any special requirements?"** (if relevant)
 
-- Custom naming → Add: output templates
+- Output layout → Add: output folder and output mode
 - Specific pages → Add: page options
 - Pre/post processing → Add: scripting examples
 
@@ -53,7 +57,7 @@ Ask these questions in order:
 | Use Case       | Tool                             | One-Liner                                   |
 | -------------- | -------------------------------- | ------------------------------------------- |
 | GitHub Actions | `drawio-export-action`           | `uses: rlespinasse/drawio-export-action@v2` |
-| Custom naming  | `drawio-export`                  | `--output 'path/{basename}.{ext}'`          |
+| Custom output  | `drawio-export`                  | `--output exports --output-mode absolute`   |
 | Simple export  | `docker-drawio-desktop-headless` | `-x diagram.drawio -f pdf`                  |
 | Custom tool    | `drawio-exporter`                | Rust library                                |
 
@@ -74,9 +78,12 @@ Ask these questions in order:
     path: .
 ```
 
-**Common options:** `format`, `path`, `output`, `transparent`, `scale`
+**Common options:** `format`, `path`, `output`, `transparent`, `scale`, `action-mode`
 
-**Offer:** "Need custom naming, specific pages, or workflow setup? Let me know."
+The action has no `output-mode` input: exports always go to the `output` folder next to each
+source file (relative mode). For a single output tree, use `drawio-export` with `--output-mode absolute`.
+
+**Offer:** "Need a custom output folder, specific pages, or workflow setup? Let me know."
 
 **Full docs:** <https://github.com/rlespinasse/drawio-export-action>
 
@@ -89,24 +96,21 @@ Ask these questions in order:
 ```bash
 docker run -v $(pwd):/data rlespinasse/drawio-export \
   --format pdf \
-  --output 'dist/{basename}.{ext}' \
+  --output dist \
+  --output-mode absolute \
   diagrams/
 ```
 
-**Output templates:**
+**Output options** (from the `drawio-exporter` CLI, which `drawio-export` wraps):
 
-- `{folder}` - source path
-- `{basename}` - filename
-- `{format}` - pdf/png/svg
-- `{ext}` - extension
+- `-f, --format` - adoc, md, jpg, pdf, png, svg, xml (default `pdf`)
+- `-o, --output <folder>` - exported folder name (default `export`)
+- `--output-mode relative|absolute` - `relative` (default) exports next to each source file;
+  `absolute` exports under a single output folder mirroring the source tree
+- `--remove-page-suffix` - drop the page suffix for single-page files
+- `--on-changes` - export only files newer than their exports (`--git-ref <ref>` limits to files changed since a git reference)
 
-**Common patterns:**
-
-- By format: `exports/{format}/{basename}.{ext}`
-- With prefix: `{basename}-diagram.{ext}`
-- Nested: `docs/{folder}/{basename}.{ext}`
-
-**Offer:** "Need more template examples or CLI options?"
+**Offer:** "Need more output layout examples or CLI options?"
 
 **Full docs:** <https://github.com/rlespinasse/drawio-export>
 
@@ -131,6 +135,9 @@ docker run -v $(pwd):/data -w /data \
 - `-a` - all pages
 - `--check` - validate only
 
+**Image variants:** `latest` (full, Unicode and CJK fonts) is the default. Use the `minimal` tag
+(`rlespinasse/drawio-desktop-headless:minimal`) for Western fonts only and a much smaller image.
+
 **Offer:** "Need batch export, page selection, or error handling?"
 
 **Full docs:** <https://github.com/rlespinasse/docker-drawio-desktop-headless>
@@ -140,114 +147,16 @@ docker run -v $(pwd):/data -w /data \
 ### [Advanced Section]
 
 **When to provide:** User needs custom processing, pre/post hooks, or pipeline integration
+or wants to build a custom tool with the Rust `drawio-exporter` library.
 
-**Three approaches:**
-
-1. **Pre-process diagram (modify XML):**
-
-```bash
-# Modify .drawio file → Export → Restore
-sed -i.bak 's/pattern/replacement/g' diagram.drawio
-docker run ... drawio-desktop-headless -x diagram.drawio
-mv diagram.drawio.bak diagram.drawio
-```
-
-1. **Post-process output:**
-
-```bash
-# Export → Transform output → Save
-docker run ... drawio-desktop-headless -x diagram.drawio -o temp.pdf
-convert temp.pdf [transformations] final.pdf
-```
-
-1. **Custom pipeline:**
-
-```bash
-#!/bin/bash
-preprocess_diagrams()
-export_with_custom_logic()
-postprocess_outputs()
-```
-
-**Offer:** "What specific processing do you need? (watermarks, metadata, format conversion, etc.)"
-
----
-
-### [Rust Section]
-
-**When to provide:** User is building a custom tool or needs library integration
-
-**Use drawio-exporter** (Rust library) for:
-
-- Building automation tools
-- Service/API integration
-- Custom export logic
-
-```rust
-use drawio_exporter::Exporter;
-// Build your custom export pipeline
-```
-
-**Full docs:** <https://github.com/rlespinasse/drawio-exporter>
-
-**Most users should use Docker tools instead.**
+Read [references/advanced-and-rust.md](references/advanced-and-rust.md) and offer: "What specific processing do you need?"
 
 ---
 
 ## Detailed Options (Provide ONLY When Asked)
 
-### CLI Options (Full List)
-
-**Load this section ONLY if user asks: "what are all the CLI options?" or "show me all flags"**
-
-```text
-Format: -f pdf|png|svg|jpg|vsdx|xml
-Output: -o <path>
-Quality: -t (transparent), --scale <n>, -q <n> (jpeg quality), --border <n>
-Pages: -a (all), -p <n> (index), --page-range <range>
-Advanced: --embed-diagram, --crop, --uncompressed, -r (recursive)
-Validation: --check
-```
-
-### GitHub Action Options (Full List)
-
-**Load this section ONLY if user asks for "all action options" or "complete configuration"**
-
-```yaml
-format: pdf,png,svg
-path: diagrams/
-output: exports/{basename}.{ext}
-transparent: true
-scale: 2
-quality: 100
-page-index: 0
-page-range: 0-2
-border: 10
-embed-diagram: true
-remove-page-suffix: true
-```
-
-### Error Handling
-
-**Load this section ONLY if user encounters errors or asks about troubleshooting**
-
-**Permission errors:**
-
-```bash
-docker run -u $(id -u):$(id -g) -e HOME=/data/home ...
-```
-
-**Timeouts:**
-
-```bash
-docker run -e DRAWIO_DESKTOP_COMMAND_TIMEOUT=60s ...
-```
-
-**Debug mode:**
-
-```bash
-docker run -e SCRIPT_DEBUG_MODE=true ...
-```
+- Complete CLI flags or GitHub Action inputs: read [references/full-options.md](references/full-options.md)
+- Permission errors, timeouts, debug mode: read [references/troubleshooting.md](references/troubleshooting.md)
 
 ---
 
@@ -270,7 +179,7 @@ Need custom naming or multi-format exports? Let me know.
 **Response:**
 
 ```text
-Use drawio-export with output templates:
+Use drawio-export with --output and --output-mode:
 
 [Docker Export Section - 200 tokens]
 [Show 2-3 common patterns]
@@ -300,7 +209,7 @@ Then provide: [Advanced Section] tailored to their answer
 ```text
 Depends on your use case. Are you:
 1. Using GitHub Actions? → [show action options]
-2. Need custom naming? → [show templates]
+2. Need a custom output layout? → [show output options]
 3. Need custom processing? → [show advanced]
 
 Or would you like a full overview? (This will be comprehensive)
