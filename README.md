@@ -17,10 +17,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill conventional-
 
 ### diataxis
 
-Helps maintain documentation pages based on the Diataxis method. Analyzes existing docs, classifies pages into
-tutorials/how-to/explanation/reference categories, identifies gaps, and helps create or restructure documentation
-following Diataxis principles. Use when user mentions documentation structure, Diataxis, doc categories, tutorials vs
-how-to guides, or reorganizing docs.
+Helps maintain documentation pages based on the Diataxis method. Analyzes existing  docs, classifies pages into
+tutorials/how-to/explanation/reference categories, identifies gaps,  and helps create or restructure documentation
+following Diataxis principles. Use when user  mentions documentation structure, Diataxis, doc categories, tutorials vs
+how-to guides, or  reorganizing docs. For checking README claims against code, see verify-readme-features.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill diataxis
