@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.6](https://github.com/rlespinasse/agent-skills/compare/v1.13.5...v1.13.6) (2026-10-20)
+
+### Bug Fixes
+
+* **local-branches-status:** link conventional-commit in description ([#64](https://github.com/rlespinasse/agent-skills/issues/64)) ([36ed42a](https://github.com/rlespinasse/agent-skills/commit/36ed42a54f34e22b314bf1c37ea5000e5ba49131))
+
 ## [1.13.5](https://github.com/rlespinasse/agent-skills/compare/v1.13.4...v1.13.5) (2026-10-20)
 
 ### Bug Fixes
