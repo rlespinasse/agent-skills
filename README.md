@@ -6,10 +6,10 @@ A collection of [Agent Skills](https://agentskills.io/) for AI coding assistants
 
 ### conventional-commit
 
-Guides committing staged (indexed) git files using the Conventional Commits specification  and commit message best
-practices. Use when user mentions commit, git commit, conventional commit,  commit message, staged files, indexed
-files, fixup, or fixup commit. Helps craft well-structured,  meaningful commit messages including fixup commits with
-optional autosquash.
+Guides committing staged (indexed) git files using the Conventional Commits  specification and commit message best
+practices. Use when user mentions commit, git commit,  conventional commit, commit message, staged files, indexed
+files, fixup, fixup commit, amend, or  squash. Helps craft well-structured, meaningful commit messages including fixup
+commits with  optional autosquash. For an overview of local branches, see local-branches-status.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill conventional-commit
