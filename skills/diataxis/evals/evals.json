@@ -25,7 +25,8 @@
       "asks the user before creating any files"
     ],
     "files": [
-      "skills/diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/templates.md"
     ]
   },
   {
@@ -100,7 +101,8 @@
       "suggests specific pages to create for the missing categories"
     ],
     "files": [
-      "skills/diataxis/SKILL.md"
+      "skills/diataxis/SKILL.md",
+      "skills/diataxis/references/templates.md"
     ]
   },
   {

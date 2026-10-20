@@ -16,8 +16,12 @@ description: Brief description of what the skill does and when to use it
 
 | Field | Required | Constraints |
 | ------------- | -------- | ------------------------------------------- |
-| `name` | Yes | Kebab-case, 1-64 characters, must match directory name |
+| `name` | Yes | Lowercase letters, numbers and hyphens, 1-64 characters, no leading/trailing/consecutive hyphens, must match directory name |
 | `description` | Yes | 1-1024 characters ([agentskills.io spec](https://agentskills.io/specification)) |
+| `license` | No | License name or bundled license file |
+| `compatibility` | No | 1-500 characters, environment requirements |
+| `metadata` | No | String-to-string map |
+| `allowed-tools` | No | Space-separated pre-approved tools (experimental) |
 
 ## SKILL.md Content Structure
 
@@ -28,7 +32,8 @@ description: Brief description of what the skill does and when to use it
 5. **Detailed documentation** — comprehensive information
 6. **Examples** — real-world usage scenarios
 
-Keep SKILL.md under 500 lines. Move detailed content to `references/`.
+Keep SKILL.md under 500 lines (and ideally under 5000 tokens). Move detailed content to `references/`,
+linked with relative paths one level deep from SKILL.md (no reference-to-reference chains).
 
 ## Description Field
 
