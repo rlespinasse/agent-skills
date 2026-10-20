@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.7](https://github.com/rlespinasse/agent-skills/compare/v1.13.6...v1.13.7) (2026-10-20)
+
+### Bug Fixes
+
+* **pin-github-actions:** add hash-pinning triggers and link verify-pr-logs ([#65](https://github.com/rlespinasse/agent-skills/issues/65)) ([ca1002a](https://github.com/rlespinasse/agent-skills/commit/ca1002aa06ee50f55fbc1f06e5788702f9960313))
+
 ## [1.13.6](https://github.com/rlespinasse/agent-skills/compare/v1.13.5...v1.13.6) (2026-10-20)
 
 ### Bug Fixes
