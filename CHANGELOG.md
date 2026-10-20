@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.13.4](https://github.com/rlespinasse/agent-skills/compare/v1.13.3...v1.13.4) (2026-10-20)
+
+### Code Refactoring
+
+* **drawio-export-tools:** split detail into references and link pin-github-actions ([#62](https://github.com/rlespinasse/agent-skills/issues/62)) ([38a506d](https://github.com/rlespinasse/agent-skills/commit/38a506de2b63685da8397bef6d19350e0da6971a))
+
 ## [1.13.3](https://github.com/rlespinasse/agent-skills/compare/v1.13.2...v1.13.3) (2026-10-20)
 
 ### Code Refactoring
