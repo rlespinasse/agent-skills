@@ -73,9 +73,10 @@ npx skills add https://github.com/rlespinasse/agent-skills --skill pin-github-ac
 
 ### verify-pr-logs
 
-Checks GitHub Actions CI logs on a pull request, diagnoses failures,  and guides the agent to implement fixes. Use when
-user mentions CI failing, check  PR logs, fix pipeline, GitHub Actions errors, workflow failures, build broken, tests
-failing on PR, or debug CI. Focuses on PR-scoped CI analysis only.
+Checks GitHub Actions CI logs on a pull request, diagnoses failures, and guides the  agent to implement fixes. Use when
+user mentions CI failing, check PR logs, fix pipeline, GitHub  Actions errors, workflow failures, build broken, tests
+failing on PR, or debug CI. Focuses on  PR-scoped CI analysis only. For pinning actions or Dependabot setup, see
+pin-github-actions.
 
 ```bash
 npx skills add https://github.com/rlespinasse/agent-skills --skill verify-pr-logs
